@@ -1,0 +1,148 @@
+﻿@model IEnumerable<Location.DAL.Locataires>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2> Liste des locataires</h2>
+<br />
+
+<table id="locataires-data-table" class="table table-bordered" style="border:thin solid">
+    <thead>
+        <tr>
+
+            <th>
+                @Html.DisplayNameFor(model => model.NomLocataire)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PrenomLocataire)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SexeLocataire)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateNaissance)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NASLocataire)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TeLocataire)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TelSecondaire)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CourrielLocataire)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NomContactUrgence)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TelContactUrgence)
+            </th>
+
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NomLocataire)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PrenomLocataire)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SexeLocataire)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateNaissance)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NASLocataire)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TeLocataire)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TelSecondaire)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CourrielLocataire)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NomContactUrgence)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TelContactUrgence)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+<table class="table">
+    <tr>
+        <th scope="row">
+            <a href="@Url.Action("Report",new {typeRapport= "PDF", nomRapport= "Payements", idPayement=0 })">Rapport PDF</a></>
+        </th>
+        <th scope="row">
+            <a href="@Url.Action("Report",new {typeRapport= "Excel", nomRapport= "Locataires", idPayement=0})">Rapport Excel</a>
+        </th>
+        <th scope="row">
+            <a href="@Url.Action("Report",new {typeRapport= "Word", nomRapport= "Locataires", idPayement=0})">Rapport Word</a>
+        </th>
+        <th scope="row">
+            <a href="@Url.Action("Report",new {typeRapport= "Image",nomRapport= "Locataires", idPayement=0 })">Rapport Image</a>
+        </th>       
+    </tr>
+</table>
+
+
+@*<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Content/bootstrap/js/jquery.dataTables.min.js"></script>*@
+<script>
+    var table = $('#locataires-data-table').DataTable({
+        "dom": '<"top"if>rt<"bottom"lp>',
+        "language": {
+            "sProcessing": "Traitement en cours ...",
+            "sLengthMenu": "Afficher _MENU_ lignes",
+            "sZeroRecords": "Aucun résultat trouvé",
+            "sEmptyTable": "Aucune donnée disponible",
+            "sInfo": "Lignes _START_ à _END_ sur _TOTAL_",
+            "sInfoEmpty": "Aucune ligne affichée",
+            "sInfoFiltered": "(Filtrer un maximum de_MAX_)",
+            "sInfoPostFix": "",
+            "sSearch": "Rechercher:",
+            "sUrl": "",
+            "sInfoThousands": ",",
+            "sLoadingRecords": "Chargement...",
+            "oPaginate": {
+                "sFirst": "Premier", "sLast": "Dernier", "sNext": "Suivant", "sPrevious": "Précédent"
+            },
+            "oAria": {
+                "sSortAscending": ": Trier par ordre croissant", "sSortDescending": ": Trier par ordre décroissant"
+            }
+        }
+    });
+
+
+
+    table.on('click', 'tbody tr', function () {
+        var $row = table.row(this).nodes().to$();
+        var hasClass = $row.hasClass('selected');
+        if (hasClass) {
+            $row.removeClass('selected')
+        } else {
+            $row.addClass('selected')
+        }
+    })
+
+    table.rows().every(function () {
+        this.nodes().to$().removeClass('selected')
+    });
+</script>

@@ -1,0 +1,148 @@
+﻿@model IEnumerable<Location.DAL.Baux>
+
+@{
+    ViewBag.Title = "Liste des baux";
+}
+
+<h2 class="mb-4">
+    <i class="fas fa-file-contract me-2"></i>Liste des baux
+    <small class="text-muted">(@Model.Count() baux)</small>
+</h2>
+
+<p>
+    @Html.ActionLink("Créer un nouveau bail", "Create", null, new { @class = "btn btn-primary" })
+</p>
+
+<!-- Barre de recherche rapide -->
+<div class="row mb-3">
+    <div class="col-md-6">
+        <div class="input-group">
+            <span class="input-group-text"><i class="fas fa-search"></i></span>
+            <input type="text" id="searchInput" class="form-control" placeholder="Rechercher par numéro, locataire, appartement..." />
+        </div>
+    </div>
+    <div class="col-md-6 text-end">
+        <span class="badge bg-info" id="resultCount">@Model.Count() baux affichés</span>
+    </div>
+</div>
+
+<div class="table-responsive">
+    <table class="table table-striped table-hover align-middle" id="bauxTable">
+        <thead class="table-dark">
+            <tr>
+                <th>N° Bail</th>
+                <th>Appartement</th>
+                <th>Locataire principal</th>
+                <th>Co-locataire</th>
+                <th>Date début</th>
+                <th>Date fin</th>
+                <th>Loyer</th>
+                <th>Statut</th>
+                <th class="text-center">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+            <tr>
+                <td><strong>@Html.DisplayFor(modelItem => item.NumeroBail)</strong></td>
+                <td>@Html.DisplayFor(modelItem => item.Appartements.AdresseAppartement)</td>
+                <td>
+                    @if (item.Locataires1 != null)
+                    {
+                        <span>@item.Locataires1.NomLocataire @item.Locataires1.PrenomLocataire</span>
+                    }
+                    else
+                    {
+                        <span class="text-muted">-</span>
+                    }
+                </td>
+                <td>
+                    @if (item.Locataires != null)
+                    {
+                        <span>@item.Locataires.NomLocataire @item.Locataires.PrenomLocataire</span>
+                    }
+                    else
+                    {
+                        <span class="text-muted">-</span>
+                    }
+                </td>
+
+                <td>@Html.DisplayFor(modelItem => item.DateDebut)</td>
+                <td>@Html.DisplayFor(modelItem => item.DateFin)</td>
+                @*<td><strong>@Html.DisplayFor(modelItem => item.Prix) $</strong></td>*@
+            <td>@(item.Prix.HasValue ? String.Format("{0:N2} $", item.Prix.Value) : "-")</td>
+
+                <td>
+                    @if (item.StatutBaux == "A")
+                    {
+                        <span class="badge bg-success"><i class="fas fa-check-circle me-1"></i>Actif</span>
+                    }
+                    else if (item.StatutBaux == "I")
+                    {
+                        <span class="badge bg-secondary"><i class="fas fa-times-circle me-1"></i>Inactif</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-warning">@item.StatutBaux</span>
+                    }
+                </td>
+                <td class="text-center">
+                    <div class="btn-group" role="group">
+                        <a href="@Url.Action("Details", new { id = item.Id })" class="btn btn-info btn-sm" title="Détails">
+                            <i class="fas fa-eye"></i>
+                        </a>
+                        <a href="@Url.Action("Edit", new { id = item.Id })" class="btn btn-warning btn-sm" title="Modifier">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                        <a href="@Url.Action("Delete", new { id = item.Id })" class="btn btn-danger btn-sm" title="Supprimer">
+                            <i class="fas fa-trash-alt"></i>
+                        </a>
+                    </div>
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<!-- Message si aucun résultat -->
+<div id="noResultsMessage" class="alert alert-warning d-none">
+    Aucun bail ne correspond à votre recherche.
+</div>
+
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const searchInput = document.getElementById('searchInput');
+            const table = document.getElementById('bauxTable');
+            const rows = table.querySelectorAll('tbody tr');
+            const resultCountSpan = document.getElementById('resultCount');
+            const noResultsMessage = document.getElementById('noResultsMessage');
+
+            function filterTable() {
+                const searchTerm = searchInput.value.toLowerCase();
+                let visibleCount = 0;
+
+                rows.forEach(row => {
+                    const rowText = row.textContent.toLowerCase();
+                    if (rowText.includes(searchTerm)) {
+                        row.style.display = '';
+                        visibleCount++;
+                    } else {
+                        row.style.display = 'none';
+                    }
+                });
+
+                resultCountSpan.textContent = visibleCount + ' baux affichés';
+                if (visibleCount === 0) {
+                    noResultsMessage.classList.remove('d-none');
+                } else {
+                    noResultsMessage.classList.add('d-none');
+                }
+            }
+
+            searchInput.addEventListener('keyup', filterTable);
+        });
+    </script>
+}

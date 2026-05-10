@@ -1,0 +1,135 @@
+﻿@{ Layout = null; }
+<!-- Start of the header -->
+<header id="#top">
+    @Html.Partial("_Header")
+</header>
+ 
+
+<!-- Start of the navigation -->
+@{ ViewData["OnAccueil"] = "on";
+@Html.Partial("_Menu"); }
+<!-- End of the navigation -->
+<!-- Start body -->
+<section class="container">
+    <h2 class="m-b-1">Nos coups de coeur !</h2>
+    @*<span>@ViewBag.Accueil</span>*@
+    <!-- First section with the carousel and the search form -->
+    <div class="row">
+        <!-- Carousel -->
+        <figure class="col-sm-12 col-lg-9 hidden-sm-down p-x-0">
+            <div id="carousel-example-generic" class="carousel slide" data-ride="carousel" data-interval="3500">
+                <ol class="carousel-indicators">
+                    <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                    <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+                </ol>
+                <div class="carousel-inner" role="listbox">
+                    <div class="carousel-item active">
+                        <img src="/UploadedFiles/Image_Large1.jpg" alt="img/Image_Large1.jpg">
+                        <div class="carousel-caption">
+                            <h3>@ViewBag.Text1</h3>
+                            <p>@ViewBag.Text2</p>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <img src="/UploadedFiles/Image_large2.jpg" alt="img/Image_large2.jpg">
+                        <div class="carousel-caption">
+                            <h3>@ViewBag.Text3</h3>
+                            <p>@ViewBag.Text4</p>
+                        </div>
+                    </div>
+                </div>
+                <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+                    <span class="icon-prev" aria-hidden="true"></span>
+                    <span class="sr-only">Précédent</span>
+                </a>
+                <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+                    <span class="icon-next" aria-hidden="true"></span>
+                    <span class="sr-only">Suivant</span>
+                </a>
+            </div>
+        </figure>
+</section>
+<!-- Second boxed section -->
+<section class="container m-t-2">
+
+    <h3 class="m-b-2">Annonces à la une</h3>
+    <!-- Start the card content -->
+    <div class="row">
+
+        <div class="col-xs-12 col-sm-6 col-md-4">
+            <article class="card">
+                <div class="card-block text-xs-center head">
+                    <h4 class="card-title">@ViewBag.Text5</h4>
+                    <h6 class="card-subtitle">@ViewBag.Text6</h6>
+                </div>
+                <figure>
+                    <img src="/UploadedFiles/house1_small.jpg" class="img-fluid hidden-sm-up" alt="img/house1_small.jpg">
+                    <img src="/UploadedFiles/house1_medium.jpg" class="img-fluid hidden-xs-down hidden-lg-up" alt="img/house1_medium.jpg">
+                    <img src="/UploadedFiles/house1_large.jpg" class="img-fluid hidden-md-down" alt="img/house1_large.jpg">
+                </figure>
+                <div class="card-block text-xs-center">
+                    <p class="card-text">@ViewBag.Text7</p>
+                    <figure class="description">
+                        <span><i class="fa fa-bed" aria-hidden="true"></i>@ViewBag.Text8</span>
+                        <span><i class="fa fa-tree" aria-hidden="true"></i>@ViewBag.Text9</span>
+                        <span><i class="fa fa-tint" aria-hidden="true"></i>@ViewBag.Text10</span>
+                    </figure>
+                    <a href="#" class="card-link"><i class="fa fa-eye m-r-1" aria-hidden="true"></i>Voir</a>
+                </div>
+            </article>
+        </div>
+
+        <div class="col-xs-12 col-sm-6 col-md-4">
+            <article class="card">
+                <div class="card-block text-xs-center head">
+                    <h4 class="card-title">@ViewBag.Text11</h4>
+                    <h6 class="card-subtitle">@ViewBag.Text12</h6>
+                </div>
+                <figure>
+                    <img src="/UploadedFiles/house2_small.jpg" alt="img/house2_small.jpg" class="img-fluid hidden-sm-up">
+                    <img src="/UploadedFiles/house2_medium.jpg" alt="img/house2_medium.jpg" class="img-fluid hidden-xs-down hidden-lg-up">
+                    <img src="/UploadedFiles/house2_large.jpg" alt="img/house2_large.jpg" class="img-fluid hidden-md-down">
+                </figure>
+                <div class="card-block text-xs-center">
+                    <p class="card-text">@ViewBag.Text13</p>
+                    <figure class="description">
+                        <span><i class="fa fa-bed" aria-hidden="true"></i>@ViewBag.Text14</span>
+                        <span><i class="fa fa-tree" aria-hidden="true"></i>@ViewBag.Text15</span>
+                        <span><i class="fa fa-tint" aria-hidden="true"></i>@ViewBag.Text16</span>
+                    </figure>
+                    <a href="#" class="card-link"><i class="fa fa-eye m-r-1" aria-hidden="true"></i>Voir</a>
+                </div>
+            </article>
+        </div>
+
+        <div class="col-xs-12 col-sm-6 col-md-4">
+            <article class="card">
+                <div class="card-block text-xs-center head">
+                    <h4 class="card-title">@ViewBag.Text17</h4>
+                    <h6 class="card-subtitle">@ViewBag.Text18</h6>
+                </div>
+                <figure>
+                    <img src="/UploadedFiles/house3_small.jpg" alt="img/house3_small.jpg" class="img-fluid hidden-sm-up">
+                    <img src="/UploadedFiles/house3_medium.jpg" alt="img/house3_medium.jpg" class="img-fluid hidden-xs-down hidden-lg-up">
+                    <img src="/UploadedFiles/house3_large.jpg" alt="img/house3_large.jpg" class="img-fluid hidden-md-down">
+                </figure>
+                <div class="card-block text-xs-center">
+                    <p class="card-text">@ViewBag.Text19</p>
+                    <figure class="description">
+                        <span><i class="fa fa-bed" aria-hidden="true"></i>@ViewBag.Text20</span>
+                        <span><i class="fa fa-tree" aria-hidden="true"></i>@ViewBag.Text21</span>
+                        <span><i class="fa fa-tint" aria-hidden="true"></i>@ViewBag.Text22</span>
+                    </figure>
+                    <a href="#" class="card-link"><i class="fa fa-eye m-r-1" aria-hidden="true"></i>Voir</a>
+                </div>
+            </article>
+        </div>
+    </div>
+</section>
+<!-- End of the body -->
+
+<!-- ~~~~~~~~~Start of the footer~~~~~~~~~~~~~ -->
+<footer class="m-t-3">
+    @Html.Partial("_Footer")
+</footer>
+<!-- ~~~~~~~~~End of the footer~~~~~~~~~~~~~ -->

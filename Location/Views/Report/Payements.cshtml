@@ -1,0 +1,165 @@
+﻿@model IEnumerable<Location.DAL.Models.PayementsVM>
+@{
+    ViewBag.Title = "Payements";
+}
+
+
+
+<table id="payements-data-table" class="table table-bordered" style="border:thin solid">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayName("Référence")
+            </th>
+            <th>
+                @Html.DisplayName("Adresse")
+            </th>
+            <th>
+                @Html.DisplayName("Nom locataire")
+            </th>
+            <th>
+                @Html.DisplayName("Nom Co-Locataire")
+            </th>
+            <th>
+                @Html.DisplayName("Année")
+            </th>
+            <th>
+                @Html.DisplayName("Mois")
+            </th>
+            <th>
+                @Html.DisplayName("Date payenent")
+            </th>
+            <th>
+                @Html.DisplayName("Lieu payenent")
+            </th>
+            <th>
+                @Html.DisplayName("Prix")
+            </th>
+            <th>
+                @Html.DisplayName("Montant")
+            </th>
+            <th>
+                @Html.DisplayName("Moyen payement")
+            </th>
+            <th>
+                @Html.DisplayName("Description")
+            </th>
+            <th>
+                @Html.DisplayName("Imprimer facture")
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            //var rowColor = "";
+            //var etat = "";
+            //var classe = "";
+            //if (item.StatutDirection == "I")
+            //{
+            //    rowColor = "#F08080";
+            //    etat = "Activer";
+            //    classe = "fas fa-lock";
+            //}
+            //else
+            //{
+            //    rowColor = "#FFFFFF";
+            //    etat = "Desactiver";
+            //    classe = "fas fa-lock-open";
+            //}
+
+
+            <tr>
+                <td>
+                     @item.NumeroFacture
+                </td>
+                <td>
+                   @item.Adresse
+                </td>
+                <td>
+                    @item.NomCompletLocataire
+                </td>
+                <td>
+                    @item.NomCompletColocataire
+                </td>
+                <td>
+                    @item.Annee
+                </td>
+                <td>
+                    @item.Mois
+                </td>
+                <td>
+                    @item.DatePayement.ToShortDateString()
+                </td>
+                <td>
+                    @item.LieuPayement
+                </td>
+                <td>
+                    @item.Prix
+                </td>
+                <td>
+                    @item.Montant
+                </td>
+                <td>
+                    @item.NomMoyenPayement
+
+                </td>
+                <td>
+                    @item.Description
+
+                </td>
+                <td>
+                    <a target="_blank" class="link-primary" href="@Url.Action("Report",new {typeRapport= "Pdf",nomRapport= "Facture",idPayement=@item.NumeroFacture})">Rapport Facture pdf</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Content/bootstrap/js/jquery.dataTables.min.js"></script>
+<script>
+    $('#payements-data-table').DataTable({
+        "dom": '<"top"if>rt<"bottom"lp>',
+        "language": {
+            "sProcessing": "Traitement en cours ...",
+            "sLengthMenu": "Afficher _MENU_ lignes",
+            "sZeroRecords": "Aucun résultat trouvé",
+            "sEmptyTable": "Aucune donnée disponible",
+            "sInfo": "Lignes _START_ à _END_ sur _TOTAL_",
+            "sInfoEmpty": "Aucune ligne affichée",
+            "sInfoFiltered": "(Filtrer un maximum de_MAX_)",
+            "sInfoPostFix": "",
+            "sSearch": "Rechercher:",
+            "sUrl": "",
+            "sInfoThousands": ",",
+            "sLoadingRecords": "Chargement...",
+            "oPaginate": {
+                "sFirst": "Premier", "sLast": "Dernier", "sNext": "Suivant", "sPrevious": "Précédent"
+            },
+            "oAria": {
+                "sSortAscending": ": Trier par ordre croissant", "sSortDescending": ": Trier par ordre décroissant"
+            }
+        }
+    });
+</script>
+
+<table class="table">
+    <tr>
+        <th scope="row">
+            <a href="@Url.Action("Report",new {typeRapport= "PDF", nomRapport= "Payements", idPayement=0 })">Rapport PDF</a></>
+        </th>
+        <th scope="row">
+            <a href="@Url.Action("Report",new {typeRapport= "Excel", nomRapport= "Payements", idPayement=0})">Rapport Excel</a>
+        </th>
+        <th scope="row">
+            <a href="@Url.Action("Report",new {typeRapport= "Word", nomRapport= "Payements", idPayement=0})">Rapport Word</a>
+        </th>
+        <th scope="row">
+            <a href="@Url.Action("Report",new {typeRapport= "Image",nomRapport= "Payements", idPayement=0 })">Rapport Image</a>
+        </th>
+        @*<th scope="row">
+            <a href="@Url.Action("Report",new {typeRapport= "Pdf",nomRapport= "Facture" })">Rapport Facture pdf</a>
+        </th>*@
+    </tr>
+</table>

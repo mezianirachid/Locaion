@@ -1,0 +1,697 @@
+﻿@model Location.Demandes
+@{
+    ViewBag.Title = "Duplication";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!--  ******************* Date en Francais ****************** -->
+<!--  Definir la culture -->
+<script src="~/Scripts/globalize.js"></script>
+<script src="~/Scripts/globalize.culture.fr-FR.js"></script>
+<!--  jQuery -->
+<script src="~/Scripts/jquery-1.12.4.min.js"></script>
+<!-- Bootstrap Date-Picker Plugin -->
+<script src="~/Scripts/bootstrap-datepicker.min.js"></script>
+<link href="~/Content/bootstrap-datepicker3.css" rel="stylesheet" />
+<div class="container-fluid ">
+    <div class="col-xs-1">
+    </div>
+    <div class="col-xs-10 container-border">
+        <h2>Duplication d'une fiche usager</h2>
+        @if (@ViewBag.ErrorTel != null)
+        {<span class="alert-danger col-md-12">@ViewBag.ErrorTel</span>}
+        @if (@ViewBag.ErrorRamq != null)
+        {<span class="alert-danger col-md-12">@ViewBag.ErrorRamq</span>}
+
+        @if (@ViewBag.ErrorDateNaissance != null)
+        {<span class="alert-danger col-md-12">@ViewBag.ErrorDateNaissance</span>}
+
+        @if (@ViewBag.ErrorDateEntree != null)
+        {<span class="alert-danger col-md-12">@ViewBag.ErrorDateEntree</span>}
+
+        @if (@ViewBag.ErrorVoyage != null)
+        {<span class="alert-danger col-md-12">@ViewBag.ErrorVoyage</span>}
+        @if (@ViewBag.Exception != null)
+        {
+            <br />
+            <span class="alert alert-danger">@ViewBag.Exception</span>
+            <br />
+        }
+
+        @if (@ViewBag.ErrorTel != null || @ViewBag.ErrorRamq != null || @ViewBag.ErrorDateNaissance != null || @ViewBag.ErrorDateEntree != null || @ViewBag.ErrorVoyage != null)
+        {
+            <br /><br /><br />
+        }
+
+        @if (@ViewBag.succes != null)
+            {
+            <br />
+            <span id="msgAlert" class="alert alert-success">@ViewBag.succes</span>
+            <br />
+        }
+
+        @if (@ViewBag.Exception != null)
+            {
+            <br />
+            <span id="msgAlert" class="alert alert-danger">@ViewBag.Exception</span>
+            <br />
+        }
+        <hr />
+        <div class="container">
+            <!-- Trigger the modal with a button -->
+            @*<button type="button" class="btn btn-info btn-lg" id="alertbox">Click here</button>*@
+            <!-- fenetre Modal Alert -->
+            <div class="modal fade" id="myModal" role="dialog">
+                <div class="modal-dialog">
+
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title"><text style="color:red">Sauvegarde</text></h4>
+                        </div>
+                        <div class="modal-body">
+                            <p id="error"></p>
+                            <h4>Veuillez d'abord enregistrer vos modifications avant d'imprimer.</h4>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @*<script>
+            $(document).ready(function () {
+                $('#alertbox').click(function () {
+                    $("#error").html("Erreur");
+                    $('#myModal').modal("show");
+                });
+            });
+        </script>*@
+
+        @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "form" }))
+        {
+            @Html.AntiForgeryToken()
+            <div class='form-horizontal'>
+                <div class="col-md-6" style="padding-left:0">
+                    <div class='form-horizontal'>
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                        @Html.HiddenFor(model => model.ID, new { @id = "ID" })
+                        @Html.HiddenFor(model => model.Statut, new { @id = "Statut" })
+
+
+
+                        @*<div class="form-group">
+                                @Html.Label("ID Demande", htmlAttributes: new { @class = "control-label col-md-4" })
+                                <div class="col-md-8">
+                                    @Html.EditorFor(model => model.ID, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                </div>
+                            </div>*@
+
+                        <div class="form-group">
+                            @Html.Label("Site", "Site", htmlAttributes: new { @class = "control-label col-md-4 required" })
+                            <div class="col-md-8">
+                                @Html.DropDownList("SiteID", null, htmlAttributes: new { @class = "form-control", id = "Site" })
+                                @Html.ValidationMessageFor(model => model.SiteID, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.Label("Priorité", "Priorité", htmlAttributes: new { @class = "control-label col-md-4" })
+                            <div class="col-md-8">
+                                @Html.DropDownList("PrioriteID", null, "--- Veuillez choisir ---", htmlAttributes: new { @class = "form-control", id = "Priorite" })
+                                @Html.ValidationMessageFor(model => model.PrioriteID, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+
+                            @Html.Label("Type usager", "Type usager", htmlAttributes: new { @class = "control-label col-md-4 required" })
+                            <div class="col-md-8">
+                                @Html.DropDownList("TypeUsagerID", null,
+                                htmlAttributes: new
+                                {
+                                    @class = "form-control dropdown",
+                                    @title = "Type usager",
+                                    @id = "TypeUsagerGroup",
+                                    @disabled = "disabled",
+                                    @onchange = "callChangefunc(this.value)"
+                                })
+                                @Html.HiddenFor(model => model.TypeUsagerID)
+                                @Html.ValidationMessageFor(model => model.TypeUsagerID, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group" id="divMatriculeGroup">
+                            @Html.Label("Matricule", htmlAttributes: new { @class = "control-label col-md-4" })
+                            <div class="col-md-8">
+                                @Html.EditorFor(model => model.Matricule, new { htmlAttributes = new { @class = "form-control", id = "Matricule", autocomplete = "off", @disabled = "disabled" } })
+                                @Html.HiddenFor(model => model.Matricule)
+                                @Html.ValidationMessageFor(model => model.Matricule, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.Label("Type prélèvement", htmlAttributes: new { @class = "control-label col-md-4" })
+                            <div class="col-md-8">
+                                @Html.DropDownList("TypePrelevementID", null, new
+                           {
+                               @class = "form-control",
+                               @title = "Type prélèvement",
+                               @id = "TypePrelevementGroup",
+                               // @onchange = "callChangefuncPrelev(this.value)",
+                           }
+                    )
+                                @Html.ValidationMessageFor(model => model.TypePrelevementID, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.Label("Nom", htmlAttributes: new { @class = "control-label col-md-4 required" })
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(model => model.Nom, new { @class = "form-control required", id = "Nom", @style = "text-transform:uppercase", @autocomplete = "off", @disabled = "disabled" })
+                                @Html.HiddenFor(model => model.Nom)
+                                @Html.ValidationMessageFor(model => model.Nom, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.Label("Prénom", htmlAttributes: new { @class = "control-label col-md-4 required" })
+                            <div class="col-md-8">
+                                @Html.EditorFor(model => model.Prenom, new { htmlAttributes = new { @class = "form-control", id = "Prenom", @style = "text-transform:uppercase", @autocomplete = "off", @disabled = "disabled" } })
+                                @Html.HiddenFor(model => model.Prenom)
+                                @Html.ValidationMessageFor(model => model.Prenom, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Sexe, htmlAttributes: new { @class = "control-label col-md-4 required" })
+                            <div class="col-md-8">
+                                @Html.DropDownList("Sexe", new List<SelectListItem>() { new SelectListItem() { Value = "", Text = "--- Veuillez choisir ---" },
+            new SelectListItem() { Value = "1", Text = "Masculin" },
+            new SelectListItem() { Value = "2", Text = "Féminin" },
+            new SelectListItem() { Value = "3", Text = "Inconnu" },
+            }, new { @class = "form-control", title = "Sexe", id = "Sexe", @disabled = "disabled", @readonly = "readonly", })
+                                @Html.HiddenFor(model => model.Sexe)
+                                @Html.ValidationMessageFor(model => model.Sexe, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.Label("RAMQ", htmlAttributes: new { @class = "control-label col-md-4 required2" })
+                            <div class="col-md-8">
+                                @Html.EditorFor(model => model.Ramq, new
+                           {
+                               htmlAttributes = new
+                               {
+                                   @class = "form-control",
+                                   id = "Ramq",
+                                   style = "text-transform:uppercase",
+                                   title = "RAMQ",
+                                   placeholder = "AAAA99999999",
+                                   autocomplete = "off",
+                                   @disabled = "disabled"
+                               }
+                           })
+                                @Html.HiddenFor(model => model.Ramq)
+                                @Html.ValidationMessageFor(model => model.Ramq, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.Label("Téléphone", htmlAttributes: new { @class = "control-label col-md-4 required2" })
+                            <div class="col-md-8">
+                                @Html.EditorFor(model => model.Telephone, new { htmlAttributes = new { @class = "form-control", id = "Telephone", placeholder = Html.DisplayName("(999) 999 9999"), title = "Téléphone", mask = "(999)-999-9999", autocomplete = "off", @disabled = "disabled" } })
+                                @Html.HiddenFor(model => model.Telephone)
+                                @Html.ValidationMessageFor(model => model.Telephone, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.Label("Code postal", htmlAttributes: new { @class = "control-label col-md-4 required" })
+                            <div class="col-md-8">
+                                @Html.EditorFor(model => model.CodePostal, new { htmlAttributes = new { @class = "form-control", id = "CodePostal", placeholder = "A9A 9A9", title = "Code Postal", mask = "a9a 9a9", style = "text-transform:uppercase", autocomplete = "off", @disabled = "disabled" } })
+                                @Html.HiddenFor(model => model.CodePostal)
+                                @Html.ValidationMessageFor(model => model.CodePostal, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.Label("Date de naissance", htmlAttributes: new { @class = "control-label col-md-4 required2" })
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(m => m.DateNaissance, "{0:dd-MM-yyyy}", new { @class = "form-control datepicker", id = "DateNaissance", placeholder = "JJ-MM-AAAA", autocomplete = "off", @disabled = "disabled" })
+                                @Html.HiddenFor(model => model.DateNaissance)
+                                @Html.ValidationMessageFor(model => model.DateNaissance, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class='form-horizontal'>
+                    
+                        <div class="form-group">
+                            @Html.Label("Courriel", htmlAttributes: new { @class = "control-label col-md-4 required2" })
+                            <div class="col-md-8">
+                                @Html.EditorFor(model => model.Courriel, new { htmlAttributes = new { @class = "form-control", id = "Courriel", autocomplete = "off" } })
+                                @Html.HiddenFor(model => model.Courriel)
+                                @Html.ValidationMessageFor(model => model.Courriel, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.Label("Date rendez-vous", htmlAttributes: new { @class = "control-label col-md-4 required2" })
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(m => m.DateRdv, "{0:dd-MM-yyyy}", new { @class = "form-control datepicker", id = "DateRdv", placeholder = "JJ-MM-AAAA", autocomplete = "off" })
+                                @Html.ValidationMessageFor(model => model.DateRdv, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.Label("Heure rendez-vous", htmlAttributes: new { @class = "control-label col-md-4" })
+                            <div class="col-md-8">
+                                @Html.EditorFor(model => model.HeureRdv, new
+                           {
+                               htmlAttributes = new
+                               {
+                                   @class = "form-control",
+                                   id = "HeureRdv",
+                                   type = "text",
+                                   placeholder = Html.DisplayName("99-99"),
+                                   title = "Heure de RDV",
+                                   mask = "99-99",
+                                   autocomplete = "off"
+                               }
+                           })
+                                @Html.ValidationMessageFor(model => model.HeureRdv, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.Label("Présent au rdv", htmlAttributes: new { @class = "control-label col-md-4" })
+                            <div class="col-md-8">
+                                @Html.RadioButtonFor(model => model.Presence, "O", new { id = "presentOui" })
+                                @Html.Label("Oui                                        ", new { @class = "control-label", style = "font-weight:normal;" })
+                                @Html.RadioButtonFor(model => model.Presence, "N", new { id = "presentNon", @checked = "checked" })
+                                @Html.Label("Non", new { @class = "control-label", style = "font-weight:normal;" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.Label("Surnombre", htmlAttributes: new { @class = "control-label col-md-4" })
+                            <div class="col-md-8">
+                                @Html.RadioButtonFor(model => model.SurNombre, "O", new { id = "surNombreOui" })
+                                @Html.Label("Oui                                        ", new { @class = "control-label", style = "font-weight:normal;" })
+                                @Html.RadioButtonFor(model => model.SurNombre, "N", new { id = "surNombreNon", @checked = "checked" })
+                                @Html.Label("Non", new { @class = "control-label", style = "font-weight:normal;" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.Label("Avez-vous voyagé hors du Québec ?", htmlAttributes: new { @class = "control-label col-md-4" })
+                            <div class="col-md-8">
+                                @Html.RadioButtonFor(model => model.Voyage, "O", new { id = "voyageOui", @onchange = "callChangefuncVoyage(this.value)" })
+                                @Html.Label("Oui                                        ", new { @class = "control-label", style = "font-weight:normal;" })
+                                @Html.RadioButtonFor(model => model.Voyage, "N", new { id = "voyageNon", @onchange = "callChangefuncVoyage(this.value)", @checked = "checked" })
+                                @Html.Label("Non", new { @class = "control-label", style = "font-weight:normal;" })
+                            </div>
+                        </div>
+
+                        <div class="form-group" id="divVoyageGroup" style="display:none;">
+                            <div class="form-group">
+                                @Html.Label("Pays", htmlAttributes: new { @class = "control-label col-md-4 required2" })
+                                <div class="col-md-8">
+                                    @Html.DropDownList("PaysID", null, new
+                               {
+                                   @class = "form-control",
+                                   @title = "Pays",
+                                   @id = "PaysID",
+                                   // @onchange = "callChangefuncPrelev(this.value)",
+                               }
+                    )
+                                    @Html.ValidationMessageFor(model => model.TypePrelevementID, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.Label("Destination", htmlAttributes: new { @class = "control-label col-md-4" })
+                                <div class="col-md-8">
+                                    @Html.EditorFor(model => model.Destination, new { htmlAttributes = new { @class = "form-control", @id = "Destination", @autocomplete = "off" } })
+                                    @Html.ValidationMessageFor(model => model.Destination, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.Label("Date de retour", htmlAttributes: new { @class = "control-label col-md-4" })
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(m => m.DateEntree, "{0:dd-MM-yyyy}", new { @class = "form-control datepicker", id = "DateEntree", placeholder = "JJ-MM-AAAA", autocomplete = "off"})
+                                    @Html.HiddenFor(model => model.DateEntree)
+                                    @Html.ValidationMessageFor(model => model.DateEntree, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.Label("Langue", htmlAttributes: new { @class = "control-label col-md-4" })
+                            <div class="col-md-8">
+                                @Html.RadioButtonFor(model => model.Langue, "F", new { id = "francais", @disabled = "disabled" })
+                                @Html.Label("Français", new { @class = "control-label", style = "font-weight:normal;" })
+                                @Html.RadioButtonFor(model => model.Langue, "A", new { id = "anglais", @disabled = "disabled" })
+                                @Html.Label("Anglais", new { @class = "control-label", style = "font-weight:normal;" })
+                                @Html.HiddenFor(model => model.Langue)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Commentaire, htmlAttributes: new { @class = "control-label col-md-4" })
+                            <div class="col-md-8">
+                                @*@Html.TextAreaFor(model => model.CommentaireStage, new { style = "width: 280px; height:150px;" })*@
+                                @Html.TextAreaFor(model => model.Commentaire, 5, 50, htmlAttributes: new { @class = "editor-textarea", title = "Commentaires", @autocomplete = "off" })
+                                @Html.ValidationMessageFor(model => model.Commentaire, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group hidden">
+                            @Html.Label("Crée par", htmlAttributes: new { @class = "control-label col-md-4" })
+                            <div class="col-md-8">
+                                @Html.EditorFor(model => model.CreatedBy, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.CreatedBy, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group hidden">
+                            @Html.Label("Crée le", htmlAttributes: new { @class = "control-label col-md-4" })
+                            <div class="col-md-8">
+                                @Html.EditorFor(model => model.CreatedOn, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.CreatedOn, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group hidden">
+                            @Html.Label("Modifé par", htmlAttributes: new { @class = "control-label col-md-4" })
+                            <div class="col-md-8">
+                                @Html.EditorFor(model => model.ModifiedBy, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.ModifiedBy, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group hidden">
+                            @Html.Label("Modifié le", htmlAttributes: new { @class = "control-label col-md-4" })
+                            <div class="col-md-8">
+                                @Html.EditorFor(model => model.LastModifiedOn, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.LastModifiedOn, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 text-right" style="padding-right:17%">
+                    <div class="col-md-offset-1 col-md-12" style="margin-top: 15px;">
+                        @{
+                            bool admin = User.IsInRole("Admin");
+                            bool superUtilisateur = User.IsInRole("Super utilisateur");
+                            bool utilisateur = User.IsInRole("Utilisateur");
+                            bool utilisateurSST = User.IsInRole("Utilisateur-SST");
+                            if (admin || superUtilisateur || utilisateur)
+                            {
+                                @Html.ActionLink("Retour à la liste", "ListUsagers", "Home", routeValues: null, htmlAttributes: new { @class = "btn btn-primary btn-large" })
+                            }
+                            else
+                            {
+                                @Html.ActionLink("Retour à la liste", "ListEmployees", "Home", routeValues: null, htmlAttributes: new { @class = "btn btn-primary btn-large" })
+                            }
+                        }
+
+                        <input type="submit" value="Enregistrer" class="btn btn-success" />
+                        @*<button id="btnImprimer" type="button" class="btn btn-info" onclick="ClientSidePrint()">Imprimer étiquettes</button>*@
+                    </div>
+                </div>
+                <div class="col-md-12" style="padding-right:0; padding-left:0">
+                    <div class="col-md-12">
+                        <span style="color:#ff0000">*  </span><span style="font-size:12px">Champs obligatoires.</span>
+                        <br />
+                        <span style="color:#0094ff">** </span><span style="font-size:12px">Le courriel est obligatoire lorsque le téléphone n'est pas renseigné.</span>
+                        <br />
+                        <span style="color:#0094ff">** </span><span style="font-size:12px">La date de naissance est obligatoire lorsque la RAMQ n'est pas renseignée.</span>
+                        <br />
+                        <span style="color:#0094ff">** </span><span style="font-size:12px">Le pays est obligatoire lorsque le voyage hors du Québec est selectionné.</span>
+
+                    </div>
+                </div>
+            </div>
+            <br /><br />
+
+                            }
+    </div>
+    <div class="col-xs-1">
+    </div>
+</div>
+
+<div hidden>
+    <img id="myImage" src="~/Content/Images/calendrier.png" />
+</div>
+
+
+
+@section Scripts{
+    <!-- debut seter les hint sur les priorités-->
+    <script type="text/javascript">
+        $(function () {
+            $("[id*=Priorite] option").each(function (i) {
+                var title = "";
+                if (i > 0) {
+                    if ($(this).val() == 1) title = "Cas exceptionnels, après autorisation verbale obtenue du laboratoire. ";
+                    if ($(this).val() == 2) title = "Les patients hospitalisés de même que les patients qui se présentent à l’urgence ayant une présentation clinique ou radiologique compatible avec un diagnostic de COVID-19 (incluant les tests requis pour la levée d’isolement).";
+                    if ($(this).val() == 3) title = "Les professionnels de la santé symptomatiques en contact direct avec les patients, incluant les services ambulanciers symptomatiques ET susceptibles d’exposer ou d’avoir exposé la clientèle ou dont le retrait causerait un bris de service (incluant tests requis pour mesures de retour au travail).";
+                    if ($(this).val() == 4) title = "Les résidents de centres d’hébergement de soins de longue durée(CHSLD) et de résidences privées pour aînés (RPA) symptomatiques ou présence d’une éclosion potentielle d’infection respiratoire (au moins deux cas) ou décès inattendu avec une cause respiratoire infectieuse suspectée; aussi, personnes habitant d’autres milieux à risque (ex. : refuges pour itinérants, etc.).";
+                    if ($(this).val() == 5) title = "Les personnes symptomatiques vivant dans les régions éloignées, les communautés isolées et venant des Premières Nations/Inuit qui ont un accès limité à un hôpital."; if ($(this).val() == 6) title = "Cas exceptionnels, après autorisation verbale obtenue du laboratoire. ";
+                    if ($(this).val() == 6) title = "Les premiers répondants ou travailleurs du système de sécurité publique (ex. : policiers et pompiers, agents des services correctionnels) symptomatiques et autres travailleurs fournissant des services jugés critiques/essentiels.";
+                    if ($(this).val() == 7) title = "Les personnes symptomatiques de la communauté sur autorisation du directeur de santé publique. ";
+                    $(this).attr("title", title);
+                }
+            });
+        });
+    </script>
+    <!-- fin seter les hint sur les priorités-->
+    <!--  ******************* debut Date en Francais ****************** -->
+    <script src="~/Scripts/bootstrap-datepicker.min.js"></script>
+    <script type="text/javascript">
+        // definir fr-CA comme parametre regional par par defaut
+        $(document).ready(function () {
+            $.culture = Globalize.culture("fr-FR");
+            $.validator.methods.date = function (value, element) {
+                //This is not ideal but Chrome passes dates through in ISO1901 format regardless of locale
+                //and despite displaying in the specified format.
+
+                return this.optional(element)
+                    || Globalize.parseDate(value, "dd-MM-yyyy", "fr-FR")
+                    || Globalize.parseDate(value, "yyyy-mm-dd");
+            }
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            var date_input = $('input[name="date"]'); //our date input has the name "date"
+            var container = $('.bootstrap-iso form').length > 0 ? $('.bootstrap-iso form').parent() : "body";
+            var options = {
+                container: container,
+                todayHighlight: true,
+                autoclose: true,
+            };
+            date_input.datepicker(options);
+        });
+    </script>
+    <script>
+        (function ($) {
+            $.fn.datepicker.dates['fr'] = {
+                days: ["dimanche", "lundi", "mardi", "mercredi", "jeudi", "vendredi", "samedi"],
+                daysShort: ["dim.", "lun.", "mar.", "mer.", "jeu.", "ven.", "sam."],
+                daysMin: ["d", "l", "ma", "me", "j", "v", "s"],
+                months: ["janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre"],
+                monthsShort: ["janv.", "févr.", "mars", "avril", "mai", "juin", "juil.", "août", "sept.", "oct.", "nov.", "déc."],
+                today: "Aujourd'hui",
+                monthsTitle: "Mois",
+                clear: "Effacer",
+                weekStart: 1,
+                format: "dd-mm-yyyy"
+            };
+        }(jQuery));
+        $('.datepicker').datepicker({
+            language: 'fr',
+            autoclose: true,
+            todayHighlight: true
+        })
+    </script>
+    <!--  ******************* Fin Date en Francais ****************** -->
+    <!--  ******************* debut Gestion des mask ****************** -->
+    <script src="~/Scripts/jquery.maskedinput.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $("#Telephone").mask("(999) 999-9999");
+        });
+
+        $(function () {
+            $("#Ramq").mask("aaaa99999999");
+        });
+
+        $(function () {
+            $("#CodePostal").mask("a9a 9a9");
+        });
+
+        $(function () {
+            $("#DateNaissance").mask("99-99-9999");
+        });
+
+        $(function () {
+            $("#DateEntree").mask("99-99-9999");
+        });
+
+        $(function () {
+            $("#DateRdv").mask("99-99-9999");
+        });
+
+        $(function () {
+            $("#HeureRdv").mask("99:99");
+        });
+
+    </script>
+    <script>
+        $('#Ramq').focusout(function () {
+            var str = $('#Ramq').val();
+            if (str.includes("__")) {
+                $(this).val('');
+            }
+        });
+        $('#Ramq').keyup(function () {
+            var str = $('#Ramq').val();
+            var res = str.substring(0, 1);
+            if (res == '_') {
+                $(this).val('');
+            }
+        });
+
+        $('#CodePostal').focusout(function () {
+            var str = $('#CodePostal').val();
+            if (str.includes("__")) {
+                $(this).val('');
+            }
+        });
+        $('#CodePostal').keyup(function () {
+            var str = $('#CodePostal').val();
+            var res = str.substring(0, 1);
+            if (res == '_') {
+                $(this).val('');
+            }
+        });
+
+        $('#Telephone').focusout(function () {
+            var str = $('#Telephone').val();
+            if (str.includes("__")) {
+                $(this).val('');
+            }
+        });
+        $('#Telephone').keyup(function () {
+            var str = $('#Telephone').val();
+            var res = str.substring(0, 2);
+            if (res == '(_') {
+                $(this).val('');
+            }
+        });
+
+        $('#DateNaissance').focusout(function () {
+            var str = $('#DateNaissance').val();
+            if (str.includes("__")) {
+                $(this).val('');
+            }
+        });
+
+        $('#DateNaissance').keyup(function () {
+            var str = $('#DateNaissance').val();
+            var res = str.substring(0, 5);
+            if (res == '__-__') {
+                $(this).val('');
+            }
+        });
+
+        $('#DateEntree').focusout(function () {
+            var str = $('#DateEntree').val();
+            if (str.includes("__")) {
+                $(this).val('');
+            }
+        });
+
+        $('#DateEntree').keyup(function () {
+            var str = $('#DateEntree').val();
+            var res = str.substring(0, 5);
+            if (res == '__-__') {
+                $(this).val('');
+            }
+        });
+        $('#DateRdv').focusout(function () {
+            var str = $('#DateRdv').val();
+            if (str.includes("__")) {
+                $(this).val('');
+            }
+        });
+        $('#DateRdv').keyup(function () {
+            var str = $('#DateRdv').val();
+            var res = str.substring(0, 5);
+            if (res == '__-__') {
+                $(this).val('');
+            }
+        });
+    </script>
+    <!--  ******************* Fin Gestion des mask ****************** -->
+    <!--  ******************* Debut Controle sur le type usager  afficher/masquer le matricule selon le type ****************** -->
+    <script>
+        function callChangefunc(val) {
+            if (val != '1' && val != '6') {
+                $('#divMatriculeGroup').hide();
+            } else {
+                $('#divMatriculeGroup').show();
+            }
+        }
+    </script>
+<script>
+        function callChangefuncVoyage(val) {
+            //alert(val);
+            if (val != 'O') {                
+                $('#PaysID').val(null);
+                $('#Destination').val(null);
+                $('#DateEntree').val(null);
+                $('#divVoyageGroup').hide();
+            } else {
+
+                $('#divVoyageGroup').show();
+            }
+        }
+</script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var optionValue = $("#TypeUsagerGroup").val();
+            //alert(optionValue);
+            if (optionValue != "1" && optionValue != "6") {
+                $('#Matricule').val('');
+                $('#divMatriculeGroup').hide();
+            } else {
+                $('#divMatriculeGroup').show();
+            }
+        });
+
+        var voyageOui = $("#voyageOui").val();
+        if ($('#voyageOui').is(':checked')) {
+            //alert("O");
+            $('#divVoyageGroup').show();
+        }
+        else {
+            //alert("N");
+            $("#Destination").val(null);
+            $("#DateEntree").val(null);
+            $('#divVoyageGroup').hide();
+        }
+    </script>
+    <!--  ******************* Fin Controle sur le type usager  afficher/masquer le matricule selon le type ****************** -->
+    <script>
+        $(document).ready(function () {
+            var today = new Date();
+            var dd = String(today.getDate()).padStart(2, '0');
+            var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+            var yyyy = today.getFullYear();
+
+            today = dd + '-' + mm + '-' + yyyy;
+
+            $('#DateRdv').val(today);
+        });
+    </script>
+
+<script>
+    $(document).ready(function () {
+        $("#voyageNon").prop("checked", true);
+        $("#voyageOui").prop("checked", false);
+        $('#PaysID').val(null);
+        $('#Destination').val(null);
+        $('#DateEntree').val(null);
+        $('#divVoyageGroup').hide();
+        });
+</script>
+    
+}

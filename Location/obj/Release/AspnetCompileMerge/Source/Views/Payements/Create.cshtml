@@ -1,0 +1,125 @@
+﻿@model Location.DAL.Payements
+
+@{
+    ViewBag.Title = "Enregistrer un paiement";
+}
+
+<h2 class="mb-4">
+    <i class="fas fa-plus-circle me-2 text-primary"></i>Enregistrer un paiement
+</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="card shadow-lg border-0">
+        <div class="card-header bg-primary text-white py-3">
+            <h4 class="mb-0"><i class="fas fa-money-bill-wave me-2"></i>Informations du paiement</h4>
+        </div>
+        <div class="card-body p-4">
+            @Html.ValidationSummary(true, "", new { @class = "alert alert-danger" })
+
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.BauxId, "Bail", new { @class = "form-label fw-bold" })
+                        @Html.DropDownList("BauxId", null, "Sélectionnez...", new { @class = "form-select" })
+                        @Html.ValidationMessageFor(model => model.BauxId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.MoyenPayementId, "Moyen de paiement", new { @class = "form-label fw-bold" })
+                        @Html.DropDownList("MoyenPayementId", null, "Sélectionnez...", new { @class = "form-select" })
+                        @Html.ValidationMessageFor(model => model.MoyenPayementId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="row g-4 mt-2">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Annee, new { @class = "form-label fw-bold" })
+                        @Html.EditorFor(model => model.Annee, new { htmlAttributes = new { @class = "form-control", type = "number", min = "2000", max = "2100", placeholder = "2025" } })
+                        @Html.ValidationMessageFor(model => model.Annee, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Mois, new { @class = "form-label fw-bold" })
+                        @Html.DropDownListFor(model => model.Mois,
+                            new SelectList(Enumerable.Range(1, 12).Select(m => new { Value = m, Text = System.Globalization.DateTimeFormatInfo.CurrentInfo.GetMonthName(m) }), "Value", "Text", Model.Mois),
+                            "Sélectionnez...", new { @class = "form-select" })
+                        @Html.ValidationMessageFor(model => model.Mois, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.DatePayement, "Date de paiement", new { @class = "form-label fw-bold" })
+                        @Html.EditorFor(model => model.DatePayement, new { htmlAttributes = new { @class = "form-control", type = "date" } })
+                        @Html.ValidationMessageFor(model => model.DatePayement, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="row g-4 mt-2">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Montant, "Montant ($)", new { @class = "form-label fw-bold" })
+                        @Html.EditorFor(model => model.Montant, new { htmlAttributes = new { @class = "form-control", type = "number", step = "0.01", placeholder = "0.00" } })
+                        @Html.ValidationMessageFor(model => model.Montant, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.LieuPayement, "Lieu de paiement", new { @class = "form-label fw-bold" })
+                        @Html.EditorFor(model => model.LieuPayement, new { htmlAttributes = new { @class = "form-control", placeholder = "Ex: Banque" } })
+                        @Html.ValidationMessageFor(model => model.LieuPayement, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ModePayement, "Mode de paiement", new { @class = "form-label fw-bold" })
+                        @Html.EditorFor(model => model.ModePayement, new { htmlAttributes = new { @class = "form-control", placeholder = "Ex: Virement, Chèque" } })
+                        @Html.ValidationMessageFor(model => model.ModePayement, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group mt-4">
+                @Html.LabelFor(model => model.Description, new { @class = "form-label fw-bold" })
+                @Html.TextAreaFor(model => model.Description, new { @class = "form-control", rows = 3, placeholder = "Observations éventuelles..." })
+                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="row mt-4">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Statut, new { @class = "form-label fw-bold" })
+                        @Html.DropDownListFor(model => model.Statut,
+                            new SelectList(new[] {
+                                new SelectListItem { Text = "Payé", Value = "A" },
+                                new SelectListItem { Text = "En attente", Value = "E" },
+                                new SelectListItem { Text = "Annulé", Value = "I" }
+                            }, "Value", "Text", Model.Statut),
+                            "Sélectionnez...", new { @class = "form-select" })
+                        @Html.ValidationMessageFor(model => model.Statut, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer bg-light py-3 d-flex justify-content-between">
+            <button type="submit" class="btn btn-success px-4"><i class="fas fa-save me-2"></i>Enregistrer</button>
+            @Html.ActionLink("Annuler", "Index", null, new { @class = "btn btn-outline-secondary px-4" })
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

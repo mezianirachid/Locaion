@@ -1,0 +1,30 @@
+﻿@{
+    ViewBag.Title = "Confirmation";
+}
+
+<!-- Bouton invisible qui ouvre la modale automatiquement -->
+<button id="openModal" class="d-none" data-bs-toggle="modal" data-bs-target="#confirmationModal"></button>
+
+<div class="modal fade" id="confirmationModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-success text-white">
+                <h5 class="modal-title">Message envoyé</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                Votre message a été envoyé avec succès.
+            </div>
+            <div class="modal-footer">
+                <a href="/" class="btn btn-primary">Retour</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    window.onload = function () {
+        document.getElementById("openModal").click();
+    };
+</script>
+

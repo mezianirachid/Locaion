@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="cbac5caf8ffc47f5ab930ef1f2281c0e" Name="Diagram1" ZoomLevel="67">
+        <AssociationConnector Association="LocationModel.FK_ImmeublesImmeubles" />
+        <EntityTypeShape EntityType="LocationModel.C__MigrationHistory" Width="1.5" PointX="10.75" PointY="7.25" />
+        <EntityTypeShape EntityType="LocationModel.Appareils" Width="1.5" PointX="3" PointY="0.75" />
+        <EntityTypeShape EntityType="LocationModel.Appartements" Width="1.5" PointX="0.75" PointY="15.25" />
+        <EntityTypeShape EntityType="LocationModel.AspNetRoles" Width="1.5" PointX="7.75" PointY="3" />
+        <EntityTypeShape EntityType="LocationModel.AspNetUserClaims" Width="1.5" PointX="12.25" PointY="4.125" />
+        <EntityTypeShape EntityType="LocationModel.AspNetUserLogins" Width="1.5" PointX="12.25" PointY="1.625" />
+        <EntityTypeShape EntityType="LocationModel.AspNetUsers" Width="1.5" PointX="10" PointY="1.75" />
+        <EntityTypeShape EntityType="LocationModel.AutresObjets" Width="1.5" PointX="6" PointY="16.75" />
+        <EntityTypeShape EntityType="LocationModel.Baux" Width="1.5" PointX="3" PointY="5" />
+        <EntityTypeShape EntityType="LocationModel.Immeubles" Width="1.5" PointX="1.5" PointY="25.75" />
+        <EntityTypeShape EntityType="LocationModel.InclusionAppareils" Width="1.5" PointX="5.25" PointY="8.5" />
+        <EntityTypeShape EntityType="LocationModel.InclusionAutres" Width="1.5" PointX="8.25" PointY="8.5" />
+        <EntityTypeShape EntityType="LocationModel.InclusionMeubles" Width="1.5" PointX="5.25" PointY="12.5" />
+        <EntityTypeShape EntityType="LocationModel.Locataires" Width="1.5" PointX="0.75" PointY="7.25" />
+        <EntityTypeShape EntityType="LocationModel.Locateur" Width="1.5" PointX="10.75" PointY="10.25" />
+        <EntityTypeShape EntityType="LocationModel.Meubles" Width="1.5" PointX="3" PointY="16.75" />
+        <EntityTypeShape EntityType="LocationModel.MoyenPayements" Width="1.5" PointX="0.75" PointY="2.625" />
+        <EntityTypeShape EntityType="LocationModel.Payements" Width="1.5" PointX="5.25" PointY="3" />
+        <EntityTypeShape EntityType="LocationModel.RefMessages" Width="1.5" PointX="12.75" PointY="7.25" />
+        <EntityTypeShape EntityType="LocationModel.TypeAppartements" Width="1.5" PointX="1.5" PointY="22.25" />
+        <AssociationConnector Association="LocationModel.FK_InclusionAppareils_Appareils" />
+        <AssociationConnector Association="LocationModel.FK_AppartementsImmeubles" />
+        <AssociationConnector Association="LocationModel.FK_AppartementsTypeAppartements" />
+        <AssociationConnector Association="LocationModel.FK_BauxImmeubles" />
+        <AssociationConnector Association="LocationModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" />
+        <AssociationConnector Association="LocationModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" />
+        <AssociationConnector Association="LocationModel.FK_InclusionAutres_Autres" />
+        <AssociationConnector Association="LocationModel.FK_Baux_Baux" />
+        <AssociationConnector Association="LocationModel.FK_Baux_Baux1" />
+        <AssociationConnector Association="LocationModel.FK_BauxCoLocataires" />
+        <AssociationConnector Association="LocationModel.FK_BauxLocataires" />
+        <AssociationConnector Association="LocationModel.FK_BauxMoyenPayements" />
+        <AssociationConnector Association="LocationModel.FK_InclusionAppareils_Baux" />
+        <AssociationConnector Association="LocationModel.FK_InclusionAutres_Baux" />
+        <AssociationConnector Association="LocationModel.FK_InclusionMeubles_Baux" />
+        <AssociationConnector Association="LocationModel.FK_PayementBaux" />
+        <AssociationConnector Association="LocationModel.FK_InclusionMeubles_Meubles" />
+        <AssociationConnector Association="LocationModel.FK_PayementTypePayements" />
+        <AssociationConnector Association="LocationModel.AspNetUserRoles" />
+        <EntityTypeShape EntityType="LocationModel.AppartementImages" Width="1.5" PointX="3" PointY="31.5" />
+        <AssociationConnector Association="LocationModel.FK_AppartementImages_Appartements" />
+        <EntityTypeShape EntityType="LocationModel.v_Factures_Locataire" Width="1.5" PointX="13.375" PointY="10.75" />
+        <EntityTypeShape EntityType="LocationModel.V_Payements" Width="1.5" PointX="14.375" PointY="0.75" />
+        </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

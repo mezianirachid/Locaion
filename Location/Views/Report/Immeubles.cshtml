@@ -1,0 +1,91 @@
+﻿@model IEnumerable<Location.DAL.Immeubles>
+@{
+    ViewBag.Title = "Immeubles";
+}
+<h2>Liste de immeubles</h2>
+
+<br />
+
+<table id="immeubles-data-table" class="table table-bordered" style="border:thin solid">
+    <thead>
+        <tr>
+            <th>Référence</th>
+            <th>Nom</th>
+            <th>Description</th>
+            <th>Adresse</th>
+            
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>@item.Id</td>
+            <td>@item.NomImmeuble</td>
+            <td>@item.DescriptionImmeuble</td>
+            <td>@item.AdresseImmeuble</td>
+         
+        </tr>
+        }
+    </tbody>
+</table>
+
+<table class="table">
+    <tr>
+        <th scope="row">
+            <a href="@Url.Action("Report",new {typeRapport= "PDF", nomRapport= "Immeubles", idPayement=0 })">Rapport PDF</a></>
+        </th>
+        <th scope="row">
+            <a href="@Url.Action("Report",new {typeRapport= "Excel", nomRapport= "Immeubles", idPayement=0})">Rapport Excel</a>
+        </th>
+        <th scope="row">
+            <a href="@Url.Action("Report",new {typeRapport= "Word", nomRapport= "Immeubles", idPayement=0})">Rapport Word</a>
+        </th>
+        <th scope="row">
+            <a href="@Url.Action("Report",new {typeRapport= "Image",nomRapport= "Immeubles", idPayement=0 })">Rapport Image</a>
+        </th>
+    </tr>
+</table>
+
+
+<script>
+    var table = $('#immeubles-data-table').DataTable({
+        "dom": '<"top"if>rt<"bottom"lp>',
+        "language": {
+            "sProcessing": "Traitement en cours ...",
+            "sLengthMenu": "Afficher _MENU_ lignes",
+            "sZeroRecords": "Aucun résultat trouvé",
+            "sEmptyTable": "Aucune donnée disponible",
+            "sInfo": "Lignes _START_ à _END_ sur _TOTAL_",
+            "sInfoEmpty": "Aucune ligne affichée",
+            "sInfoFiltered": "(Filtrer un maximum de_MAX_)",
+            "sInfoPostFix": "",
+            "sSearch": "Rechercher:",
+            "sUrl": "",
+            "sInfoThousands": ",",
+            "sLoadingRecords": "Chargement...",
+            "oPaginate": {
+                "sFirst": "Premier", "sLast": "Dernier", "sNext": "Suivant", "sPrevious": "Précédent"
+            },
+            "oAria": {
+                "sSortAscending": ": Trier par ordre croissant", "sSortDescending": ": Trier par ordre décroissant"
+            }
+        }
+    });
+
+
+
+    table.on('click', 'tbody tr', function () {
+        var $row = table.row(this).nodes().to$();
+        var hasClass = $row.hasClass('selected');
+        if (hasClass) {
+            $row.removeClass('selected')
+        } else {
+            $row.addClass('selected')
+        }
+    })
+
+    table.rows().every(function () {
+        this.nodes().to$().removeClass('selected')
+    });
+</script>

@@ -1,0 +1,413 @@
+﻿@model IEnumerable<Location.Demandes>
+ 
+   <div id="divLoading" class="divhide">
+        <img src="~/Content/Images/spinner.gif" />
+    </div>
+<div hidden>
+    <img id="myImage" src="~/Content/Images/calendrier.png"/>
+</div>
+<div>
+    <table id="covid-data-table" class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th style="min-width: 90px"></th>
+                <th style="min-width: 70px;">
+                    @Html.DisplayName("#Référence")
+                </th>
+                <th style="min-width: 70px">
+                    @Html.DisplayName("RAMQ")
+                </th>
+                <th style="min-width: 70px">
+                    @Html.DisplayName("Nom")
+                </th>
+                <th style="min-width: 70px">
+                    @Html.DisplayName("Prénom")
+                </th>
+                <th style="min-width: 40px">
+                    @Html.DisplayNameFor(model => model.Sexe)
+                </th>
+                <th style="min-width: 70px">
+                    @Html.DisplayName("Date naissance")
+                </th>
+                <th style="min-width: 70px">
+                    @Html.DisplayName("Code postal")
+                </th>
+                <th style="min-width: 90px">
+                    @Html.DisplayNameFor(model => model.Telephone)
+                </th>
+                <th style="min-width: 70px">
+                    @Html.DisplayNameFor(model => model.Courriel)
+                </th>
+                <th style="min-width: 70px">
+                    @Html.DisplayName("Date RDV")
+                </th>
+                <th style="min-width: 20px">
+                    @Html.DisplayName("Heure RDV")
+                </th>
+                <th style="min-width: 20px">
+                    @Html.DisplayName("Surnombre")
+                </th>
+                <th>
+                    @Html.DisplayName("Site")
+                </th>
+                <th style="min-width: 20px">
+                    @Html.DisplayName("Langue")
+                </th>
+                <th style="min-width: 20px">
+                    @Html.DisplayName("Présent")
+                </th>
+                <th style="min-width: 20px">
+                    @Html.DisplayName("Type usager")
+                </th>
+                <th style="min-width: 20px">
+                    @Html.DisplayName("Matricule")
+                </th>
+                <th style="min-width: 20px">
+                    @Html.DisplayName("Priorité")
+                </th>
+                <th class="hidden">
+                    @Html.DisplayName("Couleur")
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Commentaire)
+                </th>
+                <th style="min-width: 20px">
+                    @Html.DisplayName("Créé par")
+                </th>
+                <th style="min-width: 20px">
+                    @Html.DisplayName("Créé le")
+                </th>
+                <th style="min-width: 20px">
+                    @Html.DisplayName("modifié par")
+                </th>
+                <th style="min-width: 20px">
+                    @Html.DisplayName("modifié le")
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.OrderByDescending(m => m.ID))
+            {
+                var sex = "";
+                var surnomb = "";
+                var rowColor = "";
+                var etat = "";
+                var classe = "";
+                if (item.Statut == "I")
+                {
+                    rowColor = "#F08080";
+                    etat = "Activer";
+                    classe = "fa fa-unlock";
+                }
+                else
+                {
+                    rowColor = "#FFFFFF";
+                    etat = "Desactiver";
+                    classe = "glyphicon glyphicon-lock";
+                };
+                string reference = item.ID.ToString();
+                reference = reference.PadLeft(6, '0');
+
+                <tr style="background-color:@rowColor" id="@(String.Format("pr{0}", @item.ID))">
+                    <td style="max-width:120px">
+                        <div class="row">
+                            <div class="col-2 col-md-2" title="Éditer">
+                                @Html.ActionLink(" ", "Edit", new { id = item.ID }, new { @class = "glyphicon glyphicon-edit" })
+                            </div>
+                            <div class="col-2 col-md-2" title="Détail">
+                                @Html.ActionLink(" ", "Details", new { id = item.ID }, new { @class = "glyphicon glyphicon-list" })
+                            </div>
+                            <div class="col-2 col-md-2" title="@etat">
+                                @Html.ActionLink(" ", @etat, new { id = item.ID }, new { @class = @classe })
+                            </div>
+                            <div class="col-2 col-md-2" title="Imprimer étiquettes">
+                                <span style="cursor: pointer" class='glyphicon glyphicon-print' onclick="ClientSidePrint('pr'+ @item.ID)"></span>
+                            </div>
+                        </div>
+                    </td>
+                    <td style="text-align: center" id="@(String.Format("pr{0}", @item.ID))Ref">
+                        @reference
+                    </td>
+                    <td id="@(String.Format("pr{0}", @item.ID))Ramq">
+                        @Html.DisplayFor(modelItem => item.Ramq)
+                    </td>
+
+                    <td id="@(String.Format("pr{0}", @item.ID))Nom">
+                        @Html.DisplayFor(modelItem => item.Nom)
+                    </td>
+                    <td id="@(String.Format("pr{0}", @item.ID))Prenom">
+                        @Html.DisplayFor(modelItem => item.Prenom)
+                    </td>
+                    <td id="@(String.Format("pr{0}", @item.ID))Sexe">
+                        @{if (item.Sexe == 1) { sex = "Masculin"; } else if (item.Sexe == 2) { sex = "Féminin"; } else if (item.Sexe == 3) { sex = "Inconnu"; } }
+                        @sex
+                    </td>
+
+                    <td id="@(String.Format("pr{0}", @item.ID))Dnaissance">
+                        @Html.DisplayFor(modelItem => item.DateNaissance)
+                    </td>
+                    <td id="@(String.Format("pr{0}", @item.ID))Cp">
+                        @Html.DisplayFor(modelItem => item.CodePostal)
+                    </td>
+                    <td id="@(String.Format("pr{0}", @item.ID))Tel">
+                        @Html.DisplayFor(modelItem => item.Telephone)
+                    </td>
+                    <td id="@(String.Format("pr{0}", @item.ID))Courriel">
+                        @Html.DisplayFor(modelItem => item.Courriel)
+                    </td>
+                    <td id="@(String.Format("pr{0}", @item.ID))DateRDV">
+                        @Html.DisplayFor(x => item.DateRdv)
+                    </td>
+                    <td id="@(String.Format("pr{0}", @item.ID))HeureRdv">
+                        @Html.DisplayFor(modelItem => item.HeureRdv)
+                    </td>
+                    <td id="@(String.Format("pr{0}", @item.ID))SurNombre">
+                        @{if (item.SurNombre == "N") { surnomb = "Non"; } else { surnomb = "Oui"; }  }
+                        @surnomb
+                    </td>
+                    <td style="text-align: center" id="@(String.Format("pr{0}", @item.ID))Site">
+                        @Html.DisplayFor(modelItem => item.Sites.NomSite)
+                    </td>
+                    <td id="@(String.Format("pr{0}", @item.ID))Langue">
+                        @{if (item.Langue == "F") { surnomb = "Français"; } else { surnomb = "Anglais"; }  }
+                        @surnomb
+                    </td>
+                    <td id="@(String.Format("pr{0}", @item.ID))Presence">
+                        @{if (item.Presence == "O") { surnomb = "Oui"; } else { surnomb = "Non"; }  }
+                        @surnomb
+                    </td>
+                    <td id="@(String.Format("pr{0}", @item.ID))TypeUsager">
+                        @Html.DisplayFor(modelItem => item.TypeUsagers.NomTypeUsager  )
+                    </td>
+                    <td id="@(String.Format("pr{0}", @item.ID))Matricule">
+                        @Html.DisplayFor(modelItem => item.Matricule)
+                    </td>
+                    <td id="@(String.Format("pr{0}", @item.ID))NomPriorite">
+                        @Html.DisplayFor(modelItem => item.Priorites.NomPriorite)
+                    </td>
+                    <td id="@(String.Format("pr{0}", @item.ID))CouleurPriorite" class="hidden">
+                        @Html.DisplayFor(modelItem => item.Priorites.CouleurPriorite)
+                    </td>
+                    <td id="@(String.Format("pr{0}", @item.ID))Cemmentaire">
+                        @Html.DisplayFor(modelItem => item.Commentaire)
+                    </td>
+                    <td id="@(String.Format("pr{0}", @item.ID))CreatedBy">
+                        @Html.DisplayFor(modelItem => item.CreatedBy)
+                    </td>
+                    <td id="@(String.Format("pr{0}", @item.ID))CreatedOn">
+                        @Html.DisplayFor(modelItem => item.CreatedOn)
+                    </td>
+                    <td id="@(String.Format("pr{0}", @item.ID))ModifiedBy">
+                        @Html.DisplayFor(modelItem => item.ModifiedBy)
+                    </td>
+                    <td id="@(String.Format("pr{0}", @item.ID))LastModifiedOn">
+                        @Html.DisplayFor(modelItem => item.LastModifiedOn)
+                    </td>
+                    <td id="@(String.Format("pr{0}", @item.ID))LastModifiedOn">
+                        @Html.DisplayFor(modelItem => item.TypePrelevements.NomTypePrelevement )
+                    </td>
+                </tr>
+                            }
+        </tbody>
+    </table>
+</div>
+
+
+
+    <script>
+        function ClientSidePrint(id) {
+            var dateServer = "";
+            @*dateServer = "@DateTime.Now.ToLocalTime()";*@
+            var date = new Date();
+            $.ajax(
+               {
+                   type: "POST",
+                   url: "/Demandes/GetTimeNow",
+                   contentType: "application/json; charset=utf-8",
+                   data: "{ 'MyDate': " + date.getTimezoneOffset() + " }",
+                   success: function (Data) {
+                       dateServer = Data.message;
+                       var trinfo = document.getElementById(id);
+                       var info = "#";
+                       var ID = trinfo.cells[1].innerText;
+                       var Nom = trinfo.cells[3].innerText;
+                       var Prenom = trinfo.cells[4].innerText;
+                       var DateNaissance = trinfo.cells[6].innerText;
+                       var CodePostal = trinfo.cells[7].innerText;
+                       var NAM = trinfo.cells[2].innerText;
+                       var Telephone = trinfo.cells[8].innerText;
+                       var Courriel = trinfo.cells[9].innerText;
+                       var DateRdv = trinfo.cells[10].innerText;
+                       var HeureRdv = trinfo.cells[11].innerText;
+                       var Site = trinfo.cells[13].innerText;
+                       var TypeUsager = trinfo.cells[16].innerText;
+                       var Matricule = trinfo.cells[17].innerText;
+                       var Priorite = trinfo.cells[18].innerText;
+                       
+                       Priorite = Priorite != '' ? "Priorité: " + Priorite : '';
+                       var couleurPriorite = trinfo.cells[19].innerText;
+                       couleurPriorite = couleurPriorite.replace(/[()\n\r]+|[\s]{2,}/g, '');
+                       couleurPriorite = couleurPriorite != '' ? (' (' + couleurPriorite.toUpperCase() + ')') : '';
+
+                       var ImageCalendrier = document.getElementById("myImage").src;
+
+                       var content =
+                             '<table  class= "table table-bordered" style="width:100%">' +
+                             '<thead>' +
+                             '<tr>' +
+                               '<th style="width:50%;text-align:left; font-size: 18px;">' + (TypeUsager != 'SAD' ? dateServer : DateRdv + ' ' + HeureRdv) + '</th>' +
+                               '<th style="width:50%; font-size: 18px;text-align:right">' + 'COVID-19' + '</th>' +
+                             '</tr>' +
+                             '</thead>' +
+                             '<tbody>' +
+                              '<tr>' +
+                               '<td style="font-size: 13px;">' + Site + '</td>' +
+                              '<td style="font-size: 13px;text-align:right">' + Priorite + couleurPriorite + '</td>' +
+                             '</tr>' +
+                             '<tr>' +
+                             '<td colspan="2">' +
+                               '<hr />' +
+                             '</td>' +
+                             '</tr>' +
+                             '<tr>' +
+                               '<td style="font-size: 13px;">' + "#" + pad(ID, 7) + '</td>' +
+                               '<td style="font-size: 13px;text-align:right">' + NAM + '</td>' +
+                             '</tr>' +
+                             '<tr style="white-space: nowrap">' +
+                               '<td colspan="2">' + Nom + '&nbsp;&nbsp;&nbsp;' + Prenom + '</td>' +
+                             '</tr>' +
+                              '<tr>' +
+                               '<td style="font-size: 13px;">  ' + (DateNaissance != '' ? "Né(e) le: " + DateNaissance : '') + '</td>' +
+                                '<td style="font-size: 13px;text-align:right;">' + (Matricule != '' ? TypeUsager + ":#" + Matricule : TypeUsager) + '</td>' +
+                              '</tr>' +
+                              '<tr>' +
+                               '<td style="font-size: 13px;"> ' + (CodePostal != '' ? "CP: " + CodePostal : '') + '</td>' +
+                               '<td style="font-size: 13px;text-align:right">' + (Telephone != '' ? "Tél: " + Telephone : '') + '</td>' +
+                             '</tr>' +
+                              '<tr>' +
+                               '<td style="font-size: 13px;">' + Courriel + '</td>' +
+                               '<td></td>' +
+                             '</tr>' +
+                             '</tbody>' +
+                             '</table>'
+                       ;
+
+
+                       var content1 =
+                             '<table  class= "table table-bordered" style="width:100%">' +
+                             '<thead>' +
+                             '<tr>' +
+                               '<th style="width:50%;text-align:left; font-size: 18px;">' + (TypeUsager != 'SAD' ? dateServer : DateRdv + ' ' + HeureRdv) + '&nbsp;&nbsp;';
+
+                       var content2 = '</th>' +
+                               '<th style="width:50%; font-size: 18px;text-align:right">' + 'COVID-19' + '</th>' +
+                             '</tr>' +
+                             '</thead>' +
+                             '<tbody>' +
+                              '<tr>' +
+                               '<td style="font-size: 13px;">' + Site + '</td>' +
+                              '<td style="font-size: 13px;text-align:right">' + Priorite + couleurPriorite + '</td>' +
+                             '</tr>' +
+                             '<tr>' +
+                             '<td colspan="2">' +
+                               '<hr />' +
+                             '</td>' +
+                             '</tr>' +
+                             '<tr>' +
+                               '<td style="font-size: 13px;">' + "#" + pad(ID, 7) + '</td>' +
+                               '<td style="font-size: 13px;text-align:right">' + NAM + '</td>' +
+                             '</tr>' +
+                             '<tr style="white-space: nowrap">' +
+                               '<td colspan="2">' + Nom + '&nbsp;&nbsp;&nbsp;' + Prenom + '</td>' +
+                             '</tr>' +
+                              '<tr>' +
+                               '<td style="font-size: 13px;">  ' + (DateNaissance != '' ? "Né(e) le: " + DateNaissance : '') + '</td>' +
+                                '<td style="font-size: 13px;text-align:right;">' + (Matricule != '' ? TypeUsager + ":#" + Matricule : TypeUsager) + '</td>' +
+                              '</tr>' +
+                              '<tr>' +
+                               '<td style="font-size: 13px;"> ' + (CodePostal != '' ? "CP: " + CodePostal : '') + '</td>' +
+                               '<td style="font-size: 13px;text-align:right">' + (Telephone != '' ? "Tél: " + Telephone : '') + '</td>' +
+                             '</tr>' +
+                              '<tr>' +
+                               '<td style="font-size: 13px;">' + Courriel + '</td>' +
+                               '<td></td>' +
+                             '</tr>' +
+                             '</tbody>' +
+                             '</table>';
+
+
+                       var w = 770;
+                       var h = 400;
+                       var l = (window.screen.availWidth - w) / 2;
+                       var t = (window.screen.availHeight - h) / 2;
+                       var sOption = "toolbar=no,location=no,directories=no,menubar=no,scrollbars=yes,width=" + w + ",height=" + h + ",left=" + l + ",top=" + t;
+                       var objWindow = window.open("LabelPrint.aspx", "Print", sOption);
+
+
+
+                       if (TypeUsager == 'SAD') {
+                           objWindow.document.write(content1 + ' <img src="' + ImageCalendrier + '" onload="window.print();window.close()" />' + content2);
+                       }
+                       else {
+                           objWindow.document.write(content1 + content2);
+                           objWindow.document.close();
+                           objWindow.print();
+                           objWindow.close();
+                       }
+
+
+
+
+                     //  objWindow.document.write(content);
+                     //  objWindow.document.close();
+                     //  objWindow.print();
+                     //  objWindow.close();
+                      
+                   },
+                   error: function () {
+                       //error
+                   }
+               });
+        }
+
+
+        function pad(n, width, z) {
+            z = z || '0';
+            n = n + '';
+            return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
+        }
+    </script>
+    <script>
+        $('#covid-data-table').DataTable({
+            "dom": '<"top"if>rt<"bottom"lp>',
+            "language": {
+                "sProcessing": "Traitement en cours ...",
+                "sLengthMenu": "Afficher&nbsp;&nbsp;_MENU_&nbsp;&nbsp;lignes",
+                "sZeroRecords": "Aucun résultat trouvé",
+                "sEmptyTable": "Aucune donnée disponible",
+                "sInfo": "Lignes _START_ à _END_ sur _TOTAL_",
+                "sInfoEmpty": "Aucune ligne affichée",
+                "sInfoFiltered": "(Filtrer un maximum de_MAX_)",
+                "sInfoPostFix": "",
+                "sSearch": "Rechercher:",
+                "sUrl": "",
+                "sInfoThousands": ",",
+                "sLoadingRecords": "Chargement...",
+                "oPaginate": {
+                    "sFirst": "Premier", "sLast": "Dernier", "sNext": "Suivant", "sPrevious": "Précédent"
+                },
+                "oAria": {
+                    "sSortAscending": ": Trier par ordre croissant", "sSortDescending": ": Trier par ordre décroissant"
+                }
+            }
+        });
+    </script>
+
+    @*<script>
+            $(document).ready(function () {
+                $(".move").animate({ marginLeft: "-300px" }, 0);
+            });
+        </script>*@
+
+
+

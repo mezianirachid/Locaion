@@ -1,0 +1,106 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="DataSet_Facture_Locataire" targetNamespace="http://tempuri.org/DataSet_Facture_Locataire.xsd" xmlns:mstns="http://tempuri.org/DataSet_Facture_Locataire.xsd" xmlns="http://tempuri.org/DataSet_Facture_Locataire.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections>
+          <Connection AppSettingsObjectName="Web.config" AppSettingsPropertyName="DefaultConnection" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="DefaultConnection (Web.config)" ParameterPrefix="@" PropertyReference="AppConfig.System.Configuration.ConfigurationManager.0.ConnectionStrings.DefaultConnection.ConnectionString" Provider="System.Data.SqlClient" />
+        </Connections>
+        <Tables>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="v_Factures_LocataireTableAdapter" GeneratorDataComponentClassName="v_Factures_LocataireTableAdapter" Name="v_Factures_Locataire" UserDataComponentName="v_Factures_LocataireTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="DefaultConnection (Web.config)" DbObjectName="Location.dbo.v_Factures_Locataire" DbObjectType="View" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>select * from v_Factures_Locataire</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="NumeroFacture" DataSetColumn="NumeroFacture" />
+              <Mapping SourceColumn="Adresse" DataSetColumn="Adresse" />
+              <Mapping SourceColumn="NomCompletLocataire" DataSetColumn="NomCompletLocataire" />
+              <Mapping SourceColumn="NomCompletCoLocataire" DataSetColumn="NomCompletCoLocataire" />
+              <Mapping SourceColumn="Annee" DataSetColumn="Annee" />
+              <Mapping SourceColumn="Mois" DataSetColumn="Mois" />
+              <Mapping SourceColumn="DatePayement" DataSetColumn="DatePayement" />
+              <Mapping SourceColumn="LieuPayement" DataSetColumn="LieuPayement" />
+              <Mapping SourceColumn="Description" DataSetColumn="Description" />
+              <Mapping SourceColumn="Prix" DataSetColumn="Prix" />
+              <Mapping SourceColumn="Montant" DataSetColumn="Montant" />
+              <Mapping SourceColumn="NomMoyenPayement" DataSetColumn="NomMoyenPayement" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+        </Tables>
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="DataSet_Facture_Locataire" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="DataSet_Facture_Locataire" msprop:Generator_UserDSName="DataSet_Facture_Locataire">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="v_Factures_Locataire" msprop:Generator_TableClassName="v_Factures_LocataireDataTable" msprop:Generator_TableVarName="tablev_Factures_Locataire" msprop:Generator_TablePropName="v_Factures_Locataire" msprop:Generator_RowDeletingName="v_Factures_LocataireRowDeleting" msprop:Generator_RowChangingName="v_Factures_LocataireRowChanging" msprop:Generator_RowEvHandlerName="v_Factures_LocataireRowChangeEventHandler" msprop:Generator_RowDeletedName="v_Factures_LocataireRowDeleted" msprop:Generator_UserTableName="v_Factures_Locataire" msprop:Generator_RowChangedName="v_Factures_LocataireRowChanged" msprop:Generator_RowEvArgName="v_Factures_LocataireRowChangeEvent" msprop:Generator_RowClassName="v_Factures_LocataireRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="NumeroFacture" msprop:Generator_ColumnVarNameInTable="columnNumeroFacture" msprop:Generator_ColumnPropNameInRow="NumeroFacture" msprop:Generator_ColumnPropNameInTable="NumeroFactureColumn" msprop:Generator_UserColumnName="NumeroFacture" type="xs:int" />
+              <xs:element name="Adresse" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnAdresse" msprop:Generator_ColumnPropNameInRow="Adresse" msprop:Generator_ColumnPropNameInTable="AdresseColumn" msprop:Generator_UserColumnName="Adresse" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="602" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="NomCompletLocataire" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnNomCompletLocataire" msprop:Generator_ColumnPropNameInRow="NomCompletLocataire" msprop:Generator_ColumnPropNameInTable="NomCompletLocataireColumn" msprop:Generator_UserColumnName="NomCompletLocataire" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="202" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="NomCompletCoLocataire" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnNomCompletCoLocataire" msprop:Generator_ColumnPropNameInRow="NomCompletCoLocataire" msprop:Generator_ColumnPropNameInTable="NomCompletCoLocataireColumn" msprop:Generator_UserColumnName="NomCompletCoLocataire" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="202" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Annee" msprop:Generator_ColumnVarNameInTable="columnAnnee" msprop:Generator_ColumnPropNameInRow="Annee" msprop:Generator_ColumnPropNameInTable="AnneeColumn" msprop:Generator_UserColumnName="Annee" type="xs:int" minOccurs="0" />
+              <xs:element name="Mois" msprop:Generator_ColumnVarNameInTable="columnMois" msprop:Generator_ColumnPropNameInRow="Mois" msprop:Generator_ColumnPropNameInTable="MoisColumn" msprop:Generator_UserColumnName="Mois" type="xs:int" minOccurs="0" />
+              <xs:element name="DatePayement" msprop:Generator_ColumnVarNameInTable="columnDatePayement" msprop:Generator_ColumnPropNameInRow="DatePayement" msprop:Generator_ColumnPropNameInTable="DatePayementColumn" msprop:Generator_UserColumnName="DatePayement" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="LieuPayement" msprop:Generator_ColumnVarNameInTable="columnLieuPayement" msprop:Generator_ColumnPropNameInRow="LieuPayement" msprop:Generator_ColumnPropNameInTable="LieuPayementColumn" msprop:Generator_UserColumnName="LieuPayement" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Description" msprop:Generator_ColumnVarNameInTable="columnDescription" msprop:Generator_ColumnPropNameInRow="Description" msprop:Generator_ColumnPropNameInTable="DescriptionColumn" msprop:Generator_UserColumnName="Description" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="500" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Prix" msprop:Generator_ColumnVarNameInTable="columnPrix" msprop:Generator_ColumnPropNameInRow="Prix" msprop:Generator_ColumnPropNameInTable="PrixColumn" msprop:Generator_UserColumnName="Prix" type="xs:decimal" minOccurs="0" />
+              <xs:element name="Montant" msprop:Generator_ColumnVarNameInTable="columnMontant" msprop:Generator_ColumnPropNameInRow="Montant" msprop:Generator_ColumnPropNameInTable="MontantColumn" msprop:Generator_UserColumnName="Montant" type="xs:decimal" minOccurs="0" />
+              <xs:element name="NomMoyenPayement" msprop:Generator_ColumnVarNameInTable="columnNomMoyenPayement" msprop:Generator_ColumnPropNameInRow="NomMoyenPayement" msprop:Generator_ColumnPropNameInTable="NomMoyenPayementColumn" msprop:Generator_UserColumnName="NomMoyenPayement" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:v_Factures_Locataire" />
+      <xs:field xpath="mstns:NumeroFacture" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>

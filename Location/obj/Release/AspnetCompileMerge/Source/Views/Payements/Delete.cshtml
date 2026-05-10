@@ -1,0 +1,77 @@
+﻿@model Location.DAL.Payements
+
+@{
+    ViewBag.Title = "Supprimer le paiement";
+}
+
+<h2 class="mb-4">
+    <i class="fas fa-trash-alt me-2 text-danger"></i>Supprimer le paiement
+</h2>
+
+@Html.ValidationSummary(true, "", new { @class = "alert alert-danger" })
+
+<h3 class="mb-3 text-danger">Êtes-vous sûr de vouloir supprimer ce paiement ?</h3>
+
+<div class="card shadow-lg border-0">
+    <div class="card-header bg-danger text-white py-3">
+        <h4 class="mb-0">Paiement du @(Model.DatePayement.HasValue ? Model.DatePayement.Value.ToString("dd MMMM yyyy") : "date inconnue")</h4>
+    </div>
+    <div class="card-body p-4">
+        <dl class="row">
+            <dt class="col-sm-4 col-lg-3 fw-bold">Bail</dt>
+            <dd class="col-sm-8 col-lg-9">
+                @if (Model.Baux != null)
+                {
+                    <span>@Model.Baux.NumeroBail - @(Model.Baux.Locataires != null ? Model.Baux.Locataires.NomLocataire + " " + Model.Baux.Locataires.PrenomLocataire : "")</span>
+                }
+                else
+                {
+                    <span class="text-muted">-</span>
+                }
+            </dd>
+
+            <dt class="col-sm-4 col-lg-3 fw-bold">Période</dt>
+            <dd class="col-sm-8 col-lg-9">
+                @if (Model.Mois.HasValue)
+                {
+                    @System.Globalization.DateTimeFormatInfo.CurrentInfo.GetMonthName(Model.Mois.Value) @Model.Annee
+                }
+                else
+                {
+                    @Model.Annee
+                }
+            </dd>
+
+            <dt class="col-sm-4 col-lg-3 fw-bold">Montant</dt>
+            <dd class="col-sm-8 col-lg-9"><span class="fw-bold">@Html.DisplayFor(model => model.Montant) $</span></dd>
+
+            <dt class="col-sm-4 col-lg-3 fw-bold">Statut</dt>
+            <dd class="col-sm-8 col-lg-9">
+                @if (Model.Statut == "A")
+                {
+                    <span class="badge bg-success">Payé</span>
+                }
+                else if (Model.Statut == "E")
+                {
+                    <span class="badge bg-warning text-dark">En attente</span>
+                }
+                else if (Model.Statut == "I")
+                {
+                    <span class="badge bg-secondary">Annulé</span>
+                }
+                else
+                {
+                    <span class="badge bg-info">@Model.Statut</span>
+                }
+            </dd>
+        </dl>
+    </div>
+    <div class="card-footer bg-light py-3">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            <button type="submit" class="btn btn-danger px-4"><i class="fas fa-trash-alt me-2"></i>Confirmer la suppression</button>
+            @Html.ActionLink("Annuler", "Index", null, new { @class = "btn btn-outline-secondary px-4" })
+        }
+    </div>
+</div>

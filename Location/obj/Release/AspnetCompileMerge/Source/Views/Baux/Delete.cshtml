@@ -1,0 +1,119 @@
+﻿@model Location.DAL.Baux
+
+@{
+    ViewBag.Title = "Supprimer le bail";
+}
+
+<h2 class="mb-4">
+    <i class="fas fa-trash-alt me-2 text-danger"></i>Supprimer le bail
+</h2>
+
+@Html.ValidationSummary(true, "", new { @class = "alert alert-danger" })
+
+@{
+    bool hasDependencies = (ViewBag.NbPaiements > 0) || (ViewBag.NbAppareils > 0) || (ViewBag.NbMeubles > 0) || (ViewBag.NbAutres > 0);
+}
+
+@if (hasDependencies)
+{
+    <div class="alert alert-warning">
+        <strong>Impossible de supprimer ce bail</strong> car il est associé aux éléments suivants :
+        <ul class="mt-2">
+            @if (ViewBag.NbPaiements > 0)
+            {
+                <li>@ViewBag.NbPaiements paiement(s)</li>
+}
+            @if (ViewBag.NbAppareils > 0)
+            {
+                <li>@ViewBag.NbAppareils inclusion(s) d'appareils</li>
+}
+            @if (ViewBag.NbMeubles > 0)
+            {
+                <li>@ViewBag.NbMeubles inclusion(s) de meubles</li>
+}
+            @if (ViewBag.NbAutres > 0)
+            {
+                <li>@ViewBag.NbAutres autre(s) inclusion(s)</li>
+}
+        </ul>
+        Veuillez d'abord supprimer ces dépendances.
+    </div>
+}
+
+<h3 class="mb-3">Êtes-vous sûr de vouloir supprimer ce bail ?</h3>
+
+<div class="card shadow-sm">
+    <div class="card-header bg-danger text-white">
+        <h4 class="mb-0">Bail n° @Model.NumeroBail</h4>
+    </div>
+    <div class="card-body">
+        <dl class="row">
+            <dt class="col-sm-4 col-md-3 fw-bold">Appartement</dt>
+            <dd class="col-sm-8 col-md-9">@Html.DisplayFor(model => model.Appartements.AdresseAppartement)</dd>
+
+            <dt class="col-sm-4 col-md-3 fw-bold">Locataire principal</dt>
+            <dd class="col-sm-8 col-md-9">
+                @if (Model.Locataires != null)
+                {
+                    @Model.Locataires.NomLocataire @Model.Locataires.PrenomLocataire
+                }
+                else
+                {
+                    <span class="text-muted">-</span>
+                }
+            </dd>
+
+            <dt class="col-sm-4 col-md-3 fw-bold">Co‑locataire</dt>
+            <dd class="col-sm-8 col-md-9">
+                @if (Model.Locataires1 != null)
+                {
+                    @Model.Locataires1.NomLocataire @Model.Locataires1.PrenomLocataire
+                }
+                else
+                {
+                    <span class="text-muted">-</span>
+                }
+            </dd>
+
+            <dt class="col-sm-4 col-md-3 fw-bold">Date début</dt>
+            <dd class="col-sm-8 col-md-9">@Html.DisplayFor(model => model.DateDebut)</dd>
+
+            <dt class="col-sm-4 col-md-3 fw-bold">Date fin</dt>
+            <dd class="col-sm-8 col-md-9">@Html.DisplayFor(model => model.DateFin)</dd>
+
+            <dt class="col-sm-4 col-md-3 fw-bold">Loyer</dt>
+            <dd class="col-sm-8 col-md-9">@Html.DisplayFor(model => model.Prix) $</dd>
+
+            <dt class="col-sm-4 col-md-3 fw-bold">Statut</dt>
+            <dd class="col-sm-8 col-md-9">
+                @if (Model.StatutBaux == "A")
+                {
+                    <span class="badge bg-success">Actif</span>
+                }
+                else if (Model.StatutBaux == "I")
+                {
+                    <span class="badge bg-secondary">Inactif</span>
+                }
+                else
+                {
+                    <span class="badge bg-warning">@Model.StatutBaux</span>
+                }
+            </dd>
+        </dl>
+    </div>
+    <div class="card-footer">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            if (hasDependencies)
+            {
+                <button type="submit" class="btn btn-danger" disabled><i class="fas fa-trash-alt me-1"></i>Suppression impossible</button>
+            }
+            else
+            {
+                <button type="submit" class="btn btn-danger"><i class="fas fa-trash-alt me-1"></i>Confirmer la suppression</button>
+            }
+            @Html.ActionLink("Annuler", "Index", null, new { @class = "btn btn-secondary" })
+        }
+    </div>
+</div>

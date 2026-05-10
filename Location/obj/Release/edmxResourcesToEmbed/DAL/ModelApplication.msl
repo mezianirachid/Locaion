@@ -1,0 +1,415 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="LocationModelStoreContainer" CdmEntityContainer="ApplicationConnection">
+    <EntitySetMapping Name="C__MigrationHistory">
+      <EntityTypeMapping TypeName="LocationModel.C__MigrationHistory">
+        <MappingFragment StoreEntitySet="__MigrationHistory">
+          <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
+          <ScalarProperty Name="Model" ColumnName="Model" />
+          <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
+          <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Appareils">
+      <EntityTypeMapping TypeName="LocationModel.Appareils">
+        <MappingFragment StoreEntitySet="Appareils">
+          <ScalarProperty Name="StatutAppareil" ColumnName="StatutAppareil" />
+          <ScalarProperty Name="DescriptionAppareil" ColumnName="DescriptionAppareil" />
+          <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="NomAppareil" ColumnName="NomAppareil" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Appartements">
+      <EntityTypeMapping TypeName="LocationModel.Appartements">
+        <MappingFragment StoreEntitySet="Appartements">
+          <ScalarProperty Name="PrixPublic" ColumnName="PrixPublic" />
+          <ScalarProperty Name="Images" ColumnName="Images" />
+          <ScalarProperty Name="Badge" ColumnName="Badge" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Titre" ColumnName="Titre" />
+          <ScalarProperty Name="Superficie" ColumnName="Superficie" />
+          <ScalarProperty Name="TypeAppartementId" ColumnName="TypeAppartementId" />
+          <ScalarProperty Name="TypeChauffage" ColumnName="TypeChauffage" />
+          <ScalarProperty Name="StatutAppartement" ColumnName="StatutAppartement" />
+          <ScalarProperty Name="NumeroEtage" ColumnName="NumeroEtage" />
+          <ScalarProperty Name="ImmeubleId" ColumnName="ImmeubleId" />
+          <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="Orientation" ColumnName="Orientation" />
+          <ScalarProperty Name="nbGarages" ColumnName="nbGarages" />
+          <ScalarProperty Name="nbStationnementsInt" ColumnName="nbStationnementsInt" />
+          <ScalarProperty Name="nbStationnementsExt" ColumnName="nbStationnementsExt" />
+          <ScalarProperty Name="nbBalcons" ColumnName="nbBalcons" />
+          <ScalarProperty Name="Annee" ColumnName="Annee" />
+          <ScalarProperty Name="ChauffeOuiNon" ColumnName="ChauffeOuiNon" />
+          <ScalarProperty Name="NbEtages" ColumnName="NbEtages" />
+          <ScalarProperty Name="NbSalleBain" ColumnName="NbSalleBain" />
+          <ScalarProperty Name="AdresseAppartement" ColumnName="AdresseAppartement" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetRoles">
+      <EntityTypeMapping TypeName="LocationModel.AspNetRoles">
+        <MappingFragment StoreEntitySet="AspNetRoles">
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetUserClaims">
+      <EntityTypeMapping TypeName="LocationModel.AspNetUserClaims">
+        <MappingFragment StoreEntitySet="AspNetUserClaims">
+          <ScalarProperty Name="ClaimValue" ColumnName="ClaimValue" />
+          <ScalarProperty Name="ClaimType" ColumnName="ClaimType" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetUserLogins">
+      <EntityTypeMapping TypeName="LocationModel.AspNetUserLogins">
+        <MappingFragment StoreEntitySet="AspNetUserLogins">
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
+          <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetUsers">
+      <EntityTypeMapping TypeName="LocationModel.AspNetUsers">
+        <MappingFragment StoreEntitySet="AspNetUsers">
+          <ScalarProperty Name="Prenom" ColumnName="Prenom" />
+          <ScalarProperty Name="Nom" ColumnName="Nom" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
+          <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
+          <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
+          <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
+          <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
+          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+          <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+          <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+          <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AutresObjets">
+      <EntityTypeMapping TypeName="LocationModel.AutresObjets">
+        <MappingFragment StoreEntitySet="AutresObjets">
+          <ScalarProperty Name="Statut" ColumnName="Statut" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="Nom" ColumnName="Nom" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Baux">
+      <EntityTypeMapping TypeName="LocationModel.Baux">
+        <MappingFragment StoreEntitySet="Baux">
+          <ScalarProperty Name="DateResiliation" ColumnName="DateResiliation" />
+          <ScalarProperty Name="CoLocataireId" ColumnName="CoLocataireId" />
+          <ScalarProperty Name="DateFinEffective" ColumnName="DateFinEffective" />
+          <ScalarProperty Name="DateDebutEffective" ColumnName="DateDebutEffective" />
+          <ScalarProperty Name="Charges" ColumnName="Charges" />
+          <ScalarProperty Name="MoyenPayementId" ColumnName="MoyenPayementId" />
+          <ScalarProperty Name="StatutBaux" ColumnName="StatutBaux" />
+          <ScalarProperty Name="DatePayement" ColumnName="DatePayement" />
+          <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="Observation" ColumnName="Observation" />
+          <ScalarProperty Name="DateRevision" ColumnName="DateRevision" />
+          <ScalarProperty Name="DateOccupation" ColumnName="DateOccupation" />
+          <ScalarProperty Name="MontantDepot" ColumnName="MontantDepot" />
+          <ScalarProperty Name="TailleGazon" ColumnName="TailleGazon" />
+          <ScalarProperty Name="Deneigement" ColumnName="Deneigement" />
+          <ScalarProperty Name="AppareilsInclus" ColumnName="AppareilsInclus" />
+          <ScalarProperty Name="MeublesInclus" ColumnName="MeublesInclus" />
+          <ScalarProperty Name="Autre" ColumnName="Autre" />
+          <ScalarProperty Name="RemiseEspaceRangenment" ColumnName="RemiseEspaceRangenment" />
+          <ScalarProperty Name="Emplacement" ColumnName="Emplacement" />
+          <ScalarProperty Name="NbPlacesInt" ColumnName="NbPlacesInt" />
+          <ScalarProperty Name="StationnementInt" ColumnName="StationnementInt" />
+          <ScalarProperty Name="NbPlacesExt" ColumnName="NbPlacesExt" />
+          <ScalarProperty Name="StationnementExt" ColumnName="StationnementExt" />
+          <ScalarProperty Name="DateFin" ColumnName="DateFin" />
+          <ScalarProperty Name="DateDebut" ColumnName="DateDebut" />
+          <ScalarProperty Name="ReglementImmeuble" ColumnName="ReglementImmeuble" />
+          <ScalarProperty Name="LieuPayement" ColumnName="LieuPayement" />
+          <ScalarProperty Name="Prix" ColumnName="Prix" />
+          <ScalarProperty Name="LocataireId" ColumnName="LocataireId" />
+          <ScalarProperty Name="AppartementId" ColumnName="AppartementId" />
+          <ScalarProperty Name="NumeroBail" ColumnName="NumeroBail" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Immeubles">
+      <EntityTypeMapping TypeName="LocationModel.Immeubles">
+        <MappingFragment StoreEntitySet="Immeubles">
+          <ScalarProperty Name="Autre" ColumnName="Autre" />
+          <ScalarProperty Name="Annee" ColumnName="Annee" />
+          <ScalarProperty Name="nbStationnementsInt" ColumnName="nbStationnementsInt" />
+          <ScalarProperty Name="nbStationnementsExt" ColumnName="nbStationnementsExt" />
+          <ScalarProperty Name="nbEtages" ColumnName="nbEtages" />
+          <ScalarProperty Name="Orientation" ColumnName="Orientation" />
+          <ScalarProperty Name="StatutImmeuble" ColumnName="StatutImmeuble" />
+          <ScalarProperty Name="AdresseImmeuble" ColumnName="AdresseImmeuble" />
+          <ScalarProperty Name="DescriptionImmeuble" ColumnName="DescriptionImmeuble" />
+          <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="NomImmeuble" ColumnName="NomImmeuble" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="InclusionAppareils">
+      <EntityTypeMapping TypeName="LocationModel.InclusionAppareils">
+        <MappingFragment StoreEntitySet="InclusionAppareils">
+          <ScalarProperty Name="NbAppareilsInclus" ColumnName="NbAppareilsInclus" />
+          <ScalarProperty Name="BauxId" ColumnName="BauxId" />
+          <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="Observation" ColumnName="Observation" />
+          <ScalarProperty Name="AppareilId" ColumnName="AppareilId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="InclusionAutres">
+      <EntityTypeMapping TypeName="LocationModel.InclusionAutres">
+        <MappingFragment StoreEntitySet="InclusionAutres">
+          <ScalarProperty Name="NbAutresInclus" ColumnName="NbAutresInclus" />
+          <ScalarProperty Name="BauxId" ColumnName="BauxId" />
+          <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="Observation" ColumnName="Observation" />
+          <ScalarProperty Name="AutreObjetId" ColumnName="AutreObjetId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="InclusionMeubles">
+      <EntityTypeMapping TypeName="LocationModel.InclusionMeubles">
+        <MappingFragment StoreEntitySet="InclusionMeubles">
+          <ScalarProperty Name="NbMeublesInclus" ColumnName="NbMeublesInclus" />
+          <ScalarProperty Name="BauxId" ColumnName="BauxId" />
+          <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="Observation" ColumnName="Observation" />
+          <ScalarProperty Name="MeubleId" ColumnName="MeubleId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Locataires">
+      <EntityTypeMapping TypeName="LocationModel.Locataires">
+        <MappingFragment StoreEntitySet="Locataires">
+          <ScalarProperty Name="RelationLocataireColocataire" ColumnName="RelationLocataireColocataire" />
+          <ScalarProperty Name="StatutColocataire" ColumnName="StatutColocataire" />
+          <ScalarProperty Name="SexeColocataire" ColumnName="SexeColocataire" />
+          <ScalarProperty Name="CourrielColocataire" ColumnName="CourrielColocataire" />
+          <ScalarProperty Name="TelColocataire" ColumnName="TelColocataire" />
+          <ScalarProperty Name="PrenomColocataire" ColumnName="PrenomColocataire" />
+          <ScalarProperty Name="NomColocataire" ColumnName="NomColocataire" />
+          <ScalarProperty Name="StatutLocataire" ColumnName="StatutLocataire" />
+          <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="TelContactUrgence" ColumnName="TelContactUrgence" />
+          <ScalarProperty Name="NomContactUrgence" ColumnName="NomContactUrgence" />
+          <ScalarProperty Name="CourrielLocataire" ColumnName="CourrielLocataire" />
+          <ScalarProperty Name="TelSecondaire" ColumnName="TelSecondaire" />
+          <ScalarProperty Name="TeLocataire" ColumnName="TeLocataire" />
+          <ScalarProperty Name="NASLocataire" ColumnName="NASLocataire" />
+          <ScalarProperty Name="DateNaissance" ColumnName="DateNaissance" />
+          <ScalarProperty Name="SexeLocataire" ColumnName="SexeLocataire" />
+          <ScalarProperty Name="PrenomLocataire" ColumnName="PrenomLocataire" />
+          <ScalarProperty Name="NomLocataire" ColumnName="NomLocataire" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Locateur">
+      <EntityTypeMapping TypeName="LocationModel.Locateur">
+        <MappingFragment StoreEntitySet="Locateur">
+          <ScalarProperty Name="Signature" ColumnName="Signature" />
+          <ScalarProperty Name="Statut" ColumnName="Statut" />
+          <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="Courriel" ColumnName="Courriel" />
+          <ScalarProperty Name="TelSecondaire" ColumnName="TelSecondaire" />
+          <ScalarProperty Name="TelPrincipal" ColumnName="TelPrincipal" />
+          <ScalarProperty Name="NAS" ColumnName="NAS" />
+          <ScalarProperty Name="DateNaissance" ColumnName="DateNaissance" />
+          <ScalarProperty Name="CodePostal" ColumnName="CodePostal" />
+          <ScalarProperty Name="Ville" ColumnName="Ville" />
+          <ScalarProperty Name="Adresse" ColumnName="Adresse" />
+          <ScalarProperty Name="Sexe" ColumnName="Sexe" />
+          <ScalarProperty Name="Prenom" ColumnName="Prenom" />
+          <ScalarProperty Name="Nom" ColumnName="Nom" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Meubles">
+      <EntityTypeMapping TypeName="LocationModel.Meubles">
+        <MappingFragment StoreEntitySet="Meubles">
+          <ScalarProperty Name="Statut" ColumnName="Statut" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="Nom" ColumnName="Nom" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MoyenPayements">
+      <EntityTypeMapping TypeName="LocationModel.MoyenPayements">
+        <MappingFragment StoreEntitySet="MoyenPayements">
+          <ScalarProperty Name="StatutMoyenPayement" ColumnName="StatutMoyenPayement" />
+          <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="DescriptionMoyenPayement" ColumnName="DescriptionMoyenPayement" />
+          <ScalarProperty Name="NomMoyenPayement" ColumnName="NomMoyenPayement" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Payements">
+      <EntityTypeMapping TypeName="LocationModel.Payements">
+        <MappingFragment StoreEntitySet="Payements">
+          <ScalarProperty Name="MoyenPayementId" ColumnName="MoyenPayementId" />
+          <ScalarProperty Name="Statut" ColumnName="Statut" />
+          <ScalarProperty Name="Montant" ColumnName="Montant" />
+          <ScalarProperty Name="BauxId" ColumnName="BauxId" />
+          <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="ModePayement" ColumnName="ModePayement" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="LieuPayement" ColumnName="LieuPayement" />
+          <ScalarProperty Name="DatePayement" ColumnName="DatePayement" />
+          <ScalarProperty Name="Mois" ColumnName="Mois" />
+          <ScalarProperty Name="Annee" ColumnName="Annee" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RefMessages">
+      <EntityTypeMapping TypeName="LocationModel.RefMessages">
+        <MappingFragment StoreEntitySet="RefMessages">
+          <ScalarProperty Name="Statut" ColumnName="Statut" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TypeAppartements">
+      <EntityTypeMapping TypeName="LocationModel.TypeAppartements">
+        <MappingFragment StoreEntitySet="TypeAppartements">
+          <ScalarProperty Name="StatutTypeAppartement" ColumnName="StatutTypeAppartement" />
+          <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="DescriptionTypeAppartement" ColumnName="DescriptionTypeAppartement" />
+          <ScalarProperty Name="NomTypeAppartement" ColumnName="NomTypeAppartement" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="AspNetUserRoles" TypeName="LocationModel.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
+      <EndProperty Name="AspNetUsers">
+        <ScalarProperty Name="Id" ColumnName="UserId" />
+      </EndProperty>
+      <EndProperty Name="AspNetRoles">
+        <ScalarProperty Name="Id" ColumnName="RoleId" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <EntitySetMapping Name="AppartementImages">
+      <EntityTypeMapping TypeName="LocationModel.AppartementImages">
+        <MappingFragment StoreEntitySet="AppartementImages">
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="IsPrimary" ColumnName="IsPrimary" />
+          <ScalarProperty Name="ImagePath" ColumnName="ImagePath" />
+          <ScalarProperty Name="AppartementId" ColumnName="AppartementId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="v_Factures_Locataire">
+      <EntityTypeMapping TypeName="LocationModel.v_Factures_Locataire">
+        <MappingFragment StoreEntitySet="v_Factures_Locataire">
+          <ScalarProperty Name="NomMoyenPayement" ColumnName="NomMoyenPayement" />
+          <ScalarProperty Name="Montant" ColumnName="Montant" />
+          <ScalarProperty Name="Prix" ColumnName="Prix" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="LieuPayement" ColumnName="LieuPayement" />
+          <ScalarProperty Name="DatePayement" ColumnName="DatePayement" />
+          <ScalarProperty Name="Mois" ColumnName="Mois" />
+          <ScalarProperty Name="Annee" ColumnName="Annee" />
+          <ScalarProperty Name="NomCompletCoLocataire" ColumnName="NomCompletCoLocataire" />
+          <ScalarProperty Name="NomCompletLocataire" ColumnName="NomCompletLocataire" />
+          <ScalarProperty Name="Adresse" ColumnName="Adresse" />
+          <ScalarProperty Name="NumeroFacture" ColumnName="NumeroFacture" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="V_Payements">
+      <EntityTypeMapping TypeName="LocationModel.V_Payements">
+        <MappingFragment StoreEntitySet="V_Payements">
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="NomMoyenPayement" ColumnName="NomMoyenPayement" />
+          <ScalarProperty Name="Montant" ColumnName="Montant" />
+          <ScalarProperty Name="Prix" ColumnName="Prix" />
+          <ScalarProperty Name="LieuPayement" ColumnName="LieuPayement" />
+          <ScalarProperty Name="DatePayement" ColumnName="DatePayement" />
+          <ScalarProperty Name="Mois" ColumnName="Mois" />
+          <ScalarProperty Name="Annee" ColumnName="Annee" />
+          <ScalarProperty Name="NomCompletCoLocataire" ColumnName="NomCompletCoLocataire" />
+          <ScalarProperty Name="NomCompletLocataire" ColumnName="NomCompletLocataire" />
+          <ScalarProperty Name="Adresse" ColumnName="Adresse" />
+          <ScalarProperty Name="NumeroFacture" ColumnName="NumeroFacture" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

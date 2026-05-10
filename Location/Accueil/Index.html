@@ -1,0 +1,1753 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuébecLoc - Locations d'Appartements à Québec</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        /* Reset et styles de base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        :root {
+            --primary: #005EB8;
+            --primary-dark: #00468C;
+            --secondary: #FF3131;
+            --light: #f8f9fa;
+            --dark: #333;
+            --gray: #666;
+            --transition: all 0.3s ease;
+        }
+
+        body {
+            color: var(--dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .page-section {
+            display: none;
+            padding: 100px 0;
+            min-height: 100vh;
+        }
+
+            .page-section.active {
+                display: block;
+                animation: fadeIn 0.5s ease;
+            }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Header et Navigation améliorée */
+        header {
+            background-color: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: var(--transition);
+        }
+
+            header.scrolled {
+                padding: 5px 0;
+            }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            transition: var(--transition);
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--primary);
+            font-family: 'Playfair Display', serif;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+            .logo span {
+                color: var(--secondary);
+                margin-left: 2px;
+            }
+
+            .logo i {
+                font-size: 22px;
+                margin-right: 8px;
+                color: var(--secondary);
+            }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            margin: 0 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+            .nav-links li {
+                margin: 0 15px;
+                position: relative;
+            }
+
+            .nav-links a {
+                text-decoration: none;
+                color: var(--dark);
+                font-weight: 500;
+                transition: var(--transition);
+                padding: 5px 0;
+                position: relative;
+                cursor: pointer;
+                white-space: nowrap;
+            }
+
+                .nav-links a:after {
+                    content: '';
+                    position: absolute;
+                    width: 0;
+                    height: 2px;
+                    bottom: 0;
+                    left: 0;
+                    background-color: var(--primary);
+                    transition: var(--transition);
+                }
+
+                .nav-links a:hover:after, .nav-links a.active:after {
+                    width: 100%;
+                }
+
+                .nav-links a:hover, .nav-links a.active {
+                    color: var(--primary);
+                }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--primary);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            border: 2px solid var(--primary);
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+            .btn:hover {
+                background-color: var(--primary-dark);
+                transform: translateY(-2px);
+                box-shadow: 0 5px 15px rgba(0, 94, 184, 0.2);
+            }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--primary);
+            margin-left: 15px;
+        }
+
+            .btn-outline:hover {
+                background: var(--primary);
+                color: white;
+            }
+
+        .btn-secondary {
+            background-color: var(--secondary);
+            border-color: var(--secondary);
+        }
+
+            .btn-secondary:hover {
+                background-color: #e02a2a;
+                border-color: #e02a2a;
+            }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+            .menu-toggle span {
+                width: 30px;
+                height: 3px;
+                background: var(--dark);
+                margin: 3px 0;
+                transition: var(--transition);
+                border-radius: 2px;
+            }
+
+        /* Hero Section améliorée */
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1582407947304-fd86f028f716?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            color: white;
+            text-align: center;
+            padding-top: 80px;
+        }
+
+        .hero-content {
+            max-width: 850px;
+            margin: 0 auto;
+            padding: 0 20px;
+            animation: fadeIn 1s ease;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            font-family: 'Playfair Display', serif;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 40px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .search-bar {
+            background: white;
+            border-radius: 50px;
+            padding: 5px;
+            display: flex;
+            max-width: 650px;
+            margin: 0 auto;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+        }
+
+            .search-bar input {
+                flex: 1;
+                border: none;
+                padding: 18px 25px;
+                border-radius: 50px;
+                outline: none;
+                font-size: 16px;
+            }
+
+        .search-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 18px 35px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+        }
+
+            .search-btn i {
+                margin-left: 8px;
+            }
+
+            .search-btn:hover {
+                background: var(--primary-dark);
+                transform: translateY(-2px);
+            }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            margin-top: 50px;
+            flex-wrap: wrap;
+        }
+
+        .stat {
+            margin: 0 25px;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+            color: white;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        /* Sections améliorées */
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+            .section-title h2 {
+                font-size: 2.5rem;
+                color: var(--primary);
+                margin-bottom: 15px;
+                font-family: 'Playfair Display', serif;
+            }
+
+            .section-title p {
+                color: var(--gray);
+                max-width: 600px;
+                margin: 0 auto;
+                font-size: 1.1rem;
+            }
+
+        /* Featured Apartments amélioré */
+        .apartments-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 30px;
+        }
+
+        .apartment-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+            transition: var(--transition);
+            position: relative;
+        }
+
+            .apartment-card:hover {
+                transform: translateY(-10px);
+                box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
+            }
+
+        .apartment-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: var(--secondary);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            z-index: 2;
+        }
+
+        .apartment-img {
+            height: 220px;
+            overflow: hidden;
+            position: relative;
+        }
+
+            .apartment-img img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                transition: transform 0.5s ease;
+            }
+
+        .apartment-card:hover .apartment-img img {
+            transform: scale(1.1);
+        }
+
+        .apartment-info {
+            padding: 25px;
+        }
+
+            .apartment-info h3 {
+                margin-bottom: 12px;
+                font-size: 1.4rem;
+                color: var(--dark);
+            }
+
+        .apartment-location {
+            color: var(--gray);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+            .apartment-location i {
+                margin-right: 8px;
+                color: var(--primary);
+            }
+
+        .apartment-price {
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+
+        .apartment-features {
+            display: flex;
+            justify-content: space-between;
+            border-top: 1px solid #eee;
+            padding-top: 15px;
+            margin-top: 15px;
+        }
+
+        .feature {
+            display: flex;
+            align-items: center;
+            font-size: 0.9rem;
+        }
+
+            .feature i {
+                margin-right: 5px;
+                color: var(--primary);
+            }
+
+        /* View More Button */
+        .view-more {
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        /* Villes Section */
+        .neighbourhoods-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .neighbourhood-card {
+            position: relative;
+            height: 250px;
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+        }
+
+            .neighbourhood-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            }
+
+            .neighbourhood-card img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                transition: transform 0.5s;
+            }
+
+            .neighbourhood-card:hover img {
+                transform: scale(1.1);
+            }
+
+        .neighbourhood-name {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+            color: white;
+            padding: 20px;
+            font-weight: 500;
+        }
+
+        /* About Section */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .about-img {
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+            .about-img img {
+                width: 100%;
+                height: auto;
+                display: block;
+            }
+
+        .about-text h3 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+
+        .about-text p {
+            margin-bottom: 20px;
+            color: var(--gray);
+        }
+
+        .about-features {
+            margin-top: 30px;
+        }
+
+        .about-feature {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+            .about-feature i {
+                color: var(--primary);
+                font-size: 1.2rem;
+                margin-right: 15px;
+                background: rgba(0, 94, 184, 0.1);
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+        /* Contact Section */
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+        }
+
+        .contact-info {
+            background: var(--light);
+            padding: 40px;
+            border-radius: 12px;
+        }
+
+            .contact-info h3 {
+                font-size: 1.5rem;
+                margin-bottom: 25px;
+                color: var(--primary);
+            }
+
+        .contact-detail {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+            .contact-detail i {
+                color: var(--primary);
+                font-size: 1.2rem;
+                margin-right: 15px;
+                background: rgba(0, 94, 184, 0.1);
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+        .contact-form {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+        }
+
+            .contact-form h3 {
+                font-size: 1.5rem;
+                margin-bottom: 25px;
+                color: var(--primary);
+            }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+            .form-group label {
+                display: block;
+                margin-bottom: 8px;
+                font-weight: 500;
+            }
+
+            .form-group input,
+            .form-group textarea,
+            .form-group select {
+                width: 100%;
+                padding: 15px;
+                border: 1px solid #ddd;
+                border-radius: 8px;
+                font-size: 1rem;
+                transition: var(--transition);
+            }
+
+                .form-group input:focus,
+                .form-group textarea:focus,
+                .form-group select:focus {
+                    border-color: var(--primary);
+                    outline: none;
+                    box-shadow: 0 0 0 3px rgba(0, 94, 184, 0.1);
+                }
+
+            .form-group textarea {
+                min-height: 150px;
+                resize: vertical;
+            }
+
+        /* Form Steps */
+        .form-steps {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+            .form-steps:before {
+                content: '';
+                position: absolute;
+                top: 20px;
+                left: 0;
+                right: 0;
+                height: 2px;
+                background: #eee;
+                z-index: 1;
+            }
+
+        .form-step {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            width: 40px;
+            height: 40px;
+            background: #ddd;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: white;
+        }
+
+            .form-step.active {
+                background: var(--primary);
+            }
+
+            .form-step.completed {
+                background: var(--secondary);
+            }
+
+        .step-content {
+            display: none;
+        }
+
+            .step-content.active {
+                display: block;
+                animation: fadeIn 0.5s ease;
+            }
+
+        .form-navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+
+        /* Footer amélioré */
+        footer {
+            background: #002D62;
+            color: white;
+            padding: 80px 0 30px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+
+        .footer-column h3 {
+            font-size: 1.3rem;
+            margin-bottom: 25px;
+            position: relative;
+            padding-bottom: 12px;
+        }
+
+            .footer-column h3:after {
+                content: '';
+                position: absolute;
+                left: 0;
+                bottom: 0;
+                width: 40px;
+                height: 3px;
+                background: var(--secondary);
+            }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+            .footer-column ul li {
+                margin-bottom: 12px;
+            }
+
+                .footer-column ul li a {
+                    color: #ccc;
+                    text-decoration: none;
+                    transition: var(--transition);
+                    display: inline-block;
+                    cursor: pointer;
+                }
+
+                    .footer-column ul li a:hover {
+                        color: white;
+                        transform: translateX(5px);
+                    }
+
+        .footer-newsletter input {
+            width: 100%;
+            padding: 12px 15px;
+            border: none;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+
+        .social-icons {
+            display: flex;
+            margin-top: 20px;
+        }
+
+            .social-icons a {
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                background: rgba(255, 255, 255, 0.1);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin-right: 10px;
+                transition: var(--transition);
+            }
+
+                .social-icons a:hover {
+                    background: var(--primary);
+                    transform: translateY(-3px);
+                }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            color: #ccc;
+        }
+
+        /* Responsive amélioré */
+        @media (max-width: 1200px) {
+            .nav-links li {
+                margin: 0 10px;
+            }
+
+            .btn-container {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .btn-outline {
+                margin-left: 0;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .nav-links {
+                position: fixed;
+                top: 80px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 80px);
+                background: white;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                transition: all 0.5s ease;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+                padding: 20px 0;
+            }
+
+                .nav-links.active {
+                    left: 0;
+                }
+
+                .nav-links li {
+                    margin: 15px 0;
+                }
+
+            .menu-toggle {
+                display: flex;
+            }
+
+                .menu-toggle.active span:nth-child(1) {
+                    transform: rotate(45deg) translate(5px, 5px);
+                }
+
+                .menu-toggle.active span:nth-child(2) {
+                    opacity: 0;
+                }
+
+                .menu-toggle.active span:nth-child(3) {
+                    transform: rotate(-45deg) translate(7px, -6px);
+                }
+
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .hero-stats {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .stat {
+                margin: 15px 0;
+            }
+
+            .about-content,
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+
+            .btn-container {
+                flex-direction: row;
+            }
+
+            .btn-outline {
+                margin-left: 15px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 12px 0;
+            }
+
+            .hero h1 {
+                font-size: 2.3rem;
+            }
+
+            .search-bar {
+                flex-direction: column;
+                border-radius: 12px;
+                padding: 15px;
+                background: rgba(255, 255, 255, 0.9);
+            }
+
+                .search-bar input {
+                    border-radius: 8px;
+                    margin-bottom: 12px;
+                    padding: 15px;
+                }
+
+            .search-btn {
+                border-radius: 8px;
+                padding: 15px;
+                justify-content: center;
+            }
+
+            .btn-container {
+                display: none;
+            }
+
+            .section-title h2 {
+                font-size: 2rem;
+            }
+
+            .nav-links {
+                margin: 0;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo {
+                font-size: 22px;
+            }
+
+                .logo i {
+                    font-size: 18px;
+                }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .section-title h2 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header & Navigation amélioré -->
+    <header id="header">
+        <div class="container">
+            <nav class="navbar">
+                <div class="logo" data-section="accueil">
+                    <i class="fas fa-home"></i>ImmoLoc<span>Loc</span>
+                </div>
+                <ul class="nav-links" id="navLinks">
+                    <li><a class="nav-link active" data-section="accueil">Accueil</a></li>
+                    <li><a class="nav-link" data-section="appartements">Appartements</a></li>
+                    <!--<li><a class="nav-link" data-section="villes">Villes</a></li>-->
+                    <!--<li><a class="nav-link" data-section="publier-annonce">Publier</a></li>-->
+                    <li><a class="nav-link" data-section="a-propos">À propos</a></li>
+                    <li><a class="nav-link" data-section="contact">Contact</a></li>
+                </ul>
+                <div class="btn-container">
+                    <a href="/Account/Login" class="btn">Connexion</a>
+                    <a href="/Account/Register" class="btn btn-outline">Inscription</a>
+                </div>
+                <div class="menu-toggle" id="menuToggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+
+    <!-- Page Accueil -->
+    <section id="accueil" class="page-section active">
+        <div class="hero">
+            <div class="hero-content">
+                <h1>Trouvez Votre Appartement Idéal à Québec</h1>
+                <p>Découvrez les meilleures locations dans les villes les plus prisés de la ville</p>
+                <div class="search-bar">
+                    <input type="text" placeholder="Rechercher par ville, arrondissement ou station de métro...">
+                    <button class="search-btn">Rechercher <i class="fas fa-search"></i></button>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat">
+                        <div class="stat-number">500+</div>
+                        <div class="stat-label">Appartements</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">15</div>
+                        <div class="stat-label">Villes</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">98%</div>
+                        <div class="stat-label">Clients Satisfaits</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="section-title">
+                <h2>Appartements Populaires</h2>
+                <p>Découvrez nos locations les plus convoitées en ce moment</p>
+            </div>
+            <div class="apartments-grid">
+                <!-- Apartment 1 -->
+                <div class="apartment-card">
+                    <div class="apartment-badge">Nouveau</div>
+                    <div class="apartment-img">
+                        <img src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Appartement Vieux-Québec">
+                    </div>
+                    <div class="apartment-info">
+                        <h3>Loft Moderne Vieux-Québec</h3>
+                        <div class="apartment-location">
+                            <i class="fas fa-map-marker-alt"></i> Vieux-Québec, Québec
+                        </div>
+                        <div class="apartment-price">1 250 $/mois</div>
+                        <div class="apartment-features">
+                            <div class="feature">
+                                <i class="fas fa-bed"></i> 2 chambres
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-bath"></i> 1 salle de bain
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-vector-square"></i> 75 m²
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Apartment 2 -->
+                <div class="apartment-card">
+                    <div class="apartment-badge">Populaire</div>
+                    <div class="apartment-img">
+                        <img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Appartement Montcalm">
+                    </div>
+                    <div class="apartment-info">
+                        <h3>Appartement Lumineux Montcalm</h3>
+                        <div class="apartment-location">
+                            <i class="fas fa-map-marker-alt"></i> Montcalm, Québec
+                        </div>
+                        <div class="apartment-price">1 450 $/mois</div>
+                        <div class="apartment-features">
+                            <div class="feature">
+                                <i class="fas fa-bed"></i> 3 chambres
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-bath"></i> 2 salles de bain
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-vector-square"></i> 90 m²
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Apartment 3 -->
+                <div class="apartment-card">
+                    <div class="apartment-badge">Exclusif</div>
+                    <div class="apartment-img">
+                        <img src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Appartement Limoilou">
+                    </div>
+                    <div class="apartment-info">
+                        <h3>Duplex Rénové Limoilou</h3>
+                        <div class="apartment-location">
+                            <i class="fas fa-map-marker-alt"></i> Limoilou, Québec
+                        </div>
+                        <div class="apartment-price">1 350 $/mois</div>
+                        <div class="apartment-features">
+                            <div class="feature">
+                                <i class="fas fa-bed"></i> 2 chambres
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-bath"></i> 1 salle de bain
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-vector-square"></i> 85 m²
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="view-more">
+                <a href="#" class="btn">Voir plus d'appartements</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Page Appartements -->
+    <section id="appartements" class="page-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Tous nos Appartements</h2>
+                <p>Découvrez notre sélection complète d'appartements à Québec</p>
+            </div>
+
+            <div class="apartments-grid">
+                <!-- Additional apartment listings -->
+                <div class="apartment-card">
+                    <div class="apartment-badge">Nouveau</div>
+                    <div class="apartment-img">
+                        <img src="https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Appartement Saint-Jean-Baptiste">
+                    </div>
+                    <div class="apartment-info">
+                        <h3>Studio Élégant Saint-Jean-Baptiste</h3>
+                        <div class="apartment-location">
+                            <i class="fas fa-map-marker-alt"></i> Saint-Jean-Baptiste, Québec
+                        </div>
+                        <div class="apartment-price">850 $/mois</div>
+                        <div class="apartment-features">
+                            <div class="feature">
+                                <i class="fas fa-bed"></i> 1 chambre
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-bath"></i> 1 salle de bain
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-vector-square"></i> 40 m²
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="apartment-card">
+                    <div class="apartment-badge">Populaire</div>
+                    <div class="apartment-img">
+                        <img src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Appartement Sainte-Foy">
+                    </div>
+                    <div class="apartment-info">
+                        <h3>Appartement Moderne Sainte-Foy</h3>
+                        <div class="apartment-location">
+                            <i class="fas fa-map-marker-alt"></i> Sainte-Foy, Québec
+                        </div>
+                        <div class="apartment-price">1 100 $/mois</div>
+                        <div class="apartment-features">
+                            <div class="feature">
+                                <i class="fas fa-bed"></i> 2 chambres
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-bath"></i> 1 salle de bain
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-vector-square"></i> 65 m²
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="apartment-card">
+                    <div class="apartment-badge">Exclusif</div>
+                    <div class="apartment-img">
+                        <img src="https://images.unsplash.com/photo-1493663284031-b7e3aaa4c4b1?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Appartement Saint-Sauveur">
+                    </div>
+                    <div class="apartment-info">
+                        <h3>Loft Industriel Saint-Sauveur</h3>
+                        <div class="apartment-location">
+                            <i class="fas fa-map-marker-alt"></i> Saint-Sauveur, Québec
+                        </div>
+                        <div class="apartment-price">1 550 $/mois</div>
+                        <div class="apartment-features">
+                            <div class="feature">
+                                <i class="fas fa-bed"></i> 2 chambres
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-bath"></i> 1 salle de bain
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-vector-square"></i> 80 m²
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="apartment-card">
+                    <div class="apartment-badge">Nouveau</div>
+                    <div class="apartment-img">
+                        <img src="https://images.unsplash.com/photo-1554995207-c18c203602cb?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Appartement Limoilou">
+                    </div>
+                    <div class="apartment-info">
+                        <h3>Appartement Familial Limoilou</h3>
+                        <div class="apartment-location">
+                            <i class="fas fa-map-marker-alt"></i> Limoilou, Québec
+                        </div>
+                        <div class="apartment-price">1 350 $/mois</div>
+                        <div class="apartment-features">
+                            <div class="feature">
+                                <i class="fas fa-bed"></i> 3 chambres
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-bath"></i> 2 salles de bain
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-vector-square"></i> 95 m²
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="apartment-card">
+                    <div class="apartment-badge">Populaire</div>
+                    <div class="apartment-img">
+                        <img src="https://images.unsplash.com/photo-1560449752-315d17c5b9bb?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Appartement Montcalm">
+                    </div>
+                    <div class="apartment-info">
+                        <h3>Duplex de Charme Montcalm</h3>
+                        <div class="apartment-location">
+                            <i class="fas fa-map-marker-alt"></i> Montcalm, Québec
+                        </div>
+                        <div class="apartment-price">1 650 $/mois</div>
+                        <div class="apartment-features">
+                            <div class="feature">
+                                <i class="fas fa-bed"></i> 3 chambres
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-bath"></i> 2 salles de bain
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-vector-square"></i> 100 m²
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="apartment-card">
+                    <div class="apartment-badge">Exclusif</div>
+                    <div class="apartment-img">
+                        <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Appartement Vieux-Québec">
+                    </div>
+                    <div class="apartment-info">
+                        <h3>Penthouse Luxueux Vieux-Québec</h3>
+                        <div class="apartment-location">
+                            <i class="fas fa-map-marker-alt"></i> Vieux-Québec, Québec
+                        </div>
+                        <div class="apartment-price">2 200 $/mois</div>
+                        <div class="apartment-features">
+                            <div class="feature">
+                                <i class="fas fa-bed"></i> 2 chambres
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-bath"></i> 2 salles de bain
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-vector-square"></i> 110 m²
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="view-more">
+                <a href="#" class="btn">Charger plus d'appartements</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Page Villes -->
+    <section id="villes" class="page-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Villes de Québec</h2>
+                <p>Découvrez le charme unique de chaque secteur de la ville</p>
+            </div>
+
+            <div class="neighbourhoods-grid">
+                <div class="neighbourhood-card">
+                    <img src="https://images.unsplash.com/photo-1576617934863-51950fca6a0c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Vieux-Québec">
+                    <div class="neighbourhood-name">Vieux-Québec</div>
+                </div>
+                <div class="neighbourhood-card">
+                    <img src="https://images.unsplash.com/photo-1591822059941-5d9732490a8a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Saint-Roch">
+                    <div class="neighbourhood-name">Saint-Roch</div>
+                </div>
+                <div class="neighbourhood-card">
+                    <img src="https://images.unsplash.com/photo-1592417817036-5b91a81b75e7?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Montcalm">
+                    <div class="neighbourhood-name">Montcalm</div>
+                </div>
+                <div class="neighbourhood-card">
+                    <img src="https://images.unsplash.com/photo-1575994732628-30102cb692c5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Limoilou">
+                    <div class="neighbourhood-name">Limoilou</div>
+                </div>
+                <div class="neighbourhood-card">
+                    <img src="https://images.unsplash.com/photo-15948784645-7d1493e9fb4b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Sainte-Foy">
+                    <div class="neighbourhood-name">Sainte-Foy</div>
+                </div>
+                <div class="neighbourhood-card">
+                    <img src="https://images.unsplash.com/photo-1510798831970-5a5b8f1b5ad7?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Saint-Sauveur">
+                    <div class="neighbourhood-name">Saint-Sauveur</div>
+                </div>
+                <div class="neighbourhood-card">
+                    <img src="https://images.unsplash.com/photo-1613494496796-82b9ee5f4e354?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Saint-Jean-Baptiste">
+                    <div class="neighbourhood-name">Saint-Jean-Baptiste</div>
+                </div>
+                <div class="neighbourhood-card">
+                    <img src="https://images.unsplash.com/photo-1574782244580-856d40e4b7bb?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Charlesbourg">
+                    <div class="neighbourhood-name">Charlesbourg</div>
+                </div>
+            </div>
+
+            <div class="section-title" style="margin-top: 80px;">
+                <h2>Guide des Villes</h2>
+                <p>Informations détaillées sur chaque ville de Québec</p>
+            </div>
+
+            <div class="about-content">
+                <div class="about-img">
+                    <img src="https://images.unsplash.com/photo-1513673054901-2b5f51551112?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Carte des villes de Québec">
+                </div>
+                <div class="about-text">
+                    <h3>Choisissez le ville qui vous correspond</h3>
+                    <p>Québec est une ville diversifiée avec des villes aux caractères bien distincts. Que vous recherchiez l'animation du centre-ville, le calme des zones résidentielles ou le charme historique du Vieux-Québec, vous trouverez forcément le ville qui correspond à votre style de vie.</p>
+                    <p>Notre guide des villes vous aidera à découvrir les particularités de chaque secteur : commodités, transports, écoles, parcs, et bien plus encore.</p>
+                    <div class="view-more">
+                        <a href="#" class="btn">Télécharger le guide complet</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- Page À propos -->
+    <section id="a-propos" class="page-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>À propos de QuébecLoc</h2>
+                <p>Votre partenaire de confiance pour trouver un logement à Québec</p>
+            </div>
+
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>Notre histoire</h3>
+                    <p>Fondée en 2010, QuébecLoc est née de la passion pour la ville de Québec et de la volonté de simplifier la recherche de logement. Notre équipe de passionnés travaille chaque jour pour vous offrir le meilleur service possible.</p>
+                    <p>Aujourd'hui, nous sommes fiers d'être la plateforme de référence pour la location d'appartements à Québec, avec des milliers de propriétés disponibles et des milliers de locataires satisfaits.</p>
+
+                    <div class="about-features">
+                        <div class="about-feature">
+                            <i class="fas fa-home"></i>
+                            <div>
+                                <h4>Plus de 500 appartements</h4>
+                                <p>La plus large sélection de logements à Québec</p>
+                            </div>
+                        </div>
+                        <div class="about-feature">
+                            <i class="fas fa-users"></i>
+                            <div>
+                                <h4>10 000+ locataires</h4>
+                                <p>Une communauté de locataires satisfaits</p>
+                            </div>
+                        </div>
+                        <div class="about-feature">
+                            <i class="fas fa-award"></i>
+                            <div>
+                                <h4>Prix d'excellence</h4>
+                                <p>Reconnu comme le meilleur service de location</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-img">
+                    <img src="https://images.unsplash.com/photo-1560472355-536de3962603?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Équipe QuébecLoc">
+                </div>
+            </div>
+
+            <div class="section-title" style="margin-top: 80px;">
+                <h2>Notre équipe</h2>
+                <p>Des professionnels à votre service</p>
+            </div>
+
+            <div class="apartments-grid">
+                <div class="apartment-card">
+                    <div class="apartment-img">
+                        <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Marie Tremblay">
+                    </div>
+                    <div class="apartment-info">
+                        <h3>Marie Tremblay</h3>
+                        <div class="apartment-location">
+                            <i class="fas fa-user-tie"></i> Fondatrice & CEO
+                        </div>
+                        <p>Marie a fondé QuébecLoc avec la vision de simplifier la recherche de logement à Québec.</p>
+                    </div>
+                </div>
+
+                <div class="apartment-card">
+                    <div class="apartment-img">
+                        <img src="https://images.unsplash.com/photo-1552058544-f2b08422138a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Jean Dupuis">
+                    </div>
+                    <div class="apartment-info">
+                        <h3>Jean Dupuis</h3>
+                        <div class="apartment-location">
+                            <i class="fas fa-home"></i> Responsable des locations
+                        </div>
+                        <p>Jean s'assure que chaque propriété répond à nos standards de qualité élevés.</p>
+                    </div>
+                </div>
+
+                <div class="apartment-card">
+                    <div class="apartment-img">
+                        <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Sophie Gagnon">
+                    </div>
+                    <div class="apartment-info">
+                        <h3>Sophie Gagnon</h3>
+                        <div class="apartment-location">
+                            <i class="fas fa-headset"></i> Service client
+                        </div>
+                        <p>Sophie et son équipe sont là pour vous accompagner à chaque étape de votre recherche.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Page Contact -->
+    <section id="contact" class="page-section">
+        <!-- MODAL CONFIRMATION -->
+        <div class="modal fade" id="confirmationModal" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header bg-success text-white">
+                        <h5 class="modal-title">Message envoyé</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        Votre message a été envoyé avec succès.
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="section-title">
+                <h2>Contactez-nous</h2>
+                <p>Nous sommes à votre disposition pour toute question</p>
+            </div>
+
+            <div class="contact-container">
+                <div class="contact-info">
+                    <h3>Nos coordonnées</h3>
+                    <div class="contact-detail">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <h4>Adresse</h4>
+                            <p>123 Rue Saint-Jean, Québec, QC G1R 1P1</p>
+                        </div>
+                    </div>
+                    <div class="contact-detail">
+                        <i class="fas fa-phone-alt"></i>
+                        <div>
+                            <h4>Téléphone</h4>
+                            <p>(418) 123-4567</p>
+                        </div>
+                    </div>
+                    <div class="contact-detail">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <h4>Email</h4>
+                            <p>contact@gestionlocations.com</p>
+                        </div>
+                    </div>
+                    <div class="contact-detail">
+                        <i class="fas fa-clock"></i>
+                        <div>
+                            <h4>Heures d'ouverture</h4>
+                            <p>Lun-Ven: 9h-17h<br>Sam: 10h-16h<br>Dim: Fermé</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-form">
+                    <h3>Envoyez-nous un message</h3>
+
+                    <form id="contactForm" action="/Home/SendEmail" method="post">
+                        <div class="form-group">
+                            <label for="name">Nom complet</label>
+                            <input type="text" id="name" name="name" required />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">Adresse email</label>
+                            <input type="email" id="email" name="email" required />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="phone">Téléphone</label>
+                            <input type="tel" id="phone" name="phone" />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" name="message" required></textarea>
+                        </div>
+
+                        <button type="submit" class="btn">Envoyer le message</button>
+                    </form>
+                </div>
+
+            </div>
+
+            <div class="section-title" style="margin-top: 80px;">
+                <h2>Notre emplacement</h2>
+                <p>Venez nous rencontrer dans nos bureaux</p>
+            </div>
+
+            <div class="about-img">
+                <img src="https://images.unsplash.com/photo-1542744095-fcf48d80b0fd?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Localisation QuébecLoc" style="width: 100%; height: 400px; object-fit: cover; border-radius: 12px;">
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer amélioré -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>QuébecLoc</h3>
+                    <ul>
+                        <li><a data-section="a-propos">À propos de nous</a></li>
+                        <li><a data-section="a-propos">Notre équipe</a></li>
+                        <li><a>Carrières</a></li>
+                        <li><a>Blog</a></li>
+                        <li><a>Presse</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Rechercher</h3>
+                    <ul>
+                        <li><a data-section="appartements">Appartements à louer</a></li>
+                        <li><a>Maisons à louer</a></li>
+                        <li><a>Colocations</a></li>
+                        <li><a>Logements étudiants</a></li>
+                        <li><a>Logements meublés</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Propriétaires</h3>
+                    <ul>
+                        <li><a data-section="publier-annonce">Publier une annonce</a></li>
+                        <li><a>Gérer mes annonces</a></li>
+                        <li><a>Conseils pour propriétaires</a></li>
+                        <li><a>Tarifs</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Villes</h3>
+                    <ul>
+                        <li><a data-section="villes">Vieux-Québec</a></li>
+                        <li><a data-section="villes">Saint-Roch</a></li>
+                        <li><a data-section="villes">Montcalm</a></li>
+                        <li><a data-section="villes">Limoilou</a></li>
+                        <li><a data-section="villes">Sainte-Foy</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact</h3>
+                    <ul>
+                        <li><a data-section="contact">Aide et support</a></li>
+                        <li><a data-section="contact">Contactez-nus</a></li>
+                        <li><a>FAQ</a></li>
+                    </ul>
+                    <div class="footer-newsletter">
+                        <h3>Newsletter</h3>
+                        <input type="email" placeholder="Votre email">
+                        <button class="btn">S'abonner</button>
+                    </div>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 QuébecLoc - Tous droits réservés</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Gestion de la navigation entre les pages
+        const pageSections = document.querySelectorAll('.page-section');
+        const navLinks = document.querySelectorAll('.nav-link');
+        const footerLinks = document.querySelectorAll('footer a');
+        const menuToggle = document.getElementById('menuToggle');
+        const navLinksContainer = document.getElementById('navLinks');
+        const header = document.getElementById('header');
+        const logo = document.querySelector('.logo');
+
+        // Fonction pour changer de page
+        function showSection(sectionId) {
+            // Masquer toutes les sections
+            pageSections.forEach(section => {
+                section.classList.remove('active');
+            });
+
+            // Afficher la section demandée
+            document.getElementById(sectionId).classList.add('active');
+
+            // Mettre à jour la navigation
+            navLinks.forEach(link => {
+                if (link.getAttribute('data-section') === sectionId) {
+                    link.classList.add('active');
+                } else {
+                    link.classList.remove('active');
+                }
+            });
+
+            // Scroll vers le haut
+            window.scrollTo(0, 0);
+        }
+
+        // Écouteurs pour la navigation principale
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                const sectionId = link.getAttribute('data-section');
+                showSection(sectionId);
+
+                // Fermer le menu mobile si ouvert
+                if (navLinksContainer.classList.contains('active')) {
+                    menuToggle.classList.remove('active');
+                    navLinksContainer.classList.remove('active');
+                }
+            });
+        });
+
+        // Écouteur pour le logo
+        logo.addEventListener('click', () => {
+            showSection('accueil');
+        });
+
+        // Écouteurs pour les liens du footer
+        footerLinks.forEach(link => {
+            if (link.getAttribute('data-section')) {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const sectionId = link.getAttribute('data-section');
+                    showSection(sectionId);
+                });
+            }
+        });
+
+        // Gestion du menu responsive
+        menuToggle.addEventListener('click', () => {
+            menuToggle.classList.toggle('active');
+            navLinksContainer.classList.toggle('active');
+        });
+
+        // Réduction du header au scroll
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Fermer le menu en cliquant sur un lien
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                menuToggle.classList.remove('active');
+                navLinksContainer.classList.remove('active');
+            });
+        });
+
+        // Gestion de la soumission du formulaire de contact
+        const contactForm = document.getElementById('contactForm');
+        if (contactForm) {
+            contactForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                alert('Merci pour votre message! Nous vous répondrons dans les plus brefs délais.');
+                contactForm.reset();
+            });
+        }
+
+        // Gestion du formulaire de publication d'annonce
+        const publishForm = document.getElementById('publishForm');
+        if (publishForm) {
+            publishForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                alert('Votre annonce a été publiée avec succès! Elle sera visible après validation par notre équipe.');
+                publishForm.reset();
+                showSection('accueil');
+            });
+        }
+
+        // Fonctions pour la navigation dans le formulaire en plusieurs étapes
+        function nextStep(step) {
+            document.querySelectorAll('.step-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            document.getElementById('step' + step).classList.add('active');
+
+            document.querySelectorAll('.form-step').forEach(stepEl => {
+                stepEl.classList.remove('active', 'completed');
+            });
+
+            for (let i = 1; i <= step; i++) {
+                const stepIndicator = document.getElementById('step' + i + '-indicator');
+                if (i < step) {
+                    stepIndicator.classList.add('completed');
+                } else {
+                    stepIndicator.classList.add('active');
+                }
+            }
+        }
+
+        function prevStep(step) {
+            document.querySelectorAll('.step-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            document.getElementById('step' + step).classList.add('active');
+
+            document.querySelectorAll('.form-step').forEach(stepEl => {
+                stepEl.classList.remove('active', 'completed');
+            });
+
+            for (let i = 1; i <= step; i++) {
+                const stepIndicator = document.getElementById('step' + i + '-indicator');
+                if (i < step) {
+                    stepIndicator.classList.add('completed');
+                } else {
+                    stepIndicator.classList.add('active');
+                }
+            }
+        }
+
+        // Animation des éléments au défilement
+        const animateOnScroll = () => {
+            const elements = document.querySelectorAll('.apartment-card, .section-title, .neighbourhood-card, .about-feature');
+
+            elements.forEach(element => {
+                const elementPosition = element.getBoundingClientRect().top;
+                const screenPosition = window.innerHeight / 1.3;
+
+                if (elementPosition < screenPosition) {
+                    element.style.opacity = 1;
+                    element.style.transform = 'translateY(0)';
+                }
+            });
+        };
+
+        // Initialiser les éléments animés
+        document.querySelectorAll('.apartment-card, .section-title, .neighbourhood-card, .about-feature').forEach(element => {
+            element.style.opacity = 0;
+            element.style.transform = 'translateY(20px)';
+            element.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+        });
+
+        window.addEventListener('scroll', animateOnScroll);
+        // Initial call
+        animateOnScroll();
+    </script>
+    <script>
+        $("#contactForm").on("submit", function (e) {
+            e.preventDefault(); // Empêche l’envoi normal
+
+            $.ajax({
+                url: "/Home/SendEmail",
+                type: "POST",
+                data: {
+                    name: $("#name").val(),
+                    email: $("#email").val(),
+                    phone: $("#phone").val(),
+                    message: $("#message").val()
+                },
+                success: function () {
+                    alert();
+                    var modal = new bootstrap.Modal(document.getElementById('confirmationModal'));
+                    modal.show();
+                    $("#contactForm")[0].reset(); // facultatif
+                },
+                error: function () {
+                    alert("Erreur lors de l'envoi.");
+                }
+            });
+        });
+
+    </script>
+</body>
+</html>

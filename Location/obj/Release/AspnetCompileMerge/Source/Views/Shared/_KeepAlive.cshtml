@@ -1,0 +1,137 @@
+﻿<!--Start Show Session Expire Warning Popup here -->
+<div class="modal fade" id="session-expire-warning-modal" aria-hidden="true" data-keyboard="false" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header alert-danger" style="background-color:#ff0000">
+                <h4 class="modal-title" style="color:white">Session bientôt expirée.</h4>
+            </div>
+            <div class="modal-body" style="color:black">
+                Vous serez bientôt déconnecté en raison d'une longue inactivité. <br />
+                Votre session sera expirée dans <span id="seconds-timer"></span> secondes. <br />
+                Cliquez sur OK pour rester connecté, ou sur Quitter pour vous déconnecter.  <br />
+            </div>
+            <div class="modal-footer">
+                <button id="btnOk" type="button" class="btn btn-warning">Rester connecté</button>
+                <button id="btnLogoutNow" type="button" class="btn btn-danger">Quitter</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        // Configuration
+        var timeout = 59 * 60 * 1000; // 59 minutes avant alerte (3540000 ms)
+        var beattime = 30 * 60 * 1000; // Ping toutes les 30 minutes
+        var counter = 60; // Durée du compte à rebours (en secondes)
+        var sessoff = "javascript:document.getElementById('logoutForm').submit()";
+        var sessurl = "../../home/KeepSessionAlive";
+
+        // Variables de contrôle
+        var renew = 0;
+        var hold = 0;
+        var hbeat;
+        var abeat;
+        var popTimer;
+        var ClientAlive = 0;
+
+        // Masquer la popup au départ
+        $("#session-expire-warning-modal").modal('hide');
+
+        // Initialisation
+        CheckAlive();
+        ActiveBeat();
+        HeartBeat();
+
+        // Bouton "Rester connecté"
+        $("#btnOk").click(function () {
+            $("#session-expire-warning-modal").modal('hide');
+            PingServer();
+            hold = 0;
+        });
+
+        // Bouton "Quitter"
+        $("#btnLogoutNow").click(function () {
+            $("#session-expire-warning-modal").modal('hide');
+            window.location = sessoff;
+        });
+
+        function HeartBeat() {
+            hbeat = setTimeout(function () {
+                if (!ClientAlive) {
+                    renew = 0;
+                    hold = 1;
+                    countdownDisplay();
+                    $("#session-expire-warning-modal").modal('show');
+                    beep();
+                    setTimeout(function () {
+                        if (renew === 0) {
+                            $("#session-expire-warning-modal").modal('hide');
+                            window.location = sessoff;
+                        }
+                    }, counter * 1000);
+                } else {
+                    PingServer();
+                }
+            }, timeout);
+        }
+
+        function ActiveBeat() {
+            abeat = setTimeout(function () {
+                if (ClientAlive) {
+                    PingServer();
+                } else {
+                    clearTimeout(abeat);
+                    ActiveBeat();
+                }
+            }, beattime);
+        }
+
+        function PingServer() {
+            $.ajax({
+                type: "POST",
+                url: sessurl,
+                success: function () {
+                    console.log("Ping OK");
+                },
+                error: function () {
+                    console.warn("Erreur lors du ping.");
+                }
+            });
+
+            clearTimeout(abeat);
+            clearTimeout(hbeat);
+            clearInterval(popTimer);
+
+            ClientAlive = 0;
+            renew = 1;
+
+            HeartBeat();
+            ActiveBeat();
+            CheckAlive();
+        }
+
+        function CheckAlive() {
+            $("body").on("mousemove keydown click", function () {
+                if (!hold) {
+                    ClientAlive = 1;
+                }
+            });
+        }
+
+        function countdownDisplay() {
+            var dialogDisplaySeconds = counter;
+            $('#seconds-timer').text(dialogDisplaySeconds);
+            popTimer = setInterval(function () {
+                dialogDisplaySeconds--;
+                $('#seconds-timer').text(dialogDisplaySeconds);
+                if (dialogDisplaySeconds <= 0) clearInterval(popTimer);
+            }, 1000);
+        }
+
+        function beep() {
+            var snd = new Audio("data:audio/wav;base64,//uQRAAA...");
+            snd.play();
+        }
+    });
+</script>

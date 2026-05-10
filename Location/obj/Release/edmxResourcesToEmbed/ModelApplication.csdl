@@ -1,0 +1,732 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="LocationModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="ApplicationConnection" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="C__MigrationHistory" EntityType="LocationModel.C__MigrationHistory" />
+    <EntitySet Name="Appareils" EntityType="LocationModel.Appareils" />
+    <EntitySet Name="Appartements" EntityType="LocationModel.Appartements" />
+    <EntitySet Name="AspNetRoles" EntityType="LocationModel.AspNetRoles" />
+    <EntitySet Name="AspNetUserClaims" EntityType="LocationModel.AspNetUserClaims" />
+    <EntitySet Name="AspNetUserLogins" EntityType="LocationModel.AspNetUserLogins" />
+    <EntitySet Name="AspNetUsers" EntityType="LocationModel.AspNetUsers" />
+    <EntitySet Name="AutresObjets" EntityType="LocationModel.AutresObjets" />
+    <EntitySet Name="Baux" EntityType="LocationModel.Baux" />
+    <EntitySet Name="Immeubles" EntityType="LocationModel.Immeubles" />
+    <EntitySet Name="InclusionAppareils" EntityType="LocationModel.InclusionAppareils" />
+    <EntitySet Name="InclusionAutres" EntityType="LocationModel.InclusionAutres" />
+    <EntitySet Name="InclusionMeubles" EntityType="LocationModel.InclusionMeubles" />
+    <EntitySet Name="Locataires" EntityType="LocationModel.Locataires" />
+    <EntitySet Name="Locateur" EntityType="LocationModel.Locateur" />
+    <EntitySet Name="Meubles" EntityType="LocationModel.Meubles" />
+    <EntitySet Name="MoyenPayements" EntityType="LocationModel.MoyenPayements" />
+    <EntitySet Name="Payements" EntityType="LocationModel.Payements" />
+    <EntitySet Name="RefMessages" EntityType="LocationModel.RefMessages" />
+    <EntitySet Name="TypeAppartements" EntityType="LocationModel.TypeAppartements" />
+    <AssociationSet Name="FK_InclusionAppareils_Appareils" Association="LocationModel.FK_InclusionAppareils_Appareils">
+      <End Role="Appareils" EntitySet="Appareils" />
+      <End Role="InclusionAppareils" EntitySet="InclusionAppareils" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AppartementsImmeubles" Association="LocationModel.FK_AppartementsImmeubles">
+      <End Role="Immeubles" EntitySet="Immeubles" />
+      <End Role="Appartements" EntitySet="Appartements" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AppartementsTypeAppartements" Association="LocationModel.FK_AppartementsTypeAppartements">
+      <End Role="TypeAppartements" EntitySet="TypeAppartements" />
+      <End Role="Appartements" EntitySet="Appartements" />
+    </AssociationSet>
+    <AssociationSet Name="FK_BauxImmeubles" Association="LocationModel.FK_BauxImmeubles">
+      <End Role="Appartements" EntitySet="Appartements" />
+      <End Role="Baux" EntitySet="Baux" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="LocationModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="LocationModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+    </AssociationSet>
+    <AssociationSet Name="FK_InclusionAutres_Autres" Association="LocationModel.FK_InclusionAutres_Autres">
+      <End Role="AutresObjets" EntitySet="AutresObjets" />
+      <End Role="InclusionAutres" EntitySet="InclusionAutres" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Baux_Baux" Association="LocationModel.FK_Baux_Baux">
+      <End Role="Baux" EntitySet="Baux" />
+      <End Role="Baux1" EntitySet="Baux" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Baux_Baux1" Association="LocationModel.FK_Baux_Baux1">
+      <End Role="Baux" EntitySet="Baux" />
+      <End Role="Baux1" EntitySet="Baux" />
+    </AssociationSet>
+    <AssociationSet Name="FK_BauxCoLocataires" Association="LocationModel.FK_BauxCoLocataires">
+      <End Role="Locataires" EntitySet="Locataires" />
+      <End Role="Baux" EntitySet="Baux" />
+    </AssociationSet>
+    <AssociationSet Name="FK_BauxLocataires" Association="LocationModel.FK_BauxLocataires">
+      <End Role="Locataires" EntitySet="Locataires" />
+      <End Role="Baux" EntitySet="Baux" />
+    </AssociationSet>
+    <AssociationSet Name="FK_BauxMoyenPayements" Association="LocationModel.FK_BauxMoyenPayements">
+      <End Role="MoyenPayements" EntitySet="MoyenPayements" />
+      <End Role="Baux" EntitySet="Baux" />
+    </AssociationSet>
+    <AssociationSet Name="FK_InclusionAppareils_Baux" Association="LocationModel.FK_InclusionAppareils_Baux">
+      <End Role="Baux" EntitySet="Baux" />
+      <End Role="InclusionAppareils" EntitySet="InclusionAppareils" />
+    </AssociationSet>
+    <AssociationSet Name="FK_InclusionAutres_Baux" Association="LocationModel.FK_InclusionAutres_Baux">
+      <End Role="Baux" EntitySet="Baux" />
+      <End Role="InclusionAutres" EntitySet="InclusionAutres" />
+    </AssociationSet>
+    <AssociationSet Name="FK_InclusionMeubles_Baux" Association="LocationModel.FK_InclusionMeubles_Baux">
+      <End Role="Baux" EntitySet="Baux" />
+      <End Role="InclusionMeubles" EntitySet="InclusionMeubles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PayementBaux" Association="LocationModel.FK_PayementBaux">
+      <End Role="Baux" EntitySet="Baux" />
+      <End Role="Payements" EntitySet="Payements" />
+    </AssociationSet>
+    <AssociationSet Name="FK_InclusionMeubles_Meubles" Association="LocationModel.FK_InclusionMeubles_Meubles">
+      <End Role="Meubles" EntitySet="Meubles" />
+      <End Role="InclusionMeubles" EntitySet="InclusionMeubles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PayementTypePayements" Association="LocationModel.FK_PayementTypePayements">
+      <End Role="MoyenPayements" EntitySet="MoyenPayements" />
+      <End Role="Payements" EntitySet="Payements" />
+    </AssociationSet>
+    <AssociationSet Name="AspNetUserRoles" Association="LocationModel.AspNetUserRoles">
+      <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+    </AssociationSet>
+    <EntitySet Name="AppartementImages" EntityType="LocationModel.AppartementImages" />
+    <AssociationSet Name="FK_AppartementImages_Appartements" Association="LocationModel.FK_AppartementImages_Appartements">
+      <End Role="Appartements" EntitySet="Appartements" />
+      <End Role="AppartementImages" EntitySet="AppartementImages" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="C__MigrationHistory">
+    <Key>
+      <PropertyRef Name="MigrationId" />
+      <PropertyRef Name="ContextKey" />
+    </Key>
+    <Property Name="MigrationId" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="ContextKey" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
+    <Property Name="Model" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
+    <Property Name="ProductVersion" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Appareils">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NomAppareil" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="ModifiedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
+    <Property Name="DescriptionAppareil" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="StatutAppareil" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+    <NavigationProperty Name="InclusionAppareils" Relationship="LocationModel.FK_InclusionAppareils_Appareils" FromRole="Appareils" ToRole="InclusionAppareils" />
+  </EntityType>
+  <EntityType Name="Appartements">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="AdresseAppartement" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="NbSalleBain" Type="Int32" />
+    <Property Name="NbEtages" Type="Int32" />
+    <Property Name="ChauffeOuiNon" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+    <Property Name="Annee" Type="Int32" />
+    <Property Name="nbBalcons" Type="Int32" />
+    <Property Name="nbStationnementsInt" Type="Int32" />
+    <Property Name="nbStationnementsExt" Type="Int32" />
+    <Property Name="nbGarages" Type="Int32" />
+    <Property Name="Orientation" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="ModifiedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
+    <Property Name="ImmeubleId" Type="Int32" />
+    <Property Name="NumeroEtage" Type="Int32" />
+    <Property Name="StatutAppartement" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+    <Property Name="TypeChauffage" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="TypeAppartementId" Type="Int32" />
+    <Property Name="Superficie" Type="Decimal" Precision="18" Scale="2" />
+    <NavigationProperty Name="Immeubles" Relationship="LocationModel.FK_AppartementsImmeubles" FromRole="Appartements" ToRole="Immeubles" />
+    <NavigationProperty Name="TypeAppartements" Relationship="LocationModel.FK_AppartementsTypeAppartements" FromRole="Appartements" ToRole="TypeAppartements" />
+    <NavigationProperty Name="Baux" Relationship="LocationModel.FK_BauxImmeubles" FromRole="Appartements" ToRole="Baux" />
+    <Property Name="Titre" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Badge" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Images" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="PrixPublic" Type="Decimal" Precision="18" Scale="2" />
+    <NavigationProperty Name="AppartementImages" Relationship="LocationModel.FK_AppartementImages_Appartements" FromRole="Appartements" ToRole="AppartementImages" />
+  </EntityType>
+  <EntityType Name="AspNetRoles">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AspNetUsers" Relationship="LocationModel.AspNetUserRoles" FromRole="AspNetRoles" ToRole="AspNetUsers" />
+  </EntityType>
+  <EntityType Name="AspNetUserClaims">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AspNetUsers" Relationship="LocationModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUserClaims" ToRole="AspNetUsers" />
+  </EntityType>
+  <EntityType Name="AspNetUserLogins">
+    <Key>
+      <PropertyRef Name="LoginProvider" />
+      <PropertyRef Name="ProviderKey" />
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="LoginProvider" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="ProviderKey" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AspNetUsers" Relationship="LocationModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUserLogins" ToRole="AspNetUsers" />
+  </EntityType>
+  <EntityType Name="AspNetUsers">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
+    <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="PhoneNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
+    <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
+    <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
+    <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
+    <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
+    <Property Name="UserName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="Nom" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Prenom" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AspNetUserClaims" Relationship="LocationModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserClaims" />
+    <NavigationProperty Name="AspNetUserLogins" Relationship="LocationModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
+    <NavigationProperty Name="AspNetRoles" Relationship="LocationModel.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
+  </EntityType>
+  <EntityType Name="AutresObjets">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nom" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedBy" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="ModifiedBy" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
+    <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="Statut" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+    <NavigationProperty Name="InclusionAutres" Relationship="LocationModel.FK_InclusionAutres_Autres" FromRole="AutresObjets" ToRole="InclusionAutres" />
+  </EntityType>
+  <EntityType Name="Baux">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NumeroBail" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="AppartementId" Type="Int32" Nullable="false" />
+    <Property Name="LocataireId" Type="Int32" Nullable="false" />
+    <Property Name="Prix" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="LieuPayement" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="ReglementImmeuble" Type="Boolean" />
+    <Property Name="DateDebut" Type="DateTime" Precision="3" />
+    <Property Name="DateFin" Type="DateTime" Precision="3" />
+    <Property Name="StationnementExt" Type="Boolean" />
+    <Property Name="NbPlacesExt" Type="Int32" />
+    <Property Name="StationnementInt" Type="Boolean" />
+    <Property Name="NbPlacesInt" Type="Int32" />
+    <Property Name="Emplacement" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="RemiseEspaceRangenment" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Autre" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="MeublesInclus" Type="Boolean" />
+    <Property Name="AppareilsInclus" Type="Boolean" />
+    <Property Name="Deneigement" Type="Boolean" />
+    <Property Name="TailleGazon" Type="Boolean" />
+    <Property Name="MontantDepot" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="DateOccupation" Type="DateTime" Precision="3" />
+    <Property Name="DateRevision" Type="DateTime" Precision="3" />
+    <Property Name="Observation" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="ModifiedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
+    <Property Name="DatePayement" Type="DateTime" Precision="3" />
+    <Property Name="StatutBaux" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+    <Property Name="MoyenPayementId" Type="Int32" />
+    <Property Name="Charges" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="DateDebutEffective" Type="DateTime" Precision="3" />
+    <Property Name="DateFinEffective" Type="DateTime" Precision="3" />
+    <Property Name="CoLocataireId" Type="Int32" />
+    <Property Name="DateResiliation" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Appartements" Relationship="LocationModel.FK_BauxImmeubles" FromRole="Baux" ToRole="Appartements" />
+    <NavigationProperty Name="Baux1" Relationship="LocationModel.FK_Baux_Baux" FromRole="Baux" ToRole="Baux1" />
+    <NavigationProperty Name="Baux2" Relationship="LocationModel.FK_Baux_Baux" FromRole="Baux1" ToRole="Baux" />
+    <NavigationProperty Name="Baux11" Relationship="LocationModel.FK_Baux_Baux1" FromRole="Baux" ToRole="Baux1" />
+    <NavigationProperty Name="Baux3" Relationship="LocationModel.FK_Baux_Baux1" FromRole="Baux1" ToRole="Baux" />
+    <NavigationProperty Name="Locataires" Relationship="LocationModel.FK_BauxCoLocataires" FromRole="Baux" ToRole="Locataires" />
+    <NavigationProperty Name="Locataires1" Relationship="LocationModel.FK_BauxLocataires" FromRole="Baux" ToRole="Locataires" />
+    <NavigationProperty Name="MoyenPayements" Relationship="LocationModel.FK_BauxMoyenPayements" FromRole="Baux" ToRole="MoyenPayements" />
+    <NavigationProperty Name="InclusionAppareils" Relationship="LocationModel.FK_InclusionAppareils_Baux" FromRole="Baux" ToRole="InclusionAppareils" />
+    <NavigationProperty Name="InclusionAutres" Relationship="LocationModel.FK_InclusionAutres_Baux" FromRole="Baux" ToRole="InclusionAutres" />
+    <NavigationProperty Name="InclusionMeubles" Relationship="LocationModel.FK_InclusionMeubles_Baux" FromRole="Baux" ToRole="InclusionMeubles" />
+    <NavigationProperty Name="Payements" Relationship="LocationModel.FK_PayementBaux" FromRole="Baux" ToRole="Payements" />
+  </EntityType>
+  <EntityType Name="Immeubles">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NomImmeuble" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="ModifiedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
+    <Property Name="DescriptionImmeuble" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="AdresseImmeuble" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="StatutImmeuble" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+    <Property Name="Orientation" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="nbEtages" Type="Int32" />
+    <Property Name="nbStationnementsInt" Type="Int32" />
+    <Property Name="nbStationnementsExt" Type="Int32" />
+    <Property Name="Annee" Type="Int32" />
+    <Property Name="Autre" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Appartements" Relationship="LocationModel.FK_AppartementsImmeubles" FromRole="Immeubles" ToRole="Appartements" />
+  </EntityType>
+  <EntityType Name="InclusionAppareils">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="AppareilId" Type="Int32" Nullable="false" />
+    <Property Name="Observation" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="ModifiedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
+    <Property Name="BauxId" Type="Int32" />
+    <Property Name="NbAppareilsInclus" Type="Int32" />
+    <NavigationProperty Name="Appareils" Relationship="LocationModel.FK_InclusionAppareils_Appareils" FromRole="InclusionAppareils" ToRole="Appareils" />
+    <NavigationProperty Name="Baux" Relationship="LocationModel.FK_InclusionAppareils_Baux" FromRole="InclusionAppareils" ToRole="Baux" />
+  </EntityType>
+  <EntityType Name="InclusionAutres">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="AutreObjetId" Type="Int32" Nullable="false" />
+    <Property Name="Observation" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="ModifiedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
+    <Property Name="BauxId" Type="Int32" />
+    <Property Name="NbAutresInclus" Type="Int32" />
+    <NavigationProperty Name="AutresObjets" Relationship="LocationModel.FK_InclusionAutres_Autres" FromRole="InclusionAutres" ToRole="AutresObjets" />
+    <NavigationProperty Name="Baux" Relationship="LocationModel.FK_InclusionAutres_Baux" FromRole="InclusionAutres" ToRole="Baux" />
+  </EntityType>
+  <EntityType Name="InclusionMeubles">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="MeubleId" Type="Int32" Nullable="false" />
+    <Property Name="Observation" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="ModifiedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
+    <Property Name="BauxId" Type="Int32" />
+    <Property Name="NbMeublesInclus" Type="Int32" />
+    <NavigationProperty Name="Baux" Relationship="LocationModel.FK_InclusionMeubles_Baux" FromRole="InclusionMeubles" ToRole="Baux" />
+    <NavigationProperty Name="Meubles" Relationship="LocationModel.FK_InclusionMeubles_Meubles" FromRole="InclusionMeubles" ToRole="Meubles" />
+  </EntityType>
+  <EntityType Name="Locataires">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NomLocataire" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="PrenomLocataire" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="SexeLocataire" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+    <Property Name="DateNaissance" Type="DateTime" Precision="3" />
+    <Property Name="NASLocataire" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="TeLocataire" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="TelSecondaire" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="CourrielLocataire" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="NomContactUrgence" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="TelContactUrgence" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="ModifiedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
+    <Property Name="StatutLocataire" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+    <Property Name="NomColocataire" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="PrenomColocataire" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="TelColocataire" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="CourrielColocataire" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="SexeColocataire" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+    <Property Name="StatutColocataire" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+    <Property Name="RelationLocataireColocataire" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Baux" Relationship="LocationModel.FK_BauxCoLocataires" FromRole="Locataires" ToRole="Baux" />
+    <NavigationProperty Name="Baux1" Relationship="LocationModel.FK_BauxLocataires" FromRole="Locataires" ToRole="Baux" />
+  </EntityType>
+  <EntityType Name="Locateur">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nom" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Prenom" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Sexe" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+    <Property Name="Adresse" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="Ville" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="CodePostal" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="DateNaissance" Type="DateTime" Precision="3" />
+    <Property Name="NAS" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="TelPrincipal" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="TelSecondaire" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="Courriel" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="ModifiedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
+    <Property Name="Statut" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+    <Property Name="Signature" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Meubles">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nom" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="ModifiedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
+    <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="Statut" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+    <NavigationProperty Name="InclusionMeubles" Relationship="LocationModel.FK_InclusionMeubles_Meubles" FromRole="Meubles" ToRole="InclusionMeubles" />
+  </EntityType>
+  <EntityType Name="MoyenPayements">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NomMoyenPayement" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="DescriptionMoyenPayement" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="ModifiedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
+    <Property Name="StatutMoyenPayement" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+    <NavigationProperty Name="Baux" Relationship="LocationModel.FK_BauxMoyenPayements" FromRole="MoyenPayements" ToRole="Baux" />
+    <NavigationProperty Name="Payements" Relationship="LocationModel.FK_PayementTypePayements" FromRole="MoyenPayements" ToRole="Payements" />
+  </EntityType>
+  <EntityType Name="Payements">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Annee" Type="Int32" />
+    <Property Name="Mois" Type="Int32" />
+    <Property Name="DatePayement" Type="DateTime" Precision="3" />
+    <Property Name="LieuPayement" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="ModePayement" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="ModifiedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
+    <Property Name="BauxId" Type="Int32" />
+    <Property Name="Montant" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Statut" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+    <Property Name="MoyenPayementId" Type="Int32" />
+    <NavigationProperty Name="Baux" Relationship="LocationModel.FK_PayementBaux" FromRole="Payements" ToRole="Baux" />
+    <NavigationProperty Name="MoyenPayements" Relationship="LocationModel.FK_PayementTypePayements" FromRole="Payements" ToRole="MoyenPayements" />
+  </EntityType>
+  <EntityType Name="RefMessages">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Code" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="ModifiedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
+    <Property Name="Description" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+    <Property Name="Statut" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+  </EntityType>
+  <EntityType Name="TypeAppartements">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NomTypeAppartement" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="DescriptionTypeAppartement" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="ModifiedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
+    <Property Name="StatutTypeAppartement" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+    <NavigationProperty Name="Appartements" Relationship="LocationModel.FK_AppartementsTypeAppartements" FromRole="TypeAppartements" ToRole="Appartements" />
+  </EntityType>
+  <Association Name="FK_InclusionAppareils_Appareils">
+    <End Type="LocationModel.Appareils" Role="Appareils" Multiplicity="1" />
+    <End Type="LocationModel.InclusionAppareils" Role="InclusionAppareils" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Appareils">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="InclusionAppareils">
+        <PropertyRef Name="AppareilId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AppartementsImmeubles">
+    <End Type="LocationModel.Immeubles" Role="Immeubles" Multiplicity="0..1" />
+    <End Type="LocationModel.Appartements" Role="Appartements" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Immeubles">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Appartements">
+        <PropertyRef Name="ImmeubleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AppartementsTypeAppartements">
+    <End Type="LocationModel.TypeAppartements" Role="TypeAppartements" Multiplicity="0..1" />
+    <End Type="LocationModel.Appartements" Role="Appartements" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TypeAppartements">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Appartements">
+        <PropertyRef Name="TypeAppartementId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_BauxImmeubles">
+    <End Type="LocationModel.Appartements" Role="Appartements" Multiplicity="1" />
+    <End Type="LocationModel.Baux" Role="Baux" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Appartements">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Baux">
+        <PropertyRef Name="AppartementId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+    <End Type="LocationModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="LocationModel.AspNetUserClaims" Role="AspNetUserClaims" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserClaims">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+    <End Type="LocationModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="LocationModel.AspNetUserLogins" Role="AspNetUserLogins" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserLogins">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_InclusionAutres_Autres">
+    <End Type="LocationModel.AutresObjets" Role="AutresObjets" Multiplicity="1" />
+    <End Type="LocationModel.InclusionAutres" Role="InclusionAutres" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AutresObjets">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="InclusionAutres">
+        <PropertyRef Name="AutreObjetId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Baux_Baux">
+    <End Type="LocationModel.Baux" Role="Baux" Multiplicity="1" />
+    <End Type="LocationModel.Baux" Role="Baux1" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Baux">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Baux1">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Baux_Baux1">
+    <End Type="LocationModel.Baux" Role="Baux" Multiplicity="1" />
+    <End Type="LocationModel.Baux" Role="Baux1" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Baux">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Baux1">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_BauxCoLocataires">
+    <End Type="LocationModel.Locataires" Role="Locataires" Multiplicity="0..1" />
+    <End Type="LocationModel.Baux" Role="Baux" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Locataires">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Baux">
+        <PropertyRef Name="CoLocataireId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_BauxLocataires">
+    <End Type="LocationModel.Locataires" Role="Locataires" Multiplicity="1" />
+    <End Type="LocationModel.Baux" Role="Baux" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Locataires">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Baux">
+        <PropertyRef Name="LocataireId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_BauxMoyenPayements">
+    <End Type="LocationModel.MoyenPayements" Role="MoyenPayements" Multiplicity="0..1" />
+    <End Type="LocationModel.Baux" Role="Baux" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MoyenPayements">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Baux">
+        <PropertyRef Name="MoyenPayementId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_InclusionAppareils_Baux">
+    <End Type="LocationModel.Baux" Role="Baux" Multiplicity="0..1" />
+    <End Type="LocationModel.InclusionAppareils" Role="InclusionAppareils" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Baux">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="InclusionAppareils">
+        <PropertyRef Name="BauxId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_InclusionAutres_Baux">
+    <End Type="LocationModel.Baux" Role="Baux" Multiplicity="0..1" />
+    <End Type="LocationModel.InclusionAutres" Role="InclusionAutres" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Baux">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="InclusionAutres">
+        <PropertyRef Name="BauxId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_InclusionMeubles_Baux">
+    <End Type="LocationModel.Baux" Role="Baux" Multiplicity="0..1" />
+    <End Type="LocationModel.InclusionMeubles" Role="InclusionMeubles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Baux">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="InclusionMeubles">
+        <PropertyRef Name="BauxId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PayementBaux">
+    <End Type="LocationModel.Baux" Role="Baux" Multiplicity="0..1" />
+    <End Type="LocationModel.Payements" Role="Payements" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Baux">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Payements">
+        <PropertyRef Name="BauxId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_InclusionMeubles_Meubles">
+    <End Type="LocationModel.Meubles" Role="Meubles" Multiplicity="1" />
+    <End Type="LocationModel.InclusionMeubles" Role="InclusionMeubles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Meubles">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="InclusionMeubles">
+        <PropertyRef Name="MeubleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PayementTypePayements">
+    <End Type="LocationModel.MoyenPayements" Role="MoyenPayements" Multiplicity="0..1" />
+    <End Type="LocationModel.Payements" Role="Payements" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MoyenPayements">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Payements">
+        <PropertyRef Name="MoyenPayementId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="AspNetUserRoles">
+    <End Type="LocationModel.AspNetRoles" Role="AspNetRoles" Multiplicity="*" />
+    <End Type="LocationModel.AspNetUsers" Role="AspNetUsers" Multiplicity="*" />
+  </Association>
+  <EntityType Name="AppartementImages">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="AppartementId" Type="Int32" Nullable="false" />
+    <Property Name="ImagePath" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="IsPrimary" Type="Boolean" Nullable="false" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Appartements" Relationship="LocationModel.FK_AppartementImages_Appartements" FromRole="AppartementImages" ToRole="Appartements" />
+  </EntityType>
+  <Association Name="FK_AppartementImages_Appartements">
+    <End Type="LocationModel.Appartements" Role="Appartements" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="LocationModel.AppartementImages" Role="AppartementImages" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Appartements">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AppartementImages">
+        <PropertyRef Name="AppartementId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

@@ -1,0 +1,83 @@
+﻿@model Location.DAL.Locataires
+
+@{
+    ViewBag.Title = "Suppression";
+}
+
+<h2>Suppression</h2>
+
+@* Message d'erreur avec ValidationSummary *@
+@Html.ValidationSummary(true, "", new { @class = "alert alert-danger", role = "alert" })
+
+@* Bloc d'alerte détaillé si des baux sont associés *@
+@if (ViewBag.BauxAssocies != null && ((List<Location.DAL.Baux>)ViewBag.BauxAssocies).Count > 0)
+{
+    <div class="alert alert-warning">
+        <strong>Impossible de supprimer ce locataire</strong> car il est associé aux baux suivants :
+        <ul>
+            @foreach (var b in ViewBag.BauxAssocies)
+            {
+                <li>Bail n°@b.Id - @b.NumeroBail (ou autre champ)</li>
+            }
+        </ul>
+    </div>
+}
+
+<h3 class="mb-3">Êtes-vous sûr de vouloir supprimer ce locataire ?</h3>
+
+<div class="card shadow-sm">
+    <div class="card-header bg-danger text-white">
+        <h4 class="mb-0">Locataire</h4>
+    </div>
+    <div class="card-body">
+        <dl class="row">
+            <dt class="col-sm-4">@Html.DisplayNameFor(model => model.DateNaissance)</dt>
+            <dd class="col-sm-8">@Html.DisplayFor(model => model.DateNaissance)</dd>
+
+            <dt class="col-sm-4">@Html.DisplayNameFor(model => model.NASLocataire)</dt>
+            <dd class="col-sm-8">@Html.DisplayFor(model => model.NASLocataire)</dd>
+
+            <dt class="col-sm-4">@Html.DisplayNameFor(model => model.TeLocataire)</dt>
+            <dd class="col-sm-8">@Html.DisplayFor(model => model.TeLocataire)</dd>
+
+            <dt class="col-sm-4">@Html.DisplayNameFor(model => model.TelSecondaire)</dt>
+            <dd class="col-sm-8">@Html.DisplayFor(model => model.TelSecondaire)</dd>
+
+            <dt class="col-sm-4">@Html.DisplayNameFor(model => model.CourrielLocataire)</dt>
+            <dd class="col-sm-8">@Html.DisplayFor(model => model.CourrielLocataire)</dd>
+
+            <dt class="col-sm-4">@Html.DisplayNameFor(model => model.NomContactUrgence)</dt>
+            <dd class="col-sm-8">@Html.DisplayFor(model => model.NomContactUrgence)</dd>
+
+            <dt class="col-sm-4">@Html.DisplayNameFor(model => model.TelContactUrgence)</dt>
+            <dd class="col-sm-8">@Html.DisplayFor(model => model.TelContactUrgence)</dd>
+
+            <dt class="col-sm-4">@Html.DisplayNameFor(model => model.CreatedBy)</dt>
+            <dd class="col-sm-8">@Html.DisplayFor(model => model.CreatedBy)</dd>
+
+            <dt class="col-sm-4">@Html.DisplayNameFor(model => model.CreatedOn)</dt>
+            <dd class="col-sm-8">@Html.DisplayFor(model => model.CreatedOn)</dd>
+
+            <dt class="col-sm-4">@Html.DisplayNameFor(model => model.ModifiedBy)</dt>
+            <dd class="col-sm-8">@Html.DisplayFor(model => model.ModifiedBy)</dd>
+
+            <dt class="col-sm-4">@Html.DisplayNameFor(model => model.ModifiedOn)</dt>
+            <dd class="col-sm-8">@Html.DisplayFor(model => model.ModifiedOn)</dd>
+        </dl>
+    </div>
+    <div class="card-footer">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            <div class="form-actions">
+                @{
+                    var hasBaux = ViewBag.BauxAssocies != null && ((List<Location.DAL.Baux>)ViewBag.BauxAssocies).Count > 0;
+                }
+                <button type="submit" class="btn btn-danger" @(hasBaux ? "disabled" : "")>
+                    <i class="fas fa-trash-alt"></i> Supprimer
+                </button>
+                @Html.ActionLink("Retour à la liste", "Index", null, new { @class = "btn btn-secondary" })
+            </div>
+        }
+    </div>
+</div>

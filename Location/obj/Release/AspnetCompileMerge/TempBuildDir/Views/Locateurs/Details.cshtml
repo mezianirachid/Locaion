@@ -1,0 +1,227 @@
+﻿@model Location.DAL.Locateur
+
+@{
+    ViewBag.Title = "Détails du locateur";
+}
+
+<div class="container mt-4">
+
+    <!-- En-tête avec titre et boutons -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2 class="h3 mb-1 text-primary">Détails du locateur</h2>
+            <p class="text-muted mb-0">Informations complètes sur le profil du locateur</p>
+        </div>
+
+        <div class="d-flex gap-2">
+            @Html.ActionLink("Modifier", "Edit", new { id = Model.Id }, new { @class = "btn btn-warning btn-sm" })
+            @Html.ActionLink("Retour à la liste", "Index", null, new { @class = "btn btn-outline-secondary btn-sm" })
+        </div>
+    </div>
+
+    <!-- Carte principale -->
+    <div class="card shadow-sm border-0">
+        <!-- En-tête de la carte -->
+        <div class="card-header bg-primary text-white py-3">
+            <div class="d-flex justify-content-between align-items-center">
+                <h4 class="card-title mb-0">
+                    <i class="fas fa-user me-2"></i>@Model.Nom @Model.Prenom
+                </h4>
+                <span class="badge bg-light text-dark fs-6">@Model.Statut</span>
+            </div>
+        </div>
+
+        <!-- Corps de la carte -->
+        <div class="card-body p-4">
+            <div class="row g-4">
+                <!-- Colonne Informations personnelles -->
+                <div class="col-md-6">
+                    <div class="section-title mb-3">
+                        <h5 class="text-primary mb-2">
+                            <i class="fas fa-id-card me-2"></i>Informations personnelles
+                        </h5>
+                    </div>
+
+                    <dl class="row mb-0">
+                        <dt class="col-sm-5 text-muted fw-normal">Sexe</dt>
+                        <dd class="col-sm-7 fw-semibold">@Model.Sexe</dd>
+
+                        <dt class="col-sm-5 text-muted fw-normal">Date de naissance</dt>
+                        <dd class="col-sm-7 fw-semibold">@Model.DateNaissance</dd>
+
+                        <dt class="col-sm-5 text-muted fw-normal">NAS</dt>
+                        <dd class="col-sm-7 fw-semibold font-monospace">@Model.NAS</dd>
+                    </dl>
+                </div>
+
+                <!-- Colonne Coordonnées -->
+                <div class="col-md-6">
+                    <div class="section-title mb-3">
+                        <h5 class="text-primary mb-2">
+                            <i class="fas fa-address-book me-2"></i>Coordonnées
+                        </h5>
+                    </div>
+
+                    <dl class="row mb-0">
+                        <dt class="col-sm-5 text-muted fw-normal">Adresse</dt>
+                        <dd class="col-sm-7 fw-semibold">@Model.Adresse</dd>
+
+                        <dt class="col-sm-5 text-muted fw-normal">Ville</dt>
+                        <dd class="col-sm-7 fw-semibold">@Model.Ville</dd>
+
+                        <dt class="col-sm-5 text-muted fw-normal">Code postal</dt>
+                        <dd class="col-sm-7 fw-semibold">@Model.CodePostal</dd>
+
+                        <dt class="col-sm-5 text-muted fw-normal">Courriel</dt>
+                        <dd class="col-sm-7 fw-semibold">
+                            <a href="mailto:@Model.Courriel" class="text-decoration-none">@Model.Courriel</a>
+                        </dd>
+                    </dl>
+                </div>
+            </div>
+
+            <!-- Ligne séparatrice -->
+            <hr class="my-4">
+
+            <div class="row g-4">
+                <!-- Colonne Contacts -->
+                <div class="col-md-6">
+                    <div class="section-title mb-3">
+                        <h5 class="text-primary mb-2">
+                            <i class="fas fa-phone me-2"></i>Contacts
+                        </h5>
+                    </div>
+
+                    <dl class="row mb-0">
+                        <dt class="col-sm-5 text-muted fw-normal">Téléphone principal</dt>
+                        <dd class="col-sm-7 fw-semibold">
+                            <a href="tel:@Model.TelPrincipal" class="text-decoration-none">@Model.TelPrincipal</a>
+                        </dd>
+
+                        <dt class="col-sm-5 text-muted fw-normal">Téléphone secondaire</dt>
+                        <dd class="col-sm-7 fw-semibold">
+                            @if (!string.IsNullOrWhiteSpace(Model.TelSecondaire))
+                            {
+                                <a href="tel:@Model.TelSecondaire" class="text-decoration-none">@Model.TelSecondaire</a>
+                            }
+                            else
+                            {
+                                <span class="text-muted fst-italic">Non renseigné</span>
+                            }
+                        </dd>
+                    </dl>
+                </div>
+
+                <!-- Colonne Métadonnées et signature -->
+                <div class="col-md-6">
+                    <div class="section-title mb-3">
+                        <h5 class="text-primary mb-2">
+                            <i class="fas fa-info-circle me-2"></i>Métadonnées
+                        </h5>
+                    </div>
+
+                    <dl class="row mb-0">
+
+                        <dt class="col-sm-5 text-muted fw-normal">Créé par</dt>
+                        <dd class="col-sm-7 fw-semibold">
+                        <dd class="col-sm-7 fw-semibold">
+                            @if (!string.IsNullOrWhiteSpace(Model.CreatedBy))
+                            {
+                                <a href="tel:@Model.CreatedBy" class="text-decoration-none">@Model.CreatedBy</a>
+                            }
+                            else
+                            {
+                                <span class="text-muted fst-italic">Non renseigné</span>
+                            }
+                        </dd>
+                        </dd>
+
+                        <dt class="col-sm-5 text-muted fw-normal">Créé le</dt>
+                        <dd class="col-sm-7 fw-semibold">
+                            @if (!string.IsNullOrWhiteSpace(Model.CreatedOn.ToString()))
+                            {
+                                <a href="tel:@Model.CreatedOn" class="text-decoration-none">@Model.CreatedOn</a>
+                            }
+                            else
+                            {
+                                <span class="text-muted fst-italic">Non renseigné</span>
+                            }
+                        </dd>
+
+                        <dt class="col-sm-5 text-muted fw-normal">Modifé par</dt>
+                        <dd class="col-sm-7 fw-semibold">
+                            @if (!string.IsNullOrWhiteSpace(Model.ModifiedBy))
+                            {
+                                <a href="tel:@Model.ModifiedBy" class="text-decoration-none">@Model.ModifiedBy</a>
+                            }
+                            else
+                            {
+                                <span class="text-muted fst-italic">Non renseigné</span>
+                            }
+                        </dd>
+
+                        <dt class="col-sm-5 text-muted fw-normal">Modifié le</dt>
+                        <dd class="col-sm-7 fw-semibold">
+                            @if (!string.IsNullOrWhiteSpace(Model.ModifiedOn.ToString()))
+                            {
+                                <a href="tel:@Model.ModifiedOn" class="text-decoration-none">@Model.ModifiedOn</a>
+                            }
+                            else
+                            {
+                                <span class="text-muted fst-italic">Non renseigné</span>
+                            }
+                        </dd>
+
+
+                        <dt class="col-sm-4 text-muted fw-normal">Signature</dt>
+                        <dd class="col-sm-8">
+                            @if (!string.IsNullOrWhiteSpace(Model.Signature))
+                            {
+                                <div class="border rounded p-2 bg-light">
+                                    <img src="@Model.Signature" alt="Signature de @Model.Nom @Model.Prenom"
+                                         class="img-fluid" style="max-height: 80px;" />
+                                    <small class="d-block text-muted mt-1">Signature numérique</small>
+                                </div>
+                            }
+                            else
+                            {
+                                <span class="text-muted fst-italic">Aucune signature</span>
+                            }
+                        </dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<style>
+    .section-title {
+        border-bottom: 2px solid #e9ecef;
+        padding-bottom: 0.5rem;
+    }
+
+    .font-monospace {
+        font-family: 'Courier New', monospace;
+        letter-spacing: 0.5px;
+    }
+
+    .card {
+        border-radius: 12px;
+    }
+
+    .card-header {
+        border-radius: 12px 12px 0 0 !important;
+    }
+
+    dl.row dt {
+        padding-top: 0.25rem;
+        padding-bottom: 0.25rem;
+    }
+
+    dl.row dd {
+        padding-top: 0.25rem;
+        padding-bottom: 0.25rem;
+    }
+</style>

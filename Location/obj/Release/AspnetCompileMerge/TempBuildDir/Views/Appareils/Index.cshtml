@@ -1,0 +1,147 @@
+﻿@model IEnumerable<Location.DAL.Appareils>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2> Liste des appareils</h2>
+<br />
+<div class="row">
+    <div class="col-md-6">
+        <a align="middle" style="display: block; margin: 0 auto; text-align: left" href="@Url.Action("Create", "Appareils",new {@class="link-offset-2 link-underline link-underline-opacity-0 pull-rigth" }) )">Ajouter un appareil</a>
+    </div>    
+    <div class="col-md-6">
+        <a align="middle" style="display: block; margin: 0 auto; text-align: right" href="@Url.Action("ExportToExcel", "Appareils",new {@class="link-offset-2 link-underline link-underline-opacity-0 pull-rigth" }) )">Exporter Excel</a>
+    </div>
+</div>
+<br />
+<table id="baux-data-table" class="table table-bordered" style="border:thin solid">
+    <thead>
+        <tr>
+            <th>                </th>
+            <th>
+                @Html.DisplayName("Nom")
+            </th>
+            <th class="hidden">
+                @Html.DisplayNameFor(model => model.CreatedBy)
+            </th>
+            <th class="hidden">
+                @Html.DisplayNameFor(model => model.CreatedOn)
+            </th>
+            <th class="hidden">
+                @Html.DisplayNameFor(model => model.ModifiedBy)
+            </th>
+            <th class="hidden">
+                @Html.DisplayNameFor(model => model.ModifiedOn)
+            </th>
+            <th class="hidden">
+                @Html.DisplayNameFor(model => model.StatutAppareil)
+            </th>
+            <th>
+                @Html.DisplayName("Description")
+            </th>
+
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var item in Model)
+        {
+            var rowColor = "";
+            var etat = "";
+            var classe = "";
+            if (item.StatutAppareil == "I")
+            {
+                rowColor = "#F08080";
+                etat = "Activer";
+                classe = "fas fa-lock";
+            }
+            else
+            {
+                rowColor = "";
+                etat = "Desactiver";
+                classe = "fas fa-lock-open";
+            }
+        <tr>
+            <td style="background-color:@rowColor; width:10%">
+                <div class="row">
+                    <div class="col-2 col-md-2" title="Éditer">
+                        @Html.ActionLink(" ", "Edit", new { id = item.Id }, new { @class = "fas fa-edit" })
+                    </div>
+                    <div class="col-2 col-md-2" title="Détail">
+                        @Html.ActionLink(" ", "Details", new { id = item.Id }, new { @class = "fas fa-file-alt" })
+                    </div>
+                    <div class="col-2 col-md-2" title="@etat">
+                        @Html.ActionLink(" ", @etat, new { id = item.Id }, new { @class = @classe })
+                    </div>
+                </div>
+            </td>
+            <td style="background-color:@rowColor">
+                @Html.DisplayFor(modelItem => item.NomAppareil)
+            </td>
+            <td class="hidden">
+                @Html.DisplayFor(modelItem => item.CreatedBy)
+            </td>
+            <td class="hidden">
+                @Html.DisplayFor(modelItem => item.CreatedOn)
+            </td>
+            <td class="hidden">
+                @Html.DisplayFor(modelItem => item.ModifiedBy)
+            </td>
+            <td class="hidden">
+                @Html.DisplayFor(modelItem => item.ModifiedOn)
+            </td>
+            <td class="hidden">
+                @Html.DisplayFor(modelItem => item.StatutAppareil)
+            </td>
+            <td style="background-color:@rowColor">
+                @Html.DisplayFor(modelItem => item.DescriptionAppareil)
+            </td>
+
+        </tr>
+        }
+    </tbody>
+</table>
+@*<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Content/bootstrap/js/jquery.dataTables.min.js"></script>*@
+<script>
+    var table = $('#baux-data-table').DataTable({
+        "dom": '<"top"if>rt<"bottom"lp>',
+        "language": {
+            "sProcessing": "Traitement en cours ...",
+            "sLengthMenu": "Afficher _MENU_ lignes",
+            "sZeroRecords": "Aucun résultat trouvé",
+            "sEmptyTable": "Aucune donnée disponible",
+            "sInfo": "Lignes _START_ à _END_ sur _TOTAL_",
+            "sInfoEmpty": "Aucune ligne affichée",
+            "sInfoFiltered": "(Filtrer un maximum de_MAX_)",
+            "sInfoPostFix": "",
+            "sSearch": "Rechercher:",
+            "sUrl": "",
+            "sInfoThousands": ",",
+            "sLoadingRecords": "Chargement...",
+            "oPaginate": {
+                "sFirst": "Premier", "sLast": "Dernier", "sNext": "Suivant", "sPrevious": "Précédent"
+            },
+            "oAria": {
+                "sSortAscending": ": Trier par ordre croissant", "sSortDescending": ": Trier par ordre décroissant"
+            }
+        }
+    });
+
+
+
+    table.on('click', 'tbody tr', function () {
+        var $row = table.row(this).nodes().to$();
+        var hasClass = $row.hasClass('selected');
+        if (hasClass) {
+            $row.removeClass('selected')
+        } else {
+            $row.addClass('selected')
+        }
+    })
+
+    table.rows().every(function () {
+        this.nodes().to$().removeClass('selected')
+    });
+</script>

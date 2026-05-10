@@ -1,0 +1,70 @@
+﻿@model IEnumerable<Location.DAL.Locataires>
+
+@{
+    ViewBag.Title = "Locataires";
+}
+
+<h2 class="mb-4"><i class="fas fa-users me-2"></i>Gestion des locataires</h2>
+
+<p>
+    <a href="@Url.Action("Create")" class="btn btn-primary">
+        <i class="fas fa-plus-circle me-1"></i>Ajouter un locataire
+    </a>
+</p>
+
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="card-title mb-0">
+                        <i class="fas fa-user me-1"></i> @Html.DisplayFor(modelItem => item.PrenomLocataire) @Html.DisplayFor(modelItem => item.NomLocataire)
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">
+                        <i class="fas fa-phone text-muted me-2"></i> @Html.DisplayFor(modelItem => item.TeLocataire)
+                    </p>
+                    <p class="card-text">
+                        <i class="fas fa-envelope text-muted me-2"></i> @Html.DisplayFor(modelItem => item.CourrielLocataire)
+                    </p>
+                    <p class="card-text">
+                        <i class="fas fa-id-card text-muted me-2"></i> Adresse:
+                        @{
+                            var dernierBail = item.Baux.LastOrDefault();
+                            var adresse = (dernierBail != null && dernierBail.Appartements.AdresseAppartement != null) ? dernierBail.Appartements.AdresseAppartement : "";
+                        }
+                        @(string.IsNullOrEmpty(adresse) ? "Non renseigné" : adresse)
+                    </p>
+                    <hr />
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span class="badge bg-@(item.StatutLocataire == "A" ? "success" : "secondary")">
+                            @(item.StatutLocataire == "A" ? "Actif" : "Inactif")
+                        </span>
+                        <small class="text-muted">
+                            <i class="fas fa-birthday-cake me-1"></i> @(item.DateNaissance.HasValue ? item.DateNaissance.Value.ToString("dd MMM yyyy") : "N/A")
+                        </small>
+                    </div>
+                    @if (!string.IsNullOrEmpty(item.NomColocataire))
+                    {
+                        <div class="mt-2 text-muted">
+                            <i class="fas fa-user-friends me-1"></i> Coloc: @item.PrenomColocataire @item.NomColocataire
+                        </div>
+                    }
+                </div>
+                <div class="card-footer bg-transparent d-flex justify-content-between">
+                    <a href="@Url.Action("Edit", new { id = item.Id })" class="btn btn-sm btn-outline-warning">
+                        <i class="fas fa-edit"></i> Modifier
+                    </a>
+                    <a href="@Url.Action("Details", new { id = item.Id })" class="btn btn-sm btn-outline-info">
+                        <i class="fas fa-info-circle"></i> Détails
+                    </a>
+                    <a href="@Url.Action("Delete", new { id = item.Id })" class="btn btn-sm btn-outline-danger">
+                        <i class="fas fa-trash-alt"></i> Supprimer
+                    </a>
+                </div>
+            </div>
+        </div>
+    }
+</div>

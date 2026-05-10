@@ -1,0 +1,219 @@
+﻿@model Location.Demandes
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Détail de la fiche</h2>
+<hr />
+<div>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Sites.NomSite)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Sites.NomSite)
+        </dd>
+        <dt>
+            @Html.DisplayName("Type usager")
+        </dt>
+        <dd>
+            @if (Model.TypeUsagerID != null)
+            {@Html.DisplayFor(model => model.TypeUsagers.NomTypeUsager)
+            }
+
+        </dd>
+        <dt>
+            @if (Model.TypeUsagerID == 1)
+            {@Html.DisplayNameFor(model => model.Matricule) }
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Matricule)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Nom)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Nom)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Prenom)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Prenom)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Sexe)
+        </dt>
+
+        <dd>
+            @if (Model.Sexe == 1)
+            {  @Html.DisplayName("Masculin")}
+            else if (Model.Sexe == 2)
+            {  @Html.DisplayName("Feminin")}
+            else
+            {  @Html.DisplayName("Inconnu")}
+
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Ramq)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Ramq)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Telephone)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Telephone)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Date de naissance")
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DateNaissance)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Courriel)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Courriel)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CodePostal)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CodePostal)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateRdv)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateRdv)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HeureRdv)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HeureRdv)
+        </dd>
+        <dt>
+            @Html.DisplayName("Présence")
+        </dt>
+
+        <dd>
+            @if (Model.Presence == "O")
+            {  @Html.DisplayName("Oui")}
+            else
+            {  @Html.DisplayName("Non")}
+        </dd>
+        <dt>
+            @Html.DisplayName("Surnombre")
+        </dt>
+
+        <dd>
+            @if (Model.SurNombre == "O")
+            {  @Html.DisplayName("Oui")}
+            else
+            {  @Html.DisplayName("Non")}
+
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Langue)
+        </dt>
+
+        <dd>
+            @if (Model.Langue == "F")
+            {  @Html.DisplayName("Français")}
+            else
+            {  @Html.DisplayName("Anglais")}
+        </dd>
+        <dt>
+            @Html.DisplayName("Priorité")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Priorites.NomPriorite)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Commentaire)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Commentaire)
+        </dd>
+        <dt>
+            @Html.DisplayName("Crée par")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreatedBy)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Crée le")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreatedOn)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Modifié par")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ModifiedBy)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Modifié le")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LastModifiedOn)
+        </dd>
+
+    </dl>
+</div>
+
+@{
+    var user = HttpContext.Current.User.Identity.Name;
+
+    bool admin = User.IsInRole("Admin");
+    bool superUtilisateur = User.IsInRole("Super utilisateur");
+    bool utilisateur = User.IsInRole("Utilisateur");
+    bool utilisateurSST = User.IsInRole("Utilisateur-SST");
+
+
+    if (admin || superUtilisateur || utilisateur)
+    {
+        <p>
+            @Html.ActionLink("Éditer la fiche", "Edit", new { id = Model.ID }, new { @class = "btn btn-success btn-large" })
+            @Html.ActionLink("Retour à la liste", "ListUsagers", "Home", routeValues: null, htmlAttributes: new { @class = "btn btn-primary btn-large" })
+        </p>
+    }
+    else
+    {
+        <p>
+            @*@Html.ActionLink("Edit", "Edit", new { id = Model.ID }, new { @class = "btn btn-success btn-large" })*@
+            @Html.ActionLink("Retour à la liste", "ListEmployees", "Home", routeValues: null, htmlAttributes: new { @class = "btn btn-primary btn-large" })
+        </p>
+    }
+}

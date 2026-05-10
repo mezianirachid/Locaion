@@ -1,0 +1,99 @@
+﻿@{ Layout = null; }
+
+    <!--[if lt IE 8]>
+    <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+    <!--
+
+      ~~~~~~~~~Start of the top head content~~~~~~~~~~~~~
+
+    -->
+    <!-- Start of the header -->
+    <header id="#top">
+        @Html.Partial("_Header")
+    </header>
+    <!-- end of the header -->
+    <!-- Start of the navigation -->
+    @{ ViewData["OnPresentation"] = "on";
+        @Html.Partial("_Menu"); }
+    <!-- End of the navigation -->
+    
+    <!--
+
+    ~~~~~~~~~End of the top head content~~~~~~~~~~~~~
+
+    -->
+    <!--
+
+    ~~~~~~~~~Start of the main content~~~~~~~~~~~~~
+
+    -->
+    <!-- Allow a boxed content -->
+    <div class="container">
+
+        <!-- First section with the history of the agency -->
+        <section class="clearfix">
+            <h2 class="m-y-2">@ViewBag.Text101</h2>
+            @*<span>@ViewBag.Presentation</span>*@
+            <article>
+                <figure class="pull-sm-left">
+                    <img src="/UploadedFiles/director_small.jpg" alt="Nacer Ammarkhodja directeur de ImmoLoc" class="img-fluid hidden-sm-up m-b-1">
+                    <img src="/UploadedFiles/director_medium.jpg" alt="Nacer Ammarkhodja directeur de ImmoLoc" class="img-fluid hidden-xs-down hidden-lg-up m-r-1 m-b-1">
+                    <img src="/UploadedFiles/director_large.jpg" alt="Nacer Ammarkhodja directeur de ImmoLoc" class="img-fluid hidden-md-down m-r-1 m-b-1">
+                    <figcaption class="figure-caption text-xs-center">@ViewBag.Text102</figcaption>
+                </figure>
+                <h3>@ViewBag.Text104</h3>
+                <p>
+                    @ViewBag.Text105
+                </p>
+            </article>
+        </section>
+
+        <!-- Second section with the values of the agency -->
+        <section class="clearfix">
+            <h2 class="m-y-2">Le bon logement pour la bonne personne</h2>
+            <article>
+                <figure class="pull-sm-right">
+                    <img src="/UploadedFiles/family_small.jpg" alt="@ViewBag.Text106" class="img-fluid hidden-sm-up m-b-1">
+                    <img src="/UploadedFiles/family_medium.jpg" alt="@ViewBag.Text106" class="img-fluid hidden-xs-down hidden-lg-up m-l-1 m-b-1">
+                    <img src="/UploadedFiles/family_large.jpg" alt="@ViewBag.Text106" class="img-fluid hidden-md-down m-l-1 m-b-1">
+                </figure>
+                <h3>Nos engagements</h3>
+                <p>
+                    @ViewBag.Text107
+                </p>
+            </article>
+        </section>
+
+        <!-- Image gallery to present the lead team. External plugin, see yoxview plugin -->
+        <section>
+            <h2>Notre équipe dirigeante</h2>
+            <p>Ceux sont eux, avec tant d'autres, qui font de ImmoLoc une agence d'exception au service de ses clients. Vous pourrez décourvrir l'ensemble de nos équipes en visitant le lien  <a href="Contact">Contact</a></p>
+            <figure class="yoxview gallery">
+                <a href="img/gallery/employe_un.jpg"><img src="/UploadedFiles/gallery/employe_un_thumbnail.jpg" alt="directeur commercial" title="Vincent Noeulin, directeur commercial" class="img-fluid hidden-md-down" /><img src="/UploadedFiles/gallery/employe_un_medium_thumbnail.jpg" alt="directeur commercial" title="Vincent Noeulin, directeur commercial" class="img-fluid hidden-xs-down hidden-lg-up" /><img src="/UploadedFiles/gallery/employe_un_small_thumbnail.jpg" alt="directeur commercial" title="Vincent Noeulin, directeur commercial" class="img-fluid hidden-sm-up" /></a>
+                <a href="img/gallery/employe_fem_un.jpg"><img src="/UploadedFiles/gallery/employe_fem_un_thumbnail.jpg" alt="responsable rh" title="Christine Bar, responsable RH" class="img-fluid hidden-md-down" /><img src="/UploadedFiles/gallery/employe_fem_un_medium_thumbnail.jpg" alt="responsable rh" title="Christine Bar, responsable RH" class="img-fluid hidden-xs-down hidden-lg-up" /><img src="/UploadedFiles/gallery/employe_fem_un_small_thumbnail.jpg" alt="responsable rh" title="Christine Bar, responsable RH" class="img-fluid hidden-sm-up" /></a>
+                <a href="img/gallery/employe_deux_full_medium.jpg"><img src="/UploadedFiles/gallery/employe_deux_thumbnail.jpg" alt="directeur" title="Nacer AmmarKhodja créateur et fondateur de ImmoLoc" class="img-fluid hidden-md-down" /><img src="/UploadedFiles/gallery/employe_deux_medium_thumbnail.jpg" alt="directeur" title="Louis Dupont créateur et fondateur de ImmoLoc" class="img-fluid hidden-xs-down hidden-lg-up" /><img src="/UploadedFiles/gallery/employe_deux_small_thumbnail.jpg" alt="directeur" title="Nacer Ammarkhodja créateur et fondateur de ImmoLoc" class="img-fluid hidden-sm-up" /></a>
+                <a href="img/gallery/employe_fem_deux.jpg"><img src="/UploadedFiles/gallery/employe_fem_deux_thumbnail.jpg" alt="experte bien immobiliers" title="Sophie Duquenes, experte biens immobiliers" class="img-fluid hidden-md-down" /><img src="/UploadedFiles/gallery/employe_fem_deux_medium_thumbnail.jpg" alt="experte bien immobiliers" title="Sophie Duquenes, experte biens immobiliers" class="img-fluid hidden-xs-down hidden-lg-up" /><img src="/UploadedFiles/gallery/employe_fem_deux_small_thumbnail.jpg" alt="experte bien immobiliers" title="Sophie Duquenes, experte biens immobiliers" class="img-fluid hidden-sm-up" /></a>
+            </figure>
+        </section>
+    </div>
+
+
+    <!--
+    ~~~~~~~~~End of the main content~~~~~~~~~~~~~
+    -->
+    <!--
+
+    ~~~~~~~~~Start of the footer~~~~~~~~~~~~~
+    -->
+    <footer class="m-t-3">
+        @Html.Partial("_Footer")
+    </footer>
+
+    <!--
+
+    ~~~~~~~~~End of the footer~~~~~~~~~~~~~
+
+    -->
+
+    

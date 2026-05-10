@@ -1,0 +1,102 @@
+﻿@model Location.Models.UserEdit
+@{
+    ViewBag.Title = "Éditer un utilisateur";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script src="~/Scripts/jquery.maskedinput-master/dist/jquery.maskedinput.min.js"></script>
+
+
+<hr />
+<h2>Édition d'un utilisateur</h2>
+<hr />
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+
+    <span class=".bg-success">@ViewBag.RoleVide</span>
+
+
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group hidden">
+            @Html.LabelFor(model => model.UserId, htmlAttributes: new { @class = "control-label col-md-2 required" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.UserId, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.UserId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Username, htmlAttributes: new { @class = "control-label col-md-2 required" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-md-2 required" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label col-md-2 required" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Telephone, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Téléphone", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Telephone, new { htmlAttributes = new { @class = "form-control", @id = "Telephone", title = "Téléphone", mask = "(999)-999-9999", autocomplete = "off" } })
+                @Html.ValidationMessageFor(model => model.Telephone, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Rôle", htmlAttributes: new { @class = "control-label col-md-2 required" })
+            <div class="col-md-10">
+                @*@Html.DropDownListFor(model => model.Role, (IEnumerable<SelectListItem>)ViewBag.roles, "--Veuillez choisir--", new { @class = "form-control" })*@
+                @*@Html.DropDownList("UserRoles", (SelectList)ViewBag.roles, new { @class = "form-control"})*@
+                @Html.DropDownList("UserRoles", (IEnumerable<SelectListItem>)ViewBag.roles, new { id = "UserRoles", @class = "form-control" })
+                @*@Html.ValidationMessageFor(model => model.UserRoles, "",new { @class = "text-danger" })*@
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                @Html.ActionLink("Retour", "UsersWithRoles", null, new { @class = "btn btn-primary btn-large" })
+                <input type="submit" value="Enregistrer" class="btn btn-success" />
+            </div>
+        </div>
+    </div>
+}
+
+<script type="text/javascript">
+    $('#Telephone').focusin(function () {
+        $('#Telephone').mask("999-999-9999");
+    });
+</script>
+
+<script src="~/Scripts/jquery-ui.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.js"></script>

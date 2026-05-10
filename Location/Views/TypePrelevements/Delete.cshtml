@@ -1,0 +1,41 @@
+﻿@model Location.TypePrelevements
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>[êtes-vous sûres de vouloir supprimer]?</h3>
+<div>     
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayName("Type prélèvement")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NomTypePrelevement)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DescTypePrelevement)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DescTypePrelevement)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

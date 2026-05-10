@@ -1,0 +1,177 @@
+﻿@{
+    ViewBag.Title = "Messagerie";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Styles {
+    <style>
+        .messages-container {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 20px;
+            margin-top: 20px;
+            height: calc(100vh - 150px);
+        }
+
+        .message-list {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            overflow-y: auto;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .message-item {
+            padding: 15px;
+            border-bottom: 1px solid #edf2f7;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+            .message-item:hover {
+                background: #f7fafc;
+            }
+
+            .message-item.selected {
+                background: #e6f0ff;
+                border-left: 4px solid var(--primary);
+            }
+
+            .message-item .from {
+                font-weight: 600;
+                color: var(--dark);
+            }
+
+            .message-item .subject {
+                color: var(--gray);
+                font-size: 0.9rem;
+                margin: 5px 0;
+            }
+
+            .message-item .date {
+                color: #a0aec0;
+                font-size: 0.8rem;
+            }
+
+        .message-preview {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 20px;
+            overflow-y: auto;
+            box-shadow: var(--shadow-sm);
+        }
+
+            .message-preview iframe {
+                width: 100%;
+                height: 100%;
+                border: none;
+            }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: var(--gray);
+        }
+
+        .error {
+            color: #dc3545;
+            text-align: center;
+            padding: 20px;
+        }
+    </style>
+}
+
+<h2>Messagerie</h2>
+
+<div class="messages-container">
+    <div class="message-list" id="messageList">
+        <!-- Les messages seront chargés ici -->
+        <div class="loading">Chargement des messages...</div>
+    </div>
+    <div class="message-preview" id="messagePreview">
+        <div class="loading">Sélectionnez un message pour le lire</div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            loadMessages();
+
+            function loadMessages() {
+                $.ajax({
+                    url: '@Url.Action("GetMessages", "Messages")',
+                    type: 'GET',
+                    success: function (data) {
+                        if (data.error) {
+                            $('#messageList').html('<div class="error">Erreur : ' + data.error + '</div>');
+                            return;
+                        }
+                        renderMessageList(data);
+                    },
+                    error: function () {
+                        $('#messageList').html('<div class="error">Impossible de charger les messages.</div>');
+                    }
+                });
+            }
+
+            function renderMessageList(messages) {
+                if (messages.length === 0) {
+                    $('#messageList').html('<div class="loading">Aucun message.</div>');
+                    return;
+                }
+
+                var html = '';
+                $.each(messages, function (i, msg) {
+                    html += '<div class="message-item" data-uid="' + msg.Uid + '">' +
+                        '<div class="from">' + escapeHtml(msg.From) + '</div>' +
+                        '<div class="subject">' + escapeHtml(msg.Subject) + '</div>' +
+                        '<div class="date">' + new Date(msg.Date).toLocaleString() + '</div>' +
+                        '</div>';
+                });
+                $('#messageList').html(html);
+
+                // Gestion du clic sur un message
+                $('.message-item').on('click', function () {
+                    $('.message-item').removeClass('selected');
+                    $(this).addClass('selected');
+                    var uid = $(this).data('uid');
+                    loadMessageContent(uid);
+                });
+            }
+
+            function loadMessageContent(uid) {
+                $('#messagePreview').html('<div class="loading">Chargement...</div>');
+                $.ajax({
+                    url: '@Url.Action("GetMessageContent", "Messages")',
+                    type: 'GET',
+                    data: { uid: uid },
+                    success: function (data) {
+                        if (data.success) {
+                            // On affiche le contenu dans un iframe pour un rendu HTML propre
+                            $('#messagePreview').html('<iframe srcdoc="' + escapeHtml(data.content) + '" style="width:100%; height:100%;"></iframe>');
+                        } else {
+                            $('#messagePreview').html('<div class="error">' + data.error + '</div>');
+                        }
+                    },
+                    error: function () {
+                        $('#messagePreview').html('<div class="error">Erreur lors du chargement.</div>');
+                    }
+                });
+            }
+
+            // Fonction utilitaire pour échapper le HTML (simple)
+            function escapeHtml(text) {
+                if (!text) return '';
+                return text.replace(/[&<>"]/g, function (m) {
+                    if (m === '&') return '&amp;';
+                    if (m === '<') return '&lt;';
+                    if (m === '>') return '&gt;';
+                    if (m === '"') return '&quot;';
+                    return m;
+                });
+            }
+        });
+    </script>
+}

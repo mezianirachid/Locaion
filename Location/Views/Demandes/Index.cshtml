@@ -1,0 +1,185 @@
+﻿@{
+    ViewBag.Title = "Liste des usagers";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/Content/bootstrap/css/font-awesome.min.css" rel="stylesheet" />
+<style>
+    .HideLoader {
+        display: none;
+    }
+
+    .ShowLoader {
+        display: normal;
+    }
+
+    .progress {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        margin-top: -50px;
+        margin-left: -100px;
+        height: 150px;
+        width: 150px;
+    }
+
+    .divhide {
+        display: none;
+    }
+
+    .divShow {
+        display: normal;
+        text-align: center;
+    }
+</style>
+<style>
+    .submit-progress-bg {
+        background-color: lightgray;
+        opacity: .5;
+    }
+    .submit-progress {
+        position: fixed;
+        top: 38%;
+        left: 50%;
+        height: 6em;
+        padding-top: 2.3em;
+        z-index: 1;
+        /* The following properties are the ones most likely to change */
+        width: 20em;
+        /* Set 'margin-left' to a negative number that is 1/2 of 'width' */
+        margin-left: -10em;
+        padding-left: 2.1em;
+        background-color: black;
+        color: white;
+        -webkit-border-radius: 0.4em;
+        -moz-border-radius: 0.4em;
+        border-radius: 0.4em;
+        box-shadow: 0.4em 0.4em rgba(0,0,0,0.6);
+        -webkit-box-shadow: 0.4em 0.4em rgba(0,0,0,0.6);
+        -moz-box-shadow: 0.4em 0.4em rgba(0,0,0,0.6);
+    }
+
+    /* Changing style for spinner */
+    .submit-progress {
+        padding-top: 2em;
+        width: 23em;
+        margin-left: -11.5em; /* Set to a negative number that is 1/2 of the width */
+    }
+
+        .submit-progress i {
+            margin-right: 0.5em;
+        }
+</style>
+
+@{
+    string year1 = DateTime.Today.AddDays(-7).Year.ToString();
+    string month1 = DateTime.Today.AddDays(-7).Month.ToString("00");
+    string day1 = DateTime.Today.AddDays(-7).Day.ToString("00");
+    string dateDebut = year1 + "-" + month1 + "-" + day1;
+
+    string year2 = DateTime.Today.Year.ToString();
+    string month2 = DateTime.Today.Month.ToString("00");
+    string day2 = DateTime.Today.Day.ToString("00");
+    string dateFin = year2 + "-" + month2 + "-" + day2;
+}
+
+<hr />
+<div style="margin-left:0px">
+    <h2 style="text-align: left">Liste des usagers en dépistage de COVID-19</h2>
+</div>
+<br />
+<div class="card-body">
+    <div class="form-inline">
+        <div class="form-group">
+            <label for="filtreDateDebut">Fiche usager créée entre le: </label>
+            <input class="form-control" id="filtreDateDebut" type="date" value='@dateDebut'>
+        </div>
+        <div class="form-group">
+            <label for="filtreDateFin">et le: </label>
+            <input class="form-control" id="filtreDateFin" type="date" value="@dateFin">
+        </div>
+        <div class="form-group" style="margin-left: 15px"><button id="filterButton" type="button" onclick="filtrer()" class="btn btn-success"><i class="glyphicon glyphicon-search"></i> Filtrer</button></div>
+    </div>
+</div>
+    <br />
+    <div>
+        <a href="#" class="btn btn-primary" id="export-btn">Exporter Excel</a>
+    </div>
+
+    <hr />
+    <br />
+
+
+    <div id="ListEmployeesContainer">
+        @Html.Partial("_ListEmployees")
+    </div>
+
+    @section scripts{
+        @Scripts.Render("~/Scripts/jquery.unobtrusive-ajax.min.js")
+    }
+    <script>
+        $('#filtreDateDebut').change(function () {
+            dateDebut = $("#filtreDateDebut").val();
+        });
+        $('#filtreDateFin').change(function () {
+            dateFin = $("#filtreDateFin").val();
+        });
+    </script>
+    <script>
+        function filtrer() {
+            //$('#ListEmployeesContainer').html("");
+            var dateDebut = $('#filtreDateDebut').val();
+            var dateFin = $('#filtreDateFin').val();
+
+            $.ajax({
+                url: "/Demandes/EntreUneDateEtUneDateEmployees", //3 it works too
+                dataType: "json",
+                type: "Post",
+                contentType: 'application/json',
+                data: JSON.stringify({ dateDebut: dateDebut, dateFin: dateFin }),
+                async: true,
+                processData: false,
+                cache: false,
+                success: function (data) {
+                    $('#ListEmployeesContainer').html(data);
+                    //StopDisplayProgressMessage();
+                }
+
+            })
+        };
+    </script>
+    <script>
+        $(document).ready(function () {
+            //$('#ListEmployeesContainer').html("");
+            //DisplayProgressMessage();
+            @*$("#dvResults").load('@(Url.Action("Bottom100", "Etudiant",null, Request.Url.Scheme))');*@
+            $.ajax({
+                url: "/Demandes/EntreUneDateEtUneDateEmployees", //3 it works too
+                dataType: "json",
+                type: "Post",
+                contentType: 'application/json',
+                data: JSON.stringify({ dateDebut: "@dateDebut", dateFin: "@dateFin" }),
+                async: true,
+                processData: false,
+                cache: false,
+                success: function (data) {
+                    $('#ListEmployeesContainer').html(data);
+                    //StopDisplayProgressMessage();
+                }
+            });
+        });
+    </script>
+    @*<script>
+            $(function () {
+                filtrer();
+            });
+        </script>*@
+
+    <script>
+        $(document).ready(function () {
+            $("#export-btn").click(function (event) {
+                event.preventDefault();
+                url = "/Demandes/ExportToExcelEmployees?dateDebut=" + $("#filtreDateDebut").val() + "&dateFin=" + $("#filtreDateFin").val();
+                window.location.href = url;
+            });
+        })
+    </script>

@@ -1,0 +1,729 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="LocationModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="__MigrationHistory">
+    <Key>
+      <PropertyRef Name="MigrationId" />
+      <PropertyRef Name="ContextKey" />
+    </Key>
+    <Property Name="MigrationId" Type="nvarchar" MaxLength="150" Nullable="false" />
+    <Property Name="ContextKey" Type="nvarchar" MaxLength="300" Nullable="false" />
+    <Property Name="Model" Type="varbinary(max)" Nullable="false" />
+    <Property Name="ProductVersion" Type="nvarchar" MaxLength="32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Appareils">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NomAppareil" Type="nvarchar" MaxLength="100" />
+    <Property Name="CreatedBy" Type="nvarchar" MaxLength="100" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="ModifiedBy" Type="nvarchar" MaxLength="100" />
+    <Property Name="ModifiedOn" Type="datetime" />
+    <Property Name="DescriptionAppareil" Type="nvarchar" MaxLength="500" />
+    <Property Name="StatutAppareil" Type="nchar" MaxLength="1" />
+  </EntityType>
+  <EntityType Name="AppartementImages">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="AppartementId" Type="int" Nullable="false" />
+    <Property Name="ImagePath" Type="nvarchar" MaxLength="500" Nullable="false" />
+    <Property Name="IsPrimary" Type="bit" Nullable="false" />
+    <Property Name="CreatedOn" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Appartements">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="AdresseAppartement" Type="nvarchar" MaxLength="100" />
+    <Property Name="NbSalleBain" Type="int" />
+    <Property Name="NbEtages" Type="int" />
+    <Property Name="ChauffeOuiNon" Type="nvarchar" MaxLength="1" />
+    <Property Name="Annee" Type="int" />
+    <Property Name="nbBalcons" Type="int" />
+    <Property Name="nbStationnementsInt" Type="int" />
+    <Property Name="nbStationnementsExt" Type="int" />
+    <Property Name="nbGarages" Type="int" />
+    <Property Name="Orientation" Type="nvarchar" MaxLength="10" />
+    <Property Name="CreatedBy" Type="nvarchar" MaxLength="100" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="ModifiedBy" Type="nvarchar" MaxLength="100" />
+    <Property Name="ModifiedOn" Type="datetime" />
+    <Property Name="ImmeubleId" Type="int" />
+    <Property Name="NumeroEtage" Type="int" />
+    <Property Name="StatutAppartement" Type="nchar" MaxLength="1" />
+    <Property Name="TypeChauffage" Type="nvarchar" MaxLength="50" />
+    <Property Name="TypeAppartementId" Type="int" />
+    <Property Name="Superficie" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="Titre" Type="nvarchar" MaxLength="200" />
+    <Property Name="Description" Type="nvarchar(max)" />
+    <Property Name="Badge" Type="nvarchar" MaxLength="50" />
+    <Property Name="Images" Type="nvarchar(max)" />
+    <Property Name="PrixPublic" Type="decimal" Precision="18" Scale="2" />
+  </EntityType>
+  <EntityType Name="AspNetRoles">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AspNetUserClaims">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="ClaimType" Type="nvarchar(max)" />
+    <Property Name="ClaimValue" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="AspNetUserLogins">
+    <Key>
+      <PropertyRef Name="LoginProvider" />
+      <PropertyRef Name="ProviderKey" />
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="LoginProvider" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="ProviderKey" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AspNetUserRoles">
+    <Key>
+      <PropertyRef Name="UserId" />
+      <PropertyRef Name="RoleId" />
+    </Key>
+    <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="RoleId" Type="nvarchar" MaxLength="128" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AspNetUsers">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="Nom" Type="nvarchar" MaxLength="100" />
+    <Property Name="Prenom" Type="nvarchar" MaxLength="100" />
+    <Property Name="Email" Type="nvarchar" MaxLength="256" Nullable="false" />
+    <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
+    <Property Name="PhoneNumber" Type="nvarchar" MaxLength="50" />
+    <Property Name="EmailConfirmed" Type="bit" Nullable="false" />
+    <Property Name="PasswordHash" Type="nvarchar(max)" />
+    <Property Name="SecurityStamp" Type="nvarchar(max)" />
+    <Property Name="PhoneNumberConfirmed" Type="bit" Nullable="false" />
+    <Property Name="TwoFactorEnabled" Type="bit" Nullable="false" />
+    <Property Name="LockoutEndDateUtc" Type="datetime" />
+    <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
+    <Property Name="AccessFailedCount" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AutresObjets">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nom" Type="nvarchar" MaxLength="500" />
+    <Property Name="CreatedBy" Type="nvarchar" MaxLength="500" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="ModifiedBy" Type="nvarchar" MaxLength="500" />
+    <Property Name="ModifiedOn" Type="datetime" />
+    <Property Name="Description" Type="nvarchar" MaxLength="500" />
+    <Property Name="Statut" Type="nchar" MaxLength="1" />
+  </EntityType>
+  <EntityType Name="Baux">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NumeroBail" Type="nvarchar" MaxLength="10" />
+    <Property Name="AppartementId" Type="int" Nullable="false" />
+    <Property Name="LocataireId" Type="int" Nullable="false" />
+    <Property Name="Prix" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="LieuPayement" Type="nvarchar" MaxLength="100" />
+    <Property Name="ReglementImmeuble" Type="bit" />
+    <Property Name="DateDebut" Type="datetime" />
+    <Property Name="DateFin" Type="datetime" />
+    <Property Name="StationnementExt" Type="bit" />
+    <Property Name="NbPlacesExt" Type="int" />
+    <Property Name="StationnementInt" Type="bit" />
+    <Property Name="NbPlacesInt" Type="int" />
+    <Property Name="Emplacement" Type="nvarchar" MaxLength="100" />
+    <Property Name="RemiseEspaceRangenment" Type="nvarchar" MaxLength="100" />
+    <Property Name="Autre" Type="nvarchar" MaxLength="500" />
+    <Property Name="MeublesInclus" Type="bit" />
+    <Property Name="AppareilsInclus" Type="bit" />
+    <Property Name="Deneigement" Type="bit" />
+    <Property Name="TailleGazon" Type="bit" />
+    <Property Name="MontantDepot" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="DateOccupation" Type="datetime" />
+    <Property Name="DateRevision" Type="datetime" />
+    <Property Name="Observation" Type="nvarchar" MaxLength="500" />
+    <Property Name="CreatedBy" Type="nvarchar" MaxLength="100" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="ModifiedBy" Type="nvarchar" MaxLength="100" />
+    <Property Name="ModifiedOn" Type="datetime" />
+    <Property Name="DatePayement" Type="datetime" />
+    <Property Name="StatutBaux" Type="nchar" MaxLength="1" />
+    <Property Name="MoyenPayementId" Type="int" />
+    <Property Name="Charges" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="DateDebutEffective" Type="datetime" />
+    <Property Name="DateFinEffective" Type="datetime" />
+    <Property Name="CoLocataireId" Type="int" />
+    <Property Name="DateResiliation" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Immeubles">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NomImmeuble" Type="nvarchar" MaxLength="100" />
+    <Property Name="CreatedBy" Type="nvarchar" MaxLength="100" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="ModifiedBy" Type="nvarchar" MaxLength="100" />
+    <Property Name="ModifiedOn" Type="datetime" />
+    <Property Name="DescriptionImmeuble" Type="nvarchar" MaxLength="500" />
+    <Property Name="AdresseImmeuble" Type="nvarchar" MaxLength="500" />
+    <Property Name="StatutImmeuble" Type="nchar" MaxLength="1" />
+    <Property Name="Orientation" Type="nvarchar" MaxLength="50" />
+    <Property Name="nbEtages" Type="int" />
+    <Property Name="nbStationnementsInt" Type="int" />
+    <Property Name="nbStationnementsExt" Type="int" />
+    <Property Name="Annee" Type="int" />
+    <Property Name="Autre" Type="nvarchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="InclusionAppareils">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="AppareilId" Type="int" Nullable="false" />
+    <Property Name="Observation" Type="nvarchar" MaxLength="500" />
+    <Property Name="CreatedBy" Type="nvarchar" MaxLength="100" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="ModifiedBy" Type="nvarchar" MaxLength="100" />
+    <Property Name="ModifiedOn" Type="datetime" />
+    <Property Name="BauxId" Type="int" />
+    <Property Name="NbAppareilsInclus" Type="int" />
+  </EntityType>
+  <EntityType Name="InclusionAutres">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="AutreObjetId" Type="int" Nullable="false" />
+    <Property Name="Observation" Type="nvarchar" MaxLength="500" />
+    <Property Name="CreatedBy" Type="nvarchar" MaxLength="100" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="ModifiedBy" Type="nvarchar" MaxLength="100" />
+    <Property Name="ModifiedOn" Type="datetime" />
+    <Property Name="BauxId" Type="int" />
+    <Property Name="NbAutresInclus" Type="int" />
+  </EntityType>
+  <EntityType Name="InclusionMeubles">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MeubleId" Type="int" Nullable="false" />
+    <Property Name="Observation" Type="nvarchar" MaxLength="500" />
+    <Property Name="CreatedBy" Type="nvarchar" MaxLength="100" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="ModifiedBy" Type="nvarchar" MaxLength="100" />
+    <Property Name="ModifiedOn" Type="datetime" />
+    <Property Name="BauxId" Type="int" />
+    <Property Name="NbMeublesInclus" Type="int" />
+  </EntityType>
+  <EntityType Name="Locataires">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NomLocataire" Type="nvarchar" MaxLength="100" />
+    <Property Name="PrenomLocataire" Type="nvarchar" MaxLength="100" />
+    <Property Name="SexeLocataire" Type="nvarchar" MaxLength="1" />
+    <Property Name="DateNaissance" Type="datetime" />
+    <Property Name="NASLocataire" Type="nvarchar" MaxLength="20" />
+    <Property Name="TeLocataire" Type="nvarchar" MaxLength="20" />
+    <Property Name="TelSecondaire" Type="nvarchar" MaxLength="20" />
+    <Property Name="CourrielLocataire" Type="nvarchar" MaxLength="50" />
+    <Property Name="NomContactUrgence" Type="nvarchar" MaxLength="100" />
+    <Property Name="TelContactUrgence" Type="nvarchar" MaxLength="20" />
+    <Property Name="CreatedBy" Type="nvarchar" MaxLength="100" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="ModifiedBy" Type="nvarchar" MaxLength="100" />
+    <Property Name="ModifiedOn" Type="datetime" />
+    <Property Name="StatutLocataire" Type="nchar" MaxLength="1" />
+    <Property Name="NomColocataire" Type="nvarchar" MaxLength="100" />
+    <Property Name="PrenomColocataire" Type="nvarchar" MaxLength="100" />
+    <Property Name="TelColocataire" Type="nvarchar" MaxLength="20" />
+    <Property Name="CourrielColocataire" Type="nchar" MaxLength="10" />
+    <Property Name="SexeColocataire" Type="nchar" MaxLength="1" />
+    <Property Name="StatutColocataire" Type="nchar" MaxLength="1" />
+    <Property Name="RelationLocataireColocataire" Type="nvarchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="Locateur">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nom" Type="nvarchar" MaxLength="100" />
+    <Property Name="Prenom" Type="nvarchar" MaxLength="100" />
+    <Property Name="Sexe" Type="nchar" MaxLength="1" />
+    <Property Name="Adresse" Type="nvarchar" MaxLength="500" />
+    <Property Name="Ville" Type="nvarchar" MaxLength="100" />
+    <Property Name="CodePostal" Type="nvarchar" MaxLength="20" />
+    <Property Name="DateNaissance" Type="datetime" />
+    <Property Name="NAS" Type="nvarchar" MaxLength="20" />
+    <Property Name="TelPrincipal" Type="nvarchar" MaxLength="20" />
+    <Property Name="TelSecondaire" Type="nvarchar" MaxLength="20" />
+    <Property Name="Courriel" Type="nvarchar" MaxLength="50" />
+    <Property Name="CreatedBy" Type="nvarchar" MaxLength="100" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="ModifiedBy" Type="nvarchar" MaxLength="100" />
+    <Property Name="ModifiedOn" Type="datetime" />
+    <Property Name="Statut" Type="nchar" MaxLength="1" />
+    <Property Name="Signature" Type="nvarchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="Meubles">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nom" Type="nvarchar" MaxLength="100" />
+    <Property Name="CreatedBy" Type="nvarchar" MaxLength="100" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="ModifiedBy" Type="nvarchar" MaxLength="100" />
+    <Property Name="ModifiedOn" Type="datetime" />
+    <Property Name="Description" Type="nvarchar" MaxLength="500" />
+    <Property Name="Statut" Type="nchar" MaxLength="1" />
+  </EntityType>
+  <EntityType Name="MoyenPayements">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NomMoyenPayement" Type="nvarchar" MaxLength="50" />
+    <Property Name="DescriptionMoyenPayement" Type="nvarchar" MaxLength="500" />
+    <Property Name="CreatedBy" Type="nvarchar" MaxLength="100" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="ModifiedBy" Type="nvarchar" MaxLength="100" />
+    <Property Name="ModifiedOn" Type="datetime" />
+    <Property Name="StatutMoyenPayement" Type="nchar" MaxLength="1" />
+  </EntityType>
+  <EntityType Name="Payements">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Annee" Type="int" />
+    <Property Name="Mois" Type="int" />
+    <Property Name="DatePayement" Type="datetime" />
+    <Property Name="LieuPayement" Type="nvarchar" MaxLength="100" />
+    <Property Name="Description" Type="nvarchar" MaxLength="500" />
+    <Property Name="ModePayement" Type="nvarchar" MaxLength="500" />
+    <Property Name="CreatedBy" Type="nvarchar" MaxLength="100" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="ModifiedBy" Type="nvarchar" MaxLength="100" />
+    <Property Name="ModifiedOn" Type="datetime" />
+    <Property Name="BauxId" Type="int" />
+    <Property Name="Montant" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="Statut" Type="nchar" MaxLength="1" />
+    <Property Name="MoyenPayementId" Type="int" />
+  </EntityType>
+  <EntityType Name="RefMessages">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Code" Type="nvarchar" MaxLength="100" />
+    <Property Name="CreatedBy" Type="nvarchar" MaxLength="100" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="ModifiedBy" Type="nvarchar" MaxLength="100" />
+    <Property Name="ModifiedOn" Type="datetime" />
+    <Property Name="Description" Type="nvarchar" MaxLength="4000" />
+    <Property Name="Statut" Type="nchar" MaxLength="1" />
+  </EntityType>
+  <EntityType Name="TypeAppartements">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NomTypeAppartement" Type="nvarchar" MaxLength="100" />
+    <Property Name="DescriptionTypeAppartement" Type="nvarchar" MaxLength="500" />
+    <Property Name="CreatedBy" Type="nvarchar" MaxLength="100" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="ModifiedBy" Type="nvarchar" MaxLength="100" />
+    <Property Name="ModifiedOn" Type="datetime" />
+    <Property Name="StatutTypeAppartement" Type="nchar" MaxLength="1" />
+  </EntityType>
+  <Association Name="FK_AppartementImages_Appartements">
+    <End Role="Appartements" Type="Self.Appartements" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AppartementImages" Type="Self.AppartementImages" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Appartements">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AppartementImages">
+        <PropertyRef Name="AppartementId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AppartementsImmeubles">
+    <End Role="Immeubles" Type="Self.Immeubles" Multiplicity="0..1" />
+    <End Role="Appartements" Type="Self.Appartements" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Immeubles">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Appartements">
+        <PropertyRef Name="ImmeubleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AppartementsTypeAppartements">
+    <End Role="TypeAppartements" Type="Self.TypeAppartements" Multiplicity="0..1" />
+    <End Role="Appartements" Type="Self.Appartements" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TypeAppartements">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Appartements">
+        <PropertyRef Name="TypeAppartementId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Baux_Baux">
+    <End Role="Baux" Type="Self.Baux" Multiplicity="1" />
+    <End Role="Baux1" Type="Self.Baux" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Baux">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Baux1">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Baux_Baux1">
+    <End Role="Baux" Type="Self.Baux" Multiplicity="1" />
+    <End Role="Baux1" Type="Self.Baux" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Baux">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Baux1">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_BauxCoLocataires">
+    <End Role="Locataires" Type="Self.Locataires" Multiplicity="0..1" />
+    <End Role="Baux" Type="Self.Baux" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Locataires">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Baux">
+        <PropertyRef Name="CoLocataireId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_BauxImmeubles">
+    <End Role="Appartements" Type="Self.Appartements" Multiplicity="1" />
+    <End Role="Baux" Type="Self.Baux" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Appartements">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Baux">
+        <PropertyRef Name="AppartementId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_BauxLocataires">
+    <End Role="Locataires" Type="Self.Locataires" Multiplicity="1" />
+    <End Role="Baux" Type="Self.Baux" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Locataires">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Baux">
+        <PropertyRef Name="LocataireId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_BauxMoyenPayements">
+    <End Role="MoyenPayements" Type="Self.MoyenPayements" Multiplicity="0..1" />
+    <End Role="Baux" Type="Self.Baux" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MoyenPayements">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Baux">
+        <PropertyRef Name="MoyenPayementId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetUserClaims" Type="Self.AspNetUserClaims" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserClaims">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetUserLogins" Type="Self.AspNetUserLogins" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserLogins">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+    <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetRoles">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserRoles">
+        <PropertyRef Name="RoleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserRoles">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_InclusionAppareils_Appareils">
+    <End Role="Appareils" Type="Self.Appareils" Multiplicity="1" />
+    <End Role="InclusionAppareils" Type="Self.InclusionAppareils" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Appareils">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="InclusionAppareils">
+        <PropertyRef Name="AppareilId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_InclusionAppareils_Baux">
+    <End Role="Baux" Type="Self.Baux" Multiplicity="0..1" />
+    <End Role="InclusionAppareils" Type="Self.InclusionAppareils" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Baux">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="InclusionAppareils">
+        <PropertyRef Name="BauxId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_InclusionAutres_Autres">
+    <End Role="AutresObjets" Type="Self.AutresObjets" Multiplicity="1" />
+    <End Role="InclusionAutres" Type="Self.InclusionAutres" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AutresObjets">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="InclusionAutres">
+        <PropertyRef Name="AutreObjetId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_InclusionAutres_Baux">
+    <End Role="Baux" Type="Self.Baux" Multiplicity="0..1" />
+    <End Role="InclusionAutres" Type="Self.InclusionAutres" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Baux">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="InclusionAutres">
+        <PropertyRef Name="BauxId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_InclusionMeubles_Baux">
+    <End Role="Baux" Type="Self.Baux" Multiplicity="0..1" />
+    <End Role="InclusionMeubles" Type="Self.InclusionMeubles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Baux">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="InclusionMeubles">
+        <PropertyRef Name="BauxId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_InclusionMeubles_Meubles">
+    <End Role="Meubles" Type="Self.Meubles" Multiplicity="1" />
+    <End Role="InclusionMeubles" Type="Self.InclusionMeubles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Meubles">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="InclusionMeubles">
+        <PropertyRef Name="MeubleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PayementBaux">
+    <End Role="Baux" Type="Self.Baux" Multiplicity="0..1" />
+    <End Role="Payements" Type="Self.Payements" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Baux">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Payements">
+        <PropertyRef Name="BauxId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PayementTypePayements">
+    <End Role="MoyenPayements" Type="Self.MoyenPayements" Multiplicity="0..1" />
+    <End Role="Payements" Type="Self.Payements" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MoyenPayements">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Payements">
+        <PropertyRef Name="MoyenPayementId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="LocationModelStoreContainer">
+    <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Appareils" EntityType="Self.Appareils" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AppartementImages" EntityType="Self.AppartementImages" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Appartements" EntityType="Self.Appartements" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AutresObjets" EntityType="Self.AutresObjets" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Baux" EntityType="Self.Baux" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Immeubles" EntityType="Self.Immeubles" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="InclusionAppareils" EntityType="Self.InclusionAppareils" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="InclusionAutres" EntityType="Self.InclusionAutres" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="InclusionMeubles" EntityType="Self.InclusionMeubles" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Locataires" EntityType="Self.Locataires" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Locateur" EntityType="Self.Locateur" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Meubles" EntityType="Self.Meubles" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MoyenPayements" EntityType="Self.MoyenPayements" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Payements" EntityType="Self.Payements" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="RefMessages" EntityType="Self.RefMessages" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TypeAppartements" EntityType="Self.TypeAppartements" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_AppartementImages_Appartements" Association="Self.FK_AppartementImages_Appartements">
+      <End Role="Appartements" EntitySet="Appartements" />
+      <End Role="AppartementImages" EntitySet="AppartementImages" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AppartementsImmeubles" Association="Self.FK_AppartementsImmeubles">
+      <End Role="Immeubles" EntitySet="Immeubles" />
+      <End Role="Appartements" EntitySet="Appartements" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AppartementsTypeAppartements" Association="Self.FK_AppartementsTypeAppartements">
+      <End Role="TypeAppartements" EntitySet="TypeAppartements" />
+      <End Role="Appartements" EntitySet="Appartements" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Baux_Baux" Association="Self.FK_Baux_Baux">
+      <End Role="Baux" EntitySet="Baux" />
+      <End Role="Baux1" EntitySet="Baux" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Baux_Baux1" Association="Self.FK_Baux_Baux1">
+      <End Role="Baux" EntitySet="Baux" />
+      <End Role="Baux1" EntitySet="Baux" />
+    </AssociationSet>
+    <AssociationSet Name="FK_BauxCoLocataires" Association="Self.FK_BauxCoLocataires">
+      <End Role="Locataires" EntitySet="Locataires" />
+      <End Role="Baux" EntitySet="Baux" />
+    </AssociationSet>
+    <AssociationSet Name="FK_BauxImmeubles" Association="Self.FK_BauxImmeubles">
+      <End Role="Appartements" EntitySet="Appartements" />
+      <End Role="Baux" EntitySet="Baux" />
+    </AssociationSet>
+    <AssociationSet Name="FK_BauxLocataires" Association="Self.FK_BauxLocataires">
+      <End Role="Locataires" EntitySet="Locataires" />
+      <End Role="Baux" EntitySet="Baux" />
+    </AssociationSet>
+    <AssociationSet Name="FK_BauxMoyenPayements" Association="Self.FK_BauxMoyenPayements">
+      <End Role="MoyenPayements" EntitySet="MoyenPayements" />
+      <End Role="Baux" EntitySet="Baux" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+      <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+      <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_InclusionAppareils_Appareils" Association="Self.FK_InclusionAppareils_Appareils">
+      <End Role="Appareils" EntitySet="Appareils" />
+      <End Role="InclusionAppareils" EntitySet="InclusionAppareils" />
+    </AssociationSet>
+    <AssociationSet Name="FK_InclusionAppareils_Baux" Association="Self.FK_InclusionAppareils_Baux">
+      <End Role="Baux" EntitySet="Baux" />
+      <End Role="InclusionAppareils" EntitySet="InclusionAppareils" />
+    </AssociationSet>
+    <AssociationSet Name="FK_InclusionAutres_Autres" Association="Self.FK_InclusionAutres_Autres">
+      <End Role="AutresObjets" EntitySet="AutresObjets" />
+      <End Role="InclusionAutres" EntitySet="InclusionAutres" />
+    </AssociationSet>
+    <AssociationSet Name="FK_InclusionAutres_Baux" Association="Self.FK_InclusionAutres_Baux">
+      <End Role="Baux" EntitySet="Baux" />
+      <End Role="InclusionAutres" EntitySet="InclusionAutres" />
+    </AssociationSet>
+    <AssociationSet Name="FK_InclusionMeubles_Baux" Association="Self.FK_InclusionMeubles_Baux">
+      <End Role="Baux" EntitySet="Baux" />
+      <End Role="InclusionMeubles" EntitySet="InclusionMeubles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_InclusionMeubles_Meubles" Association="Self.FK_InclusionMeubles_Meubles">
+      <End Role="Meubles" EntitySet="Meubles" />
+      <End Role="InclusionMeubles" EntitySet="InclusionMeubles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PayementBaux" Association="Self.FK_PayementBaux">
+      <End Role="Baux" EntitySet="Baux" />
+      <End Role="Payements" EntitySet="Payements" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PayementTypePayements" Association="Self.FK_PayementTypePayements">
+      <End Role="MoyenPayements" EntitySet="MoyenPayements" />
+      <End Role="Payements" EntitySet="Payements" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

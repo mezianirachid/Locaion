@@ -1,0 +1,193 @@
+﻿@model Location.DAL.Locataires
+
+@{
+    ViewBag.Title = "Ajouter un locataire";
+}
+
+<h2 class="mb-4"><i class="fas fa-plus-circle me-2"></i>Ajouter un locataire</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="card shadow">
+        <div class="card-body">
+            @Html.ValidationSummary(true, "", new { @class = "alert alert-danger" })
+
+            <div class="row">
+                <div class="col-md-6">
+                    <h5 class="border-bottom pb-2">Informations personnelles</h5>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            @Html.LabelFor(model => model.NomLocataire, new { @class = "form-label" })
+                            @Html.EditorFor(model => model.NomLocataire, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.NomLocataire, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            @Html.LabelFor(model => model.PrenomLocataire, new { @class = "form-label" })
+                            @Html.EditorFor(model => model.PrenomLocataire, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.PrenomLocataire, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            @Html.LabelFor(model => model.SexeLocataire, new { @class = "form-label" })
+                            @Html.DropDownListFor(model => model.SexeLocataire,
+                                new SelectList(new[] {
+                                    new { Value = "", Text = "Sélectionnez" },
+                                    new { Value = "M", Text = "Masculin" },
+                                    new { Value = "F", Text = "Féminin" }
+                                }, "Value", "Text"),
+                                new { @class = "form-select" })
+                            @Html.ValidationMessageFor(model => model.SexeLocataire, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            @Html.LabelFor(model => model.DateNaissance, new { @class = "form-label" })
+                            @Html.EditorFor(model => model.DateNaissance, new { htmlAttributes = new { @class = "form-control", type = "date" } })
+                            @Html.ValidationMessageFor(model => model.DateNaissance, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        @Html.LabelFor(model => model.NASLocataire, new { @class = "form-label" })
+                        @Html.EditorFor(model => model.NASLocataire, new { htmlAttributes = new { @class = "form-control", placeholder = "123 456 789" } })
+                        @Html.ValidationMessageFor(model => model.NASLocataire, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="mb-3">
+                        @Html.LabelFor(model => model.StatutLocataire, new { @class = "form-label" })
+                        @Html.DropDownListFor(model => model.StatutLocataire,
+                            new SelectList(new[] {
+                                new { Value = "A", Text = "Actif" },
+                                new { Value = "I", Text = "Inactif" }
+                            }, "Value", "Text"),
+                            "Sélectionnez", new { @class = "form-select" })
+                        @Html.ValidationMessageFor(model => model.StatutLocataire, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <h5 class="border-bottom pb-2">Coordonnées</h5>
+
+                    <div class="mb-3">
+                        @Html.LabelFor(model => model.TeLocataire, new { @class = "form-label" })
+                        @Html.EditorFor(model => model.TeLocataire, new { htmlAttributes = new { @class = "form-control", placeholder = "Téléphone principal" } })
+                        @Html.ValidationMessageFor(model => model.TeLocataire, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="mb-3">
+                        @Html.LabelFor(model => model.TelSecondaire, new { @class = "form-label" })
+                        @Html.EditorFor(model => model.TelSecondaire, new { htmlAttributes = new { @class = "form-control", placeholder = "Téléphone secondaire" } })
+                        @Html.ValidationMessageFor(model => model.TelSecondaire, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="mb-3">
+                        @Html.LabelFor(model => model.CourrielLocataire, new { @class = "form-label" })
+                        @Html.EditorFor(model => model.CourrielLocataire, new { htmlAttributes = new { @class = "form-control", placeholder = "courriel@exemple.com" } })
+                        @Html.ValidationMessageFor(model => model.CourrielLocataire, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt-3">
+                <div class="col-md-6">
+                    <h5 class="border-bottom pb-2">Contact d'urgence</h5>
+                    <div class="mb-3">
+                        @Html.LabelFor(model => model.NomContactUrgence, new { @class = "form-label" })
+                        @Html.EditorFor(model => model.NomContactUrgence, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.NomContactUrgence, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="mb-3">
+                        @Html.LabelFor(model => model.TelContactUrgence, new { @class = "form-label" })
+                        @Html.EditorFor(model => model.TelContactUrgence, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.TelContactUrgence, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt-4">
+                <div class="col-12">
+                    <h5 class="border-bottom pb-2">Colocataire (optionnel)</h5>
+                </div>
+                <div class="col-md-4 mb-3">
+                    @Html.LabelFor(model => model.NomColocataire, new { @class = "form-label" })
+                    @Html.EditorFor(model => model.NomColocataire, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.NomColocataire, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-4 mb-3">
+                    @Html.LabelFor(model => model.PrenomColocataire, new { @class = "form-label" })
+                    @Html.EditorFor(model => model.PrenomColocataire, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.PrenomColocataire, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-4 mb-3">
+                    @Html.LabelFor(model => model.TelColocataire, new { @class = "form-label" })
+                    @Html.EditorFor(model => model.TelColocataire, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.TelColocataire, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-4 mb-3">
+                    @Html.LabelFor(model => model.CourrielColocataire, new { @class = "form-label" })
+                    @Html.EditorFor(model => model.CourrielColocataire, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.CourrielColocataire, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-4 mb-3">
+                    @Html.LabelFor(model => model.SexeColocataire, new { @class = "form-label" })
+                    @Html.DropDownListFor(model => model.SexeColocataire,
+                        new SelectList(new[] {
+                            new { Value = "", Text = "Sélectionnez" },
+                            new { Value = "M", Text = "Masculin" },
+                            new { Value = "F", Text = "Féminin" }
+                        }, "Value", "Text"),
+                        new { @class = "form-select" })
+                    @Html.ValidationMessageFor(model => model.SexeColocataire, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-4 mb-3">
+                    @Html.LabelFor(model => model.StatutColocataire, new { @class = "form-label" })
+                    @Html.DropDownListFor(model => model.StatutColocataire,
+                        new SelectList(new[] {
+                            new { Value = "A", Text = "Actif" },
+                            new { Value = "I", Text = "Inactif" }
+                        }, "Value", "Text"),
+                        "Sélectionnez", new { @class = "form-select" })
+                    @Html.ValidationMessageFor(model => model.StatutColocataire, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-6 mb-3">
+                    @Html.LabelFor(model => model.RelationLocataireColocataire, new { @class = "form-label" })
+                    @Html.EditorFor(model => model.RelationLocataireColocataire, new { htmlAttributes = new { @class = "form-control", placeholder = "Ex: conjoint, enfant, etc." } })
+                    @Html.ValidationMessageFor(model => model.RelationLocataireColocataire, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="row mt-4" style="display: none">
+                <div class="col-12">
+                    <h5 class="border-bottom pb-2">Métadonnées (optionnel)</h5>
+                </div>
+                <div class="col-md-3 mb-3">
+                    @Html.LabelFor(model => model.CreatedBy, new { @class = "form-label" })
+                    @Html.EditorFor(model => model.CreatedBy, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.CreatedBy, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-3 mb-3">
+                    @Html.LabelFor(model => model.CreatedOn, new { @class = "form-label" })
+                    @Html.EditorFor(model => model.CreatedOn, new { htmlAttributes = new { @class = "form-control", type = "datetime-local" } })
+                    @Html.ValidationMessageFor(model => model.CreatedOn, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-3 mb-3">
+                    @Html.LabelFor(model => model.ModifiedBy, new { @class = "form-label" })
+                    @Html.EditorFor(model => model.ModifiedBy, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.ModifiedBy, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-3 mb-3">
+                    @Html.LabelFor(model => model.ModifiedOn, new { @class = "form-label" })
+                    @Html.EditorFor(model => model.ModifiedOn, new { htmlAttributes = new { @class = "form-control", type = "datetime-local" } })
+                    @Html.ValidationMessageFor(model => model.ModifiedOn, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <button type="submit" class="btn btn-primary"><i class="fas fa-save me-1"></i>Créer</button>
+            <a href="@Url.Action("Index")" class="btn btn-secondary"><i class="fas fa-times me-1"></i>Annuler</a>
+        </div>
+    </div>
+}

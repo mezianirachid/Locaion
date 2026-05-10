@@ -1,0 +1,123 @@
+﻿@model Location.DAL.Appartements
+
+@{
+    ViewBag.Title = "Détails de l'appartement";
+}
+
+<h2 class="mb-4"><i class="fas fa-door-open me-2"></i>Détails de l'appartement</h2>
+
+<div class="card shadow">
+    <div class="card-header bg-primary text-white">
+        <h4 class="mb-0">Appartement @Html.DisplayFor(model => model.AdresseAppartement)</h4>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-6">
+                <h5 class="border-bottom pb-2"><i class="fas fa-info-circle me-2"></i>Informations générales</h5>
+                <dl class="row">
+                    <dt class="col-sm-5">@Html.DisplayNameFor(model => model.Immeubles.NomImmeuble)</dt>
+                    <dd class="col-sm-7">@Html.DisplayFor(model => model.Immeubles.NomImmeuble)</dd>
+
+                    <dt class="col-sm-5">@Html.DisplayNameFor(model => model.TypeAppartements.NomTypeAppartement)</dt>
+                    <dd class="col-sm-7">@Html.DisplayFor(model => model.TypeAppartements.NomTypeAppartement)</dd>
+
+                    <dt class="col-sm-5">@Html.DisplayNameFor(model => model.AdresseAppartement)</dt>
+                    <dd class="col-sm-7">@Html.DisplayFor(model => model.AdresseAppartement)</dd>
+
+                    <dt class="col-sm-5">@Html.DisplayNameFor(model => model.NumeroEtage)</dt>
+                    <dd class="col-sm-7">@Html.DisplayFor(model => model.NumeroEtage)</dd>
+
+                    <dt class="col-sm-5">@Html.DisplayNameFor(model => model.Superficie)</dt>
+                    <dd class="col-sm-7">@Html.DisplayFor(model => model.Superficie)</dd>
+
+                    <dt class="col-sm-5">@Html.DisplayNameFor(model => model.StatutAppartement)</dt>
+                    <dd class="col-sm-7">
+                        <span class="badge bg-@(Model.StatutAppartement == "A" ? "success" : "secondary")">
+                            @(Model.StatutAppartement == "A" ? "Disponible" : "Occupé")
+                        </span>
+                    </dd>
+                </dl>
+            </div>
+            <div class="col-md-6">
+                <h5 class="border-bottom pb-2"><i class="fas fa-cogs me-2"></i>Caractéristiques</h5>
+                <dl class="row">
+                    <dt class="col-sm-5">@Html.DisplayNameFor(model => model.NbSalleBain)</dt>
+                    <dd class="col-sm-7"><i class="fas fa-bath me-1"></i> @Html.DisplayFor(model => model.NbSalleBain)</dd>
+
+                    <dt class="col-sm-5">@Html.DisplayNameFor(model => model.NbEtages)</dt>
+                    <dd class="col-sm-7"><i class="fas fa-layer-group me-1"></i> @Html.DisplayFor(model => model.NbEtages)</dd>
+
+                    <dt class="col-sm-5">@Html.DisplayNameFor(model => model.nbBalcons)</dt>
+                    <dd class="col-sm-7"><i class="fas fa-umbrella-beach me-1"></i> @Html.DisplayFor(model => model.nbBalcons)</dd>
+
+                    <dt class="col-sm-5">@Html.DisplayNameFor(model => model.nbGarages)</dt>
+                    <dd class="col-sm-7"><i class="fas fa-warehouse me-1"></i> @Html.DisplayFor(model => model.nbGarages)</dd>
+
+                    <dt class="col-sm-5">@Html.DisplayNameFor(model => model.nbStationnementsInt)</dt>
+                    <dd class="col-sm-7"><i class="fas fa-parking me-1"></i> @Html.DisplayFor(model => model.nbStationnementsInt) int.</dd>
+
+                    <dt class="col-sm-5">@Html.DisplayNameFor(model => model.nbStationnementsExt)</dt>
+                    <dd class="col-sm-7"><i class="fas fa-car me-1"></i> @Html.DisplayFor(model => model.nbStationnementsExt) ext.</dd>
+
+                    <dt class="col-sm-5">@Html.DisplayNameFor(model => model.ChauffeOuiNon)</dt>
+                    <dd class="col-sm-7">
+                        @if (Model.ChauffeOuiNon == "O")
+                        {
+                            <span class="badge bg-success">Chauffé</span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-secondary">Non chauffé</span>
+                        }
+                    </dd>
+
+                    <dt class="col-sm-5">@Html.DisplayNameFor(model => model.TypeChauffage)</dt>
+                    <dd class="col-sm-7">@Html.DisplayFor(model => model.TypeChauffage)</dd>
+
+                    <dt class="col-sm-5">@Html.DisplayNameFor(model => model.Orientation)</dt>
+                    <dd class="col-sm-7">@Html.DisplayFor(model => model.Orientation)</dd>
+
+                    <dt class="col-sm-5">@Html.DisplayNameFor(model => model.Annee)</dt>
+                    <dd class="col-sm-7">@Html.DisplayFor(model => model.Annee)</dd>
+                </dl>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-12">
+                <h5 class="border-bottom pb-2"><i class="fas fa-clock me-2"></i>Métadonnées</h5>
+                <dl class="row">
+                    <dt class="col-sm-2">@Html.DisplayNameFor(model => model.CreatedBy)</dt>
+                    <dd class="col-sm-4">@Html.DisplayFor(model => model.CreatedBy)</dd>
+                    <dt class="col-sm-2">@Html.DisplayNameFor(model => model.CreatedOn)</dt>
+                    <dd class="col-sm-4">@Html.DisplayFor(model => model.CreatedOn)</dd>
+                    <dt class="col-sm-2">@Html.DisplayNameFor(model => model.ModifiedBy)</dt>
+                    <dd class="col-sm-4">@Html.DisplayFor(model => model.ModifiedBy)</dd>
+                    <dt class="col-sm-2">@Html.DisplayNameFor(model => model.ModifiedOn)</dt>
+                    <dd class="col-sm-4">@Html.DisplayFor(model => model.ModifiedOn)</dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+    <div class="card-footer">
+        <a href="@Url.Action("Edit", new { id = Model.Id })" class="btn btn-warning">
+            <i class="fas fa-edit me-1"></i>Modifier
+        </a>
+        <a href="@Url.Action("Index")" class="btn btn-secondary">
+            <i class="fas fa-arrow-left me-1"></i>Retour à la liste
+        </a>
+    </div>
+</div>
+<dt>
+    @Html.DisplayNameFor(model => model.TypeAppartements.NomTypeAppartement)
+</dt>
+
+<dd>
+    @Html.DisplayFor(model => model.TypeAppartements.NomTypeAppartement)
+</dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

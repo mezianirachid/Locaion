@@ -1,0 +1,183 @@
+﻿@model Location.DAL.Baux
+
+@{
+    ViewBag.Title = "Détails du bail";
+}
+
+<h2 class="mb-4">
+    <i class="fas fa-info-circle me-2 text-info"></i>Détails du bail
+</h2>
+
+<div class="card shadow-sm">
+    <div class="card-header bg-info text-white">
+        <h4 class="mb-0">Bail n° @Model.NumeroBail</h4>
+    </div>
+    <div class="card-body">
+        <dl class="row">
+            <dt class="col-sm-3 col-md-2 fw-bold">Appartement</dt>
+            <dd class="col-sm-9 col-md-4">@Html.DisplayFor(model => model.Appartements.AdresseAppartement)</dd>
+
+            <dt class="col-sm-3 col-md-2 fw-bold">Locataire principal</dt>
+            <dd class="col-sm-9 col-md-4">
+                @if (Model.Locataires1 != null)
+                {
+                    @Model.Locataires1.NomLocataire @Model.Locataires1.PrenomLocataire
+                }
+                else
+                {
+                    <span class="text-muted">-</span>
+                }
+            </dd>
+
+            <dt class="col-sm-3 col-md-2 fw-bold">Co‑locataire</dt>
+            <dd class="col-sm-9 col-md-4">
+                @if (Model.Locataires != null)
+                {
+                    @Model.Locataires.NomLocataire @Model.Locataires.PrenomLocataire
+                }
+                else
+                {
+                    <span class="text-muted">-</span>
+                }
+            </dd>
+
+            <dt class="col-sm-3 col-md-2 fw-bold">Date début</dt>
+            <dd class="col-sm-9 col-md-4">@Html.DisplayFor(model => model.DateDebut)</dd>
+
+            <dt class="col-sm-3 col-md-2 fw-bold">Date fin</dt>
+            <dd class="col-sm-9 col-md-4">@Html.DisplayFor(model => model.DateFin)</dd>
+
+            <dt class="col-sm-3 col-md-2 fw-bold">Loyer mensuel</dt>
+            <dd class="col-sm-9 col-md-4">@Html.DisplayFor(model => model.Prix) $</dd>
+
+            <dt class="col-sm-3 col-md-2 fw-bold">Charges</dt>
+            <dd class="col-sm-9 col-md-4">@Html.DisplayFor(model => model.Charges) $</dd>
+
+            <dt class="col-sm-3 col-md-2 fw-bold">Dépôt de garantie</dt>
+            <dd class="col-sm-9 col-md-4">@Html.DisplayFor(model => model.MontantDepot) $</dd>
+
+            <dt class="col-sm-3 col-md-2 fw-bold">Lieu de paiement</dt>
+            <dd class="col-sm-9 col-md-4">@Html.DisplayFor(model => model.LieuPayement)</dd>
+
+            <dt class="col-sm-3 col-md-2 fw-bold">Mode de paiement</dt>
+            <dd class="col-sm-9 col-md-4">@Html.DisplayFor(model => model.MoyenPayements.NomMoyenPayement)</dd>
+
+            <dt class="col-sm-3 col-md-2 fw-bold">Date de paiement</dt>
+            <dd class="col-sm-9 col-md-4">@Html.DisplayFor(model => model.DatePayement)</dd>
+
+            <dt class="col-sm-3 col-md-2 fw-bold">Règlement accepté</dt>
+            <dd class="col-sm-9 col-md-4">
+                @if (Model.ReglementImmeuble == true)
+                {
+                    <span class="badge bg-success">Oui</span>
+                }
+                else
+                {
+                    <span class="badge bg-secondary">Non</span>
+                }
+            </dd>
+
+            <dt class="col-sm-3 col-md-2 fw-bold">Date début effective</dt>
+            <dd class="col-sm-9 col-md-4">@Html.DisplayFor(model => model.DateDebutEffective)</dd>
+
+            <dt class="col-sm-3 col-md-2 fw-bold">Date fin effective</dt>
+            <dd class="col-sm-9 col-md-4">@Html.DisplayFor(model => model.DateFinEffective)</dd>
+
+            <dt class="col-sm-3 col-md-2 fw-bold">Date résiliation</dt>
+            <dd class="col-sm-9 col-md-4">@Html.DisplayFor(model => model.DateResiliation)</dd>
+
+            <dt class="col-sm-3 col-md-2 fw-bold">Date d'occupation</dt>
+            <dd class="col-sm-9 col-md-4">@Html.DisplayFor(model => model.DateOccupation)</dd>
+
+            <dt class="col-sm-3 col-md-2 fw-bold">Stationnement intérieur</dt>
+            <dd class="col-sm-9 col-md-4">
+                @if (Model.StationnementInt == true)
+                {
+                    <span>Oui (@Model.NbPlacesInt places)</span>
+                }
+                else
+                {
+                    <span>Non</span>
+                }
+            </dd>
+
+            <dt class="col-sm-3 col-md-2 fw-bold">Stationnement extérieur</dt>
+            <dd class="col-sm-9 col-md-4">
+                @if (Model.StationnementExt == true)
+                {
+                    <span>Oui (@Model.NbPlacesExt places)</span>
+                }
+                else
+                {
+                    <span>Non</span>
+                }
+            </dd>
+
+            <dt class="col-sm-3 col-md-2 fw-bold">Inclusions</dt>
+            <dd class="col-sm-9 col-md-10">
+                @if (Model.MeublesInclus == true)
+                {<span class="badge bg-info me-1">Meublé</span>}
+                @if (Model.AppareilsInclus == true)
+                {<span class="badge bg-info me-1">Appareils</span>}
+                @if (Model.Deneigement == true)
+                {<span class="badge bg-info me-1">Déneigement</span>}
+                @if (Model.TailleGazon == true)
+                {<span class="badge bg-info me-1">Tonte gazon</span>}
+                @if (Model.MeublesInclus != true && Model.AppareilsInclus != true && Model.Deneigement != true && Model.TailleGazon != true)
+                {
+                    <span class="text-muted">Aucune inclusion</span>
+                }
+            </dd>
+
+            <dt class="col-sm-3 col-md-2 fw-bold">Emplacement</dt>
+            <dd class="col-sm-9 col-md-4">@Html.DisplayFor(model => model.Emplacement)</dd>
+
+            <dt class="col-sm-3 col-md-2 fw-bold">Remise / rangement</dt>
+            <dd class="col-sm-9 col-md-4">@Html.DisplayFor(model => model.RemiseEspaceRangenment)</dd>
+
+            <dt class="col-sm-3 col-md-2 fw-bold">Autre</dt>
+            <dd class="col-sm-9 col-md-10">@Html.DisplayFor(model => model.Autre)</dd>
+
+            <dt class="col-sm-3 col-md-2 fw-bold">Observation</dt>
+            <dd class="col-sm-9 col-md-10">@Html.DisplayFor(model => model.Observation)</dd>
+
+            <dt class="col-sm-3 col-md-2 fw-bold">Statut</dt>
+            <dd class="col-sm-9 col-md-10">
+                @if (Model.StatutBaux == "A")
+                {
+                    <span class="badge bg-success"><i class="fas fa-check-circle me-1"></i>Actif</span>
+                }
+                else if (Model.StatutBaux == "I")
+                {
+                    <span class="badge bg-secondary"><i class="fas fa-times-circle me-1"></i>Inactif</span>
+                }
+                else
+                {
+                    <span class="badge bg-warning">@Model.StatutBaux</span>
+                }
+            </dd>
+
+            <dt class="col-sm-3 col-md-2 fw-bold">Créé par / le</dt>
+            <dd class="col-sm-9 col-md-4">@Html.DisplayFor(model => model.CreatedBy) @Html.DisplayFor(model => model.CreatedOn)</dd>
+
+            <dt class="col-sm-3 col-md-2 fw-bold">Modifié par / le</dt>
+            <dd class="col-sm-9 col-md-4">@Html.DisplayFor(model => model.ModifiedBy) @Html.DisplayFor(model => model.ModifiedOn)</dd>
+        </dl>
+    </div>
+    <div class="card-footer">
+        <a href="@Url.Action("Renouveler", new { id = Model.Id })" class="btn btn-success" onclick="return confirm('Créer un nouveau bail et générer le document de renouvellement ?');">
+            <i class="fas fa-sync-alt me-1"></i>Renouveler
+        </a>
+
+        @Html.ActionLink("Lettre de renouvellement", "LettreRenouvellement", new { id = Model.Id }, new { @class = "btn btn-info", target = "_blank" })
+        <!-- Nouveaux boutons Word et PDF -->
+        <a href="@Url.Action("GenerateWord", "Baux", new { id = Model.Id })" class="btn btn-primary" target="_blank">
+            <i class="fas fa-file-word me-1"></i>Word
+        </a>
+        <a href="@Url.Action("GeneratePDF", "Baux", new { id = Model.Id })" class="btn btn-danger" target="_blank">
+            <i class="fas fa-file-pdf me-1"></i>PDF
+        </a>
+        @Html.ActionLink("Modifier", "Edit", new { id = Model.Id }, new { @class = "btn btn-warning" })
+        @Html.ActionLink("Retour à la liste", "Index", null, new { @class = "btn btn-secondary" })
+    </div>
+</div>

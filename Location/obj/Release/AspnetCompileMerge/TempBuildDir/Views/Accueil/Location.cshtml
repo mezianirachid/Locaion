@@ -1,0 +1,271 @@
+﻿@{ Layout = null; }
+
+    <!--[if lt IE 8]>
+    <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+    <!--
+
+      ~~~~~~~~~Start of the top head content~~~~~~~~~~~~~
+
+    -->
+    <!-- Start of the header -->
+    <header id="#top">
+        @Html.Partial("_Header")
+    </header>
+    <!-- end of the header -->
+    <!-- Start of the navigation -->
+    @{ ViewData["OnLocation"] = "on";
+        @Html.Partial("_Menu"); }
+    <!-- End of the navigation -->
+    
+    <!--
+
+    ~~~~~~~~~End of the top head content~~~~~~~~~~~~~
+
+    -->
+    <!--
+
+    ~~~~~~~~~Start of the main content~~~~~~~~~~~~~
+
+    -->
+    <!-- Start of section with boxed content -->
+    <section class="container">
+        <h2>Louer l'esprit serein</h2>
+        @*<span>@ViewBag.Location</span>*@
+        <p>
+            @ViewBag.Text26
+        </p>
+
+        <!-- Top green bar with search form to do-->
+        <!--
+        <div class="container-fluid top_search p-x-1 p-y-1 m-b-3">
+
+            <form>
+                <div class="form-group m-x-1">
+                    <select class="form-control">
+                        <option>-Bien recherché-</option>
+                        <option>Maison</option>
+                        <option>Appartement</option>
+                        <option>Studio</option>
+                        <option>Loft</option>
+                    </select>
+                </div>
+                <div class="form-group m-x-1">
+                    <select class="form-control">
+                        <option>-Surface-</option>
+                        <option>- de 50m2</option>
+                        <option> 50 - 70 m2</option>
+                        <option> 70 - 100 m2</option>
+                        <option> 100 - 150 m2</option>
+                        <option> 150 - 200 m2</option>
+                        <option> + de 200 m2</option>
+                    </select>
+                </div>
+                <div class="form-group m-x-1">
+                    <input class="form-control" type="text" placeholder="Ville(s)">
+                </div>
+                <div class="form-group m-x-1">
+                    <select class="form-control">
+                        <option>-Budget mensuel-</option>
+                        <option>- 400</option>
+                        <option>400 à 500</option>
+                        <option>500 à 700</option>
+                        <option>700 à 1000</option>
+                        <option>1000 à 1500</option>
+                        <option>+ 1500</option>
+                    </select>
+                </div>
+                <div class="form-group m-x-1">
+                    <select class="form-control">
+                        <option>-Extérieur-</option>
+                        <option>Jardin</option>
+                        <option>Balcon</option>
+                        <option>Indifférent</option>
+                    </select>
+                </div>
+            </form>
+            <button type="submit" class="btn" id="find_button">Trouver mon bien</button>
+
+        </div>
+        -->
+        <!-- Cards search results -->
+        <div class="row">
+            @{ if (ViewBag.Text31 != null && ViewBag.Text31 != "")
+                {
+    <div class="col-xs-12 col-sm-6 col-md-4">
+        <article class="card">
+            <div class="card-block text-xs-center head">
+                <h4 class="card-title">@ViewBag.Text31</h4>
+                <h6 class="card-subtitle">@ViewBag.Text32</h6>
+            </div>
+            <figure>
+                <img src="/UploadedFiles/maison1_small.jpg" class="img-fluid hidden-sm-up" alt="img/maison1_small.jpge">
+                <img src="/UploadedFiles/maison1_medium.jpg" class="img-fluid hidden-xs-down hidden-lg-up" alt="img/maison1_medium.jpg">
+                <img src="/UploadedFiles/maison1_large.jpg" class="img-fluid hidden-md-down" alt="img/maison1_large.jpg">
+            </figure>
+            <div class="card-block text-xs-center">
+                <p class="card-text">@ViewBag.Text32</p>
+                <figure class="description">
+                    <span><i class="fa fa-bed" aria-hidden="true"></i>@ViewBag.Text33</span>
+                    <span><i class="fa fa-paper-plane" aria-hidden="true"></i>@ViewBag.Text34</span>
+                    <span><i class="fa fa-tint" aria-hidden="true"></i>@ViewBag.Text35</span>
+                </figure>
+                <a href="#" class="card-link"><i class="fa fa-eye m-r-1" aria-hidden="true"></i>Voir</a>
+            </div>
+        </article>
+    </div>} }
+
+
+            @{ if (ViewBag.Text36 != null && @ViewBag.Text36 != "")
+                {
+    <div class="col-xs-12 col-sm-6 col-md-4">
+        <article class="card">
+            <div class="card-block text-xs-center head">
+                <h4 class="card-title">@ViewBag.Text36</h4>
+                <h6 class="card-subtitle">@ViewBag.Text37</h6>
+            </div>
+            <figure>
+                <img src="/UploadedFiles/maison2_small.jpg" alt="img/maison2_small.jpg" class="img-fluid hidden-sm-up">
+                <img src="/UploadedFiles/maison2_medium.jpg" alt="img/maison2_medium.jpg" class="img-fluid hidden-xs-down hidden-lg-up">
+                <img src="/UploadedFiles/maison2_large.jpg" alt="img/maison2_large.jpg" class="img-fluid hidden-md-down">
+            </figure>
+            <div class="card-block text-xs-center">
+                <p class="card-text">@ViewBag.Text35</p>
+                <figure class="description">
+                    <span><i class="fa fa-bed" aria-hidden="true"></i>@ViewBag.Text36</span>
+                    <span><i class="fa fa-tree" aria-hidden="true"></i>@ViewBag.Text37</span>
+                    <span><i class="fa fa-tint" aria-hidden="true"></i>@ViewBag.Text38</span>
+                </figure>
+                <a href="#" class="card-link"><i class="fa fa-eye m-r-1" aria-hidden="true"></i>Voir</a>
+            </div>
+        </article>
+    </div>} }
+
+
+            @{ if (ViewBag.Text39 != null && @ViewBag.Text39 != "")
+                {
+    <div class="col-xs-12 col-sm-6 col-md-4">
+        <article class="card">
+            <div class="card-block text-xs-center head">
+                <h4 class="card-title">@ViewBag.Text39</h4>
+                <h6 class="card-subtitle">@ViewBag.Text40</h6>
+            </div>
+            <figure>
+                <img src="/UploadedFiles/maison3_small.jpg" alt="img/maison3_small.jpg" class="img-fluid hidden-sm-up">
+                <img src="/UploadedFiles/maison3_medium.jpg" alt="img/maison3_medium.jpg" class="img-fluid hidden-xs-down hidden-lg-up">
+                <img src="/UploadedFiles/maison3_large.jpg" alt="img/maison3_large.jpg" class="img-fluid hidden-md-down">
+            </figure>
+            <div class="card-block text-xs-center">
+                <p class="card-text">@ViewBag.Text41</p>
+                <figure class="description">
+                    <span><i class="fa fa-bed" aria-hidden="true"></i>@ViewBag.Text42</span>
+                    <span><i class="fa fa-paper-plane" aria-hidden="true"></i>@ViewBag.Text43</span>
+                    <span><i class="fa fa-tint" aria-hidden="true"></i>@ViewBag.Text44</span>
+                </figure>
+                <a href="#" class="card-link"><i class="fa fa-eye m-r-1" aria-hidden="true"></i>Voir</a>
+            </div>
+        </article>
+    </div>} }
+
+
+            @{ if (ViewBag.Text45 != null && @ViewBag.Text45 != "")
+                {
+    <div class="col-xs-12 col-sm-6 col-md-4">
+        <article class="card">
+            <div class="card-block text-xs-center head">
+                <h4 class="card-title">@ViewBag.Text45</h4>
+                <h6 class="card-subtitle">@ViewBag.Text46</h6>
+            </div>
+            <figure>
+                <img src="/UploadedFiles/maison4_small.jpg" class="img-fluid hidden-sm-up" alt="maison4_small.jpg">
+                <img src="/UploadedFiles/maison4_medium.jpg" class="img-fluid hidden-xs-down hidden-lg-up" alt="img/maison4_medium.jpg">
+                <img src="/UploadedFiles/maison4_large.jpg" class="img-fluid hidden-md-down" alt="img/maison4_large.jpg">
+            </figure>
+            <div class="card-block text-xs-center">
+                <p class="card-text">@ViewBag.Text47</p>
+                <figure class="description">
+                    <span><i class="fa fa-bed" aria-hidden="true"></i>@ViewBag.Text48</span>
+                    <span><i class="fa fa-paper-plane" aria-hidden="true"></i>@ViewBag.Text49</span>
+                    <span><i class="fa fa-tint" aria-hidden="true"></i>@ViewBag.Text50</span>
+                </figure>
+                <a href="#" class="card-link"><i class="fa fa-eye m-r-1" aria-hidden="true"></i>Voir</a>
+            </div>
+        </article>
+    </div>} }
+
+
+            @{ if (ViewBag.Text51 != null && @ViewBag.Text51 != "")
+                {
+    <div class="col-xs-12 col-sm-6 col-md-4">
+        <article class="card">
+            <div class="card-block text-xs-center head">
+                <h4 class="card-title">@ViewBag.Text51</h4>
+                <h6 class="card-subtitle">@ViewBag.Text52</h6>
+            </div>
+            <figure>
+                <img src="/UploadedFiles/maison5_small.jpg" alt="img/maison5_small.jpg" class="img-fluid hidden-sm-up">
+                <img src="/UploadedFiles/maison5_medium.jpg" alt="img/maison5_medium.jpg" class="img-fluid hidden-xs-down hidden-lg-up">
+                <img src="/UploadedFiles/maison5_large.jpg" alt="img/maison5_large.jpg" class="img-fluid hidden-md-down">
+            </figure>
+            <div class="card-block text-xs-center">
+                <p class="card-text">@ViewBag.Text53</p>
+                <figure class="description">
+                    <span><i class="fa fa-bed" aria-hidden="true"></i>@ViewBag.Text54</span>
+                    <span><i class="fa fa-tree" aria-hidden="true"></i>@ViewBag.Text55</span>
+                    <span><i class="fa fa-tint" aria-hidden="true"></i>@ViewBag.Text56</span>
+                </figure>
+                <a href="#" class="card-link"><i class="fa fa-eye m-r-1" aria-hidden="true"></i>Voir</a>
+            </div>
+        </article>
+    </div>} }
+
+
+            @{ if (ViewBag.Text57 != null && @ViewBag.Text57 != "")
+                {
+    <div class="col-xs-12 col-sm-6 col-md-4">
+        <article class="card">
+            <div class="card-block text-xs-center head">
+                <h4 class="card-title">@ViewBag.Text57</h4>
+                <h6 class="card-subtitle">@ViewBag.Text58</h6>
+            </div>
+            <figure>
+                <img src="/UploadedFiles/maison6_small.jpg" alt="img/maison6_small.jpg" class="img-fluid hidden-sm-up">
+                <img src="/UploadedFiles/maison6_medium.jpg" alt="img/maison6_medium.jpg" class="img-fluid hidden-xs-down hidden-lg-up">
+                <img src="/UploadedFiles/maison6_large.jpg" alt="img/maison6_large.jpg" class="img-fluid hidden-md-down">
+            </figure>
+            <div class="card-block text-xs-center">
+                <p class="card-text">@ViewBag.Text59</p>
+                <figure class="description">
+                    <span><i class="fa fa-bed" aria-hidden="true"></i>@ViewBag.Text60</span>
+                    <span><i class="fa fa-paper-plane" aria-hidden="true"></i>@ViewBag.Text61</span>
+                    <span><i class="fa fa-tint" aria-hidden="true"></i>@ViewBag.Text62</span>
+                </figure>
+                <a href="#" class="card-link"><i class="fa fa-eye m-r-1" aria-hidden="true"></i>Voir</a>
+            </div>
+        </article>
+    </div> } }
+        </div>
+
+    </section>
+
+    <!--
+
+    ~~~~~~~~~End of the main content~~~~~~~~~~~~~
+
+    -->
+    <!--
+
+    ~~~~~~~~~Start of the footer~~~~~~~~~~~~~
+
+    -->
+
+    <footer class="m-t-3">
+        @Html.Partial("_Footer")
+    </footer>
+
+    <!--
+
+    ~~~~~~~~~End of the footer~~~~~~~~~~~~~
+
+    -->
+

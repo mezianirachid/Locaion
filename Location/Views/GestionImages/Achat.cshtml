@@ -1,0 +1,20 @@
+﻿
+@{
+    ViewBag.Title = "Achat";
+}
+
+<div class="cadreDiv" style="margin:80px;">
+    <h4>Veuillez selectionner la photo de la maison ou de l'appartement à vendre.</h4>
+    @using (Html.BeginForm("Achat", "GestionImages", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+    <div class="form-group">
+        <input class="form-control" id="fileAchat" name="File" type="file" />
+        <br />
+        @ViewBag.Message
+    </div>
+
+        <div class="form-group">
+            <input type="submit" value="Enregistrer" class="btn btn-success" />
+        </div>
+    }
+</div>

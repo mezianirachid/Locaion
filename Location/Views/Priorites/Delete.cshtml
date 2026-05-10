@@ -1,0 +1,57 @@
+﻿@model Location.Priorites
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Priorites</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.NomPriorite)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NomPriorite)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DescrPriorite)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DescrPriorite)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CouleurPriorite)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CouleurPriorite)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StatutPriorite)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StatutPriorite)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="BDCovidCEMTLModelStoreContainer" CdmEntityContainer="BDCovidCEMTLEntities">
+    <EntitySetMapping Name="Demandes">
+      <EntityTypeMapping TypeName="BDCovidCEMTLModel.Demandes">
+        <MappingFragment StoreEntitySet="Demandes">
+          <ScalarProperty Name="PaysID" ColumnName="PaysID" />
+          <ScalarProperty Name="DateEntree" ColumnName="DateEntree" />
+          <ScalarProperty Name="Destination" ColumnName="Destination" />
+          <ScalarProperty Name="Voyage" ColumnName="Voyage" />
+          <ScalarProperty Name="TypePrelevementID" ColumnName="TypePrelevementID" />
+          <ScalarProperty Name="TypeUsagerID" ColumnName="TypeUsagerID" />
+          <ScalarProperty Name="PrioriteID" ColumnName="PrioriteID" />
+          <ScalarProperty Name="Matricule" ColumnName="Matricule" />
+          <ScalarProperty Name="TypeUsager" ColumnName="TypeUsager" />
+          <ScalarProperty Name="Presence" ColumnName="Presence" />
+          <ScalarProperty Name="CodePostal" ColumnName="CodePostal" />
+          <ScalarProperty Name="HeureRdv" ColumnName="HeureRdv" />
+          <ScalarProperty Name="DateRdv" ColumnName="DateRdv" />
+          <ScalarProperty Name="SurNombre" ColumnName="SurNombre" />
+          <ScalarProperty Name="Langue" ColumnName="Langue" />
+          <ScalarProperty Name="IdCemtl" ColumnName="IdCemtl" />
+          <ScalarProperty Name="IdUser" ColumnName="IdUser" />
+          <ScalarProperty Name="SiteID" ColumnName="SiteID" />
+          <ScalarProperty Name="LastModifiedOn" ColumnName="LastModifiedOn" />
+          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="Statut" ColumnName="Statut" />
+          <ScalarProperty Name="Autre" ColumnName="Autre" />
+          <ScalarProperty Name="Commentaire" ColumnName="Commentaire" />
+          <ScalarProperty Name="Ramq" ColumnName="Ramq" />
+          <ScalarProperty Name="Adresse" ColumnName="Adresse" />
+          <ScalarProperty Name="Poste" ColumnName="Poste" />
+          <ScalarProperty Name="Courriel" ColumnName="Courriel" />
+          <ScalarProperty Name="Telephone" ColumnName="Telephone" />
+          <ScalarProperty Name="DateNaissance" ColumnName="DateNaissance" />
+          <ScalarProperty Name="Sexe" ColumnName="Sexe" />
+          <ScalarProperty Name="Prenom" ColumnName="Prenom" />
+          <ScalarProperty Name="Nom" ColumnName="Nom" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Priorites">
+      <EntityTypeMapping TypeName="BDCovidCEMTLModel.Priorites">
+        <MappingFragment StoreEntitySet="Priorites">
+          <ScalarProperty Name="StatutPriorite" ColumnName="StatutPriorite" />
+          <ScalarProperty Name="CouleurPriorite" ColumnName="CouleurPriorite" />
+          <ScalarProperty Name="DescrPriorite" ColumnName="DescrPriorite" />
+          <ScalarProperty Name="NomPriorite" ColumnName="NomPriorite" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Sites">
+      <EntityTypeMapping TypeName="BDCovidCEMTLModel.Sites">
+        <MappingFragment StoreEntitySet="Sites">
+          <ScalarProperty Name="TelephoneSite" ColumnName="TelephoneSite" />
+          <ScalarProperty Name="EmplacementSite" ColumnName="EmplacementSite" />
+          <ScalarProperty Name="NomSite" ColumnName="NomSite" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TypePrelevements">
+      <EntityTypeMapping TypeName="BDCovidCEMTLModel.TypePrelevements">
+        <MappingFragment StoreEntitySet="TypePrelevements">
+          <ScalarProperty Name="DescTypePrelevement" ColumnName="DescTypePrelevement" />
+          <ScalarProperty Name="NomTypePrelevement" ColumnName="NomTypePrelevement" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TypeUsagers">
+      <EntityTypeMapping TypeName="BDCovidCEMTLModel.TypeUsagers">
+        <MappingFragment StoreEntitySet="TypeUsagers">
+          <ScalarProperty Name="DescTypeUsager" ColumnName="DescTypeUsager" />
+          <ScalarProperty Name="NomTypeUsager" ColumnName="NomTypeUsager" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Pays">
+      <EntityTypeMapping TypeName="BDCovidCEMTLModel.Pays">
+        <MappingFragment StoreEntitySet="Pays">
+          <ScalarProperty Name="DescriptionLongue" ColumnName="DescriptionLongue" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

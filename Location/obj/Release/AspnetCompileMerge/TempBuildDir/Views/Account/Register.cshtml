@@ -1,0 +1,127 @@
+﻿@model Location.Models.RegisterViewModel
+@{
+    ViewBag.Title = "Création de compte";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@*<script src="~/Scripts/InputMask.js.js"></script>*@
+
+<br />
+<h2>@ViewBag.Title.</h2>
+<hr />
+@if (@ViewBag.succes != null)
+{
+   
+    <span class="alert alert-success">@ViewBag.succes</span>
+}
+
+@*@if (@TempData["Message"] != null)
+{
+    <br />
+    <span class="alert alert-success">@TempData["Message"]</span>}
+<br />*@
+
+@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.Label("Nom", new { @class = "col-md-2 control-label required" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.Nom, new { @class = "form-control", @autocomplete = "off" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.Label("Prénom", new { @class = "col-md-2 control-label required" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.Prenom, new { @class = "form-control", @autocomplete = "off" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.Label("Courriel", new { @class = "col-md-2 control-label required" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @autocomplete = "off" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.Label("Téléphone", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Telephone, new { htmlAttributes = new { @class = "form-control", id = "Telephone", title = "Téléphone", mask = "(999)-999-9999", autocomplete = "off" } })
+            @Html.ValidationMessageFor(model => model.Telephone, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.Label("Nom utilisateur", new { @class = "col-md-2 control-label required" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", autocomplete = "off" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.Label("Mot de passe", new { @class = "col-md-2 control-label required" })
+        <div class="col-md-10">
+            @Html.PasswordFor(m => m.Password, new { @class = "form-control", autocomplete = "off" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.Label("Confirmation", new { @class = "col-md-2 control-label required" })
+        <div class="col-md-10">
+            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", autocomplete = "off" })
+        </div>
+    </div>
+    @*if (@ViewBag.Name != null)
+    {
+        <div class="form-group">
+            @Html.Label("Rôle utilisateur", htmlAttributes: new { @class = "control-label col-md-2 required" })
+            <div class="col-md-10">
+                @Html.DropDownList("UserRoles", (SelectList)ViewBag.Name, "--Veuillez choisir--", new { @class = "form-control", @onchange = "onChangeRole()", id = "idRole", name = "idRole", title = "Veuillez Specifier votre rôle utilisateur" })
+            </div>
+        </div>
+    }
+    else
+    {
+        Location.Models.ApplicationDbContext context = new Location.Models.ApplicationDbContext();
+        string userNameConnected = System.Web.HttpContext.Current.User.Identity.Name;
+        if (System.Web.HttpContext.Current.User.IsInRole("Admin"))
+        {
+            ViewBag.Name = new SelectList(context.Roles.Where(u => !u.Name.Contains("Admin")).ToList(), "Name", "Name");
+        }
+        else
+        {
+            ViewBag.Name = new SelectList(context.Roles.Where(u => !u.Name.Contains("Admin") && !u.Name.Contains("Super utilisateur")).ToList(), "Name", "Name");
+        }
+        <div class="form-group">
+            @Html.Label("Rôle utilisateur", htmlAttributes: new { @class = "control-label col-md-2 required" })
+            <div class="col-md-10">
+                @Html.DropDownList("UserRoles", (SelectList)ViewBag.Name, "--Veuillez choisir--", new { @class = "form-control", @onchange = "onChangeRole()", id = "idRole", name = "idRole", title = "Veuillez Specifier le role utilisateur" })
+            </div>
+        </div>
+    }*@
+    
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            @Html.ActionLink("Retour", "../Users/UsersWithRoles", null, new { @class = "btn btn-primary btn-large" })
+            @*@Html.ActionLink("Retour", "UsersWithRoles", "Users", new { @class = "btn btn-primary btn-large" })*@
+            <input type="submit" class="btn btn-success" value="Enregistrer" />
+        </div>
+    </div>
+}
+
+<script type="text/javascript">
+    $('#Telephone').focusin(function () {
+        $('#Telephone').mask("999-999-9999");
+    });
+</script>
+
+<script src="~/Scripts/jquery-ui.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,1106 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - ImmoLoc</title>
+
+    <!-- Polices Google -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        /* ========== STYLES EXISTANTS (inchangés) ========== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat',sans-serif;
+        }
+
+        :root {
+            --primary: #005EB8;
+            --primary-dark: #00468C;
+            --secondary: #FF3131;
+            --accent: #FFD166;
+            --light: #f8f9fa;
+            --dark: #1f2937;
+            --gray: #6b7280;
+            --border: #e5e7eb;
+            --menu-bg: #ffffff;
+            --submenu-bg: #f8fbff;
+            --transition: all 0.25s ease;
+            --shadow-sm: 0 4px 12px rgba(0,0,0,0.06);
+            --shadow-md: 0 12px 28px rgba(0,0,0,0.10);
+            --radius: 14px;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            color: var(--dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background: #fff;
+        }
+
+        .container {
+            width: 92%;
+            max-width: 1220px;
+            margin: 0 auto;
+        }
+
+        header {
+            background: linear-gradient(90deg,#ffffff 0%,#f7fbff 100%);
+            box-shadow: 0 2px 14px rgba(0,0,0,0.06);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: var(--transition);
+            border-bottom: 1px solid rgba(0,0,0,0.04);
+        }
+
+            header.scrolled {
+                box-shadow: var(--shadow-sm);
+            }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            min-height: 72px;
+            gap: 14px;
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--primary);
+            font-family: 'Playfair Display',serif;
+            display: inline-flex;
+            align-items: center;
+            text-decoration: none;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+            .logo span {
+                color: var(--secondary);
+                margin-left: 2px;
+            }
+
+            .logo i {
+                font-size: 18px;
+                margin-right: 7px;
+                color: var(--secondary);
+            }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            list-style: none;
+            gap: 4px;
+            margin: 0 auto;
+            padding: 6px;
+            background: rgba(0,94,184,0.05);
+            border: 1px solid rgba(0,94,184,0.08);
+            border-radius: 999px;
+            max-width: fit-content;
+        }
+
+            .nav-links > li {
+                position: relative;
+            }
+
+                .nav-links > li > a, .nav-links > li > button.menu-parent {
+                    text-decoration: none;
+                    color: var(--dark);
+                    font-weight: 600;
+                    transition: var(--transition);
+                    padding: 9px 13px;
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 7px;
+                    white-space: nowrap;
+                    font-size: 0.90rem;
+                    border: none;
+                    background: transparent;
+                    cursor: pointer;
+                    border-radius: 999px;
+                }
+
+                    .nav-links > li > a:hover, .nav-links > li > button.menu-parent:hover, .nav-links > li.open > button.menu-parent {
+                        background: linear-gradient(135deg,var(--primary),var(--primary-dark));
+                        color: white;
+                        box-shadow: 0 8px 18px rgba(0,94,184,0.22);
+                    }
+
+                    .nav-links > li > a.active {
+                        background: linear-gradient(135deg,var(--primary),var(--primary-dark));
+                        color: white;
+                        box-shadow: 0 8px 18px rgba(0,94,184,0.22);
+                    }
+
+                    .nav-links > li > a i, .nav-links > li > button.menu-parent i {
+                        font-size: 0.82rem;
+                    }
+
+                .nav-links > li.dropdown::after {
+                    content: "";
+                    position: absolute;
+                    left: 0;
+                    top: 100%;
+                    width: 100%;
+                    height: 12px;
+                }
+
+        .submenu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            min-width: 220px;
+            background: var(--submenu-bg);
+            border: 1px solid #dbeafe;
+            box-shadow: var(--shadow-md);
+            border-radius: 16px;
+            padding: 8px;
+            z-index: 1100;
+            list-style: none;
+            margin-top: 0;
+        }
+
+        .nav-links > li:hover > .submenu, .nav-links > li.open > .submenu {
+            display: block;
+        }
+
+        .submenu li a {
+            padding: 10px 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--dark);
+            text-decoration: none;
+            font-size: 0.90rem;
+            border-radius: 10px;
+            white-space: nowrap;
+        }
+
+            .submenu li a:hover {
+                background: linear-gradient(135deg,rgba(0,94,184,0.10),rgba(255,209,102,0.18));
+                color: var(--primary);
+            }
+
+            .submenu li a i {
+                width: 18px;
+                text-align: center;
+                color: var(--primary);
+            }
+
+        .admin-link > a {
+            background: rgba(255,49,49,0.10);
+            color: var(--secondary);
+        }
+
+            .admin-link > a:hover {
+                background: linear-gradient(135deg,#ef4444,#dc2626);
+                color: white;
+            }
+
+        .auth-buttons {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-shrink: 0;
+            position: relative;
+        }
+
+            .auth-buttons .btn {
+                padding: 8px 14px;
+                border-radius: 999px;
+                font-weight: 600;
+                text-decoration: none;
+                transition: var(--transition);
+                font-size: 0.88rem;
+                border: none;
+                cursor: pointer;
+                display: inline-flex;
+                align-items: center;
+                gap: 7px;
+            }
+
+            .auth-buttons .btn-login {
+                background: linear-gradient(135deg,var(--primary),var(--primary-dark));
+                color: white;
+            }
+
+                .auth-buttons .btn-login:hover {
+                    transform: translateY(-2px);
+                    box-shadow: 0 8px 18px rgba(0,94,184,0.24);
+                }
+
+            .auth-buttons .btn-logout {
+                background: linear-gradient(135deg,#ef4444,#dc2626);
+                color: white;
+            }
+
+                .auth-buttons .btn-logout:hover {
+                    transform: translateY(-2px);
+                    box-shadow: 0 8px 18px rgba(220,53,69,0.24);
+                }
+
+        .user-menu {
+            position: relative;
+        }
+
+            .user-menu .dropdown-toggle {
+                background: linear-gradient(135deg,#f8fafc,#eef6ff);
+                border: 1px solid #dbeafe;
+                padding: 7px 12px;
+                border-radius: 999px;
+                font-weight: 500;
+                display: inline-flex;
+                align-items: center;
+                gap: 6px;
+                color: var(--dark);
+                font-size: 0.88rem;
+                cursor: pointer;
+                transition: var(--transition);
+            }
+
+                .user-menu .dropdown-toggle:hover {
+                    background: #eaf3ff;
+                }
+
+                .user-menu .dropdown-toggle i {
+                    color: var(--primary);
+                }
+
+            .user-menu .dropdown-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                right: 0;
+                min-width: 210px;
+                background: white;
+                border: 1px solid var(--border);
+                box-shadow: var(--shadow-md);
+                border-radius: 12px;
+                padding: 8px;
+                z-index: 1200;
+                margin-top: 8px;
+            }
+
+            .user-menu:hover .dropdown-menu, .user-menu.open .dropdown-menu {
+                display: block;
+            }
+
+            .user-menu .dropdown-menu a, .user-menu .dropdown-menu button {
+                width: 100%;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                padding: 10px 12px;
+                color: var(--dark);
+                text-decoration: none;
+                background: transparent;
+                border: none;
+                text-align: left;
+                border-radius: 10px;
+                cursor: pointer;
+                font-size: 0.9rem;
+            }
+
+                .user-menu .dropdown-menu a:hover, .user-menu .dropdown-menu button:hover {
+                    background: var(--light);
+                    color: var(--primary);
+                }
+
+            .user-menu .dropdown-menu i {
+                width: 18px;
+                color: var(--primary);
+            }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            border: none;
+            background: transparent;
+        }
+
+            .menu-toggle span {
+                width: 25px;
+                height: 3px;
+                background: var(--dark);
+                margin: 3px 0;
+                transition: var(--transition);
+                border-radius: 2px;
+            }
+
+        main {
+            margin-top: 72px;
+            min-height: 70vh;
+        }
+
+        .admin-toggle {
+            background: linear-gradient(135deg,var(--primary),var(--primary-dark));
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 52px;
+            height: 52px;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            cursor: pointer;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            box-shadow: 0 8px 20px rgba(0,94,184,0.22);
+            transition: var(--transition);
+        }
+
+            .admin-toggle:hover {
+                transform: scale(1.08);
+            }
+
+        footer {
+            background: linear-gradient(135deg,#002D62,#003b80);
+            color: white;
+            padding: 40px 0 20px;
+            margin-top: 50px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px,1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .footer-column h3 {
+            font-size: 1.05rem;
+            margin-bottom: 15px;
+            position: relative;
+            padding-bottom: 8px;
+        }
+
+            .footer-column h3:after {
+                content: '';
+                position: absolute;
+                left: 0;
+                bottom: 0;
+                width: 30px;
+                height: 2px;
+                background: var(--accent);
+            }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+            .footer-column ul li {
+                margin-bottom: 8px;
+            }
+
+                .footer-column ul li a {
+                    color: #d1d5db;
+                    text-decoration: none;
+                    transition: var(--transition);
+                    font-size: 0.9rem;
+                }
+
+                    .footer-column ul li a:hover {
+                        color: white;
+                    }
+
+        .footer-newsletter input {
+            width: 100%;
+            padding: 9px 10px;
+            border: none;
+            border-radius: 8px;
+            margin: 8px 0;
+        }
+
+        .footer-newsletter .btn-login {
+            width: 100%;
+            justify-content: center;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+            .social-icons a {
+                width: 32px;
+                height: 32px;
+                border-radius: 50%;
+                background: rgba(255,255,255,0.12);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: white;
+                transition: var(--transition);
+            }
+
+                .social-icons a:hover {
+                    background: var(--accent);
+                    color: #002D62;
+                    transform: translateY(-2px);
+                }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 15px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: #d1d5db;
+            font-size: 0.85rem;
+        }
+
+        .notification {
+            position: fixed;
+            top: 90px;
+            right: 20px;
+            padding: 12px 20px;
+            border-radius: 10px;
+            color: white;
+            font-weight: 500;
+            z-index: 1001;
+            transform: translateX(400px);
+            transition: transform 0.3s ease;
+            max-width: 300px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.18);
+            font-size: 0.9rem;
+        }
+
+            .notification.show {
+                transform: translateX(0);
+            }
+
+            .notification.success {
+                background: #28a745;
+            }
+
+            .notification.error {
+                background: #dc3545;
+            }
+
+            .notification.info {
+                background: var(--primary);
+            }
+
+        /* ========== STYLES POUR LE BADGE ========== */
+        #unreadCount1.hidden,
+        #unreadCount2.hidden {
+            display: none !important;
+        }
+
+        #unreadCount1.badge-visible,
+        #unreadCount2.badge-visible {
+            display: inline-block !important;
+            background-color: #dc3545;
+            color: white;
+            border-radius: 50%;
+            padding: 2px 6px;
+            font-size: 0.7rem;
+            margin-left: 5px;
+        }
+
+        /* ========== STYLES AJOUTÉS POUR L'AUTH MOBILE ========== */
+        /* Masquer les éléments .mobile-auth sur desktop */
+        @@media (min-width: 769px) {
+            .mobile-auth {
+                display: none !important;
+            }
+        }
+
+        /* Style des boutons d'auth dans le menu mobile */
+        @@media (max-width: 768px) {
+            .mobile-auth .btn-login-mobile {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                width: 100%;
+                padding: 12px 14px;
+                background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+                color: white;
+                border-radius: 12px;
+                text-decoration: none;
+                font-weight: 600;
+                border: 1px solid var(--border);
+                margin-top: 8px;
+            }
+
+            .mobile-auth.dropdown .menu-parent {
+                width: 100%;
+                justify-content: space-between;
+                background: white;
+                border: 1px solid var(--border);
+                border-radius: 12px;
+                padding: 12px 14px;
+                color: var(--dark);
+                font-weight: 600;
+            }
+
+            .mobile-auth.dropdown .submenu {
+                position: static;
+                box-shadow: none;
+                background: #f8fbff;
+                margin-top: 8px;
+                border-radius: 12px;
+                width: 100%;
+            }
+        }
+
+        /* Responsive (conservé) */
+        @@media (max-width:992px) {
+            .nav-links {
+                position: fixed;
+                top: 72px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 72px);
+                background: white;
+                flex-direction: column;
+                align-items: stretch;
+                justify-content: flex-start;
+                padding: 20px 16px;
+                transition: left 0.35s ease;
+                box-shadow: 0 8px 18px rgba(0,0,0,0.08);
+                z-index: 999;
+                overflow-y: auto;
+                border-radius: 0;
+            }
+
+                .nav-links.active {
+                    left: 0;
+                }
+
+                .nav-links > li {
+                    width: 100%;
+                    margin: 0 0 8px 0;
+                }
+
+                    .nav-links > li > a, .nav-links > li > button.menu-parent {
+                        width: 100%;
+                        justify-content: space-between;
+                        border-radius: 12px;
+                        border: 1px solid var(--border);
+                        background: white;
+                        padding: 12px 14px;
+                    }
+
+                        .nav-links > li > a:hover, .nav-links > li > button.menu-parent:hover, .nav-links > li.open > button.menu-parent {
+                            background: linear-gradient(135deg,var(--primary),var(--primary-dark));
+                            color: white;
+                        }
+
+            .submenu {
+                position: static;
+                display: none;
+                box-shadow: none;
+                background: #f8fbff;
+                margin-top: 8px;
+                border-radius: 12px;
+                min-width: 100%;
+            }
+
+            .nav-links > li:hover > .submenu {
+                display: none;
+            }
+
+            .nav-links > li.open > .submenu {
+                display: block;
+            }
+
+            .nav-links > li.dropdown::after {
+                display: none;
+            }
+
+            .menu-toggle {
+                display: flex;
+            }
+
+                .menu-toggle.active span:nth-child(1) {
+                    transform: rotate(45deg) translate(5px,5px);
+                }
+
+                .menu-toggle.active span:nth-child(2) {
+                    opacity: 0;
+                }
+
+                .menu-toggle.active span:nth-child(3) {
+                    transform: rotate(-45deg) translate(7px,-6px);
+                }
+
+            .auth-buttons {
+                margin-left: 0;
+            }
+
+            .user-menu .dropdown-menu {
+                position: static;
+                box-shadow: none;
+                margin-top: 8px;
+                background: var(--light);
+                border: 1px solid var(--border);
+            }
+        }
+
+        @@media (max-width:768px) {
+            .auth-buttons {
+                display: none;
+            }
+
+            .logo {
+                font-size: 20px;
+            }
+
+                .logo i {
+                    font-size: 16px;
+                }
+        }
+    </style>
+
+    @RenderSection("Styles", required: false)
+</head>
+<body>
+    <header id="header">
+        <div class="container">
+            <nav class="navbar">
+                <a href="@Url.Action("Index", "Home")" class="logo">
+                    <i class="fas fa-home"></i>Immo<span>Loc</span>
+                </a>
+
+                @if (!User.Identity.IsAuthenticated)
+                {
+                    <ul class="nav-links" id="navLinks">
+                        <li><a href="@Url.Action("Index", "Home")#accueil"><i class="fas fa-home"></i> Accueil</a></li>
+                        <!-- CORRECTION : remplacer #appartements par #catalogue -->
+                        <li><a href="@Url.Action("Index", "Home")#catalogue"><i class="fas fa-building"></i> Appartements</a></li>
+                        <li><a href="@Url.Action("Index", "Home")#a-propos"><i class="fas fa-info-circle"></i> À propos</a></li>
+                        <li><a href="@Url.Action("Index", "Home")#contact"><i class="fas fa-envelope"></i> Contact</a></li>
+                        <!-- Lien de connexion pour mobile (visible uniquement sur mobile) -->
+                        <li class="mobile-auth">
+                            <a href="@Url.Action("Login", "Account")" class="btn-login-mobile">
+                                <i class="fas fa-sign-in-alt"></i> Connexion
+                            </a>
+                        </li>
+                    </ul>
+                }
+                else
+                {
+                    <ul class="nav-links" id="navLinks">
+                        <li><a href="@Url.Action("Index", "Dashboard")"><i class="fas fa-tachometer-alt"></i> Tableau de bord</a></li>
+                        <li class="dropdown">
+                            <button type="button" class="menu-parent">
+                                <span><i class="fas fa-building"></i> Biens</span>
+                                <i class="fas fa-chevron-down"></i>
+                            </button>
+                            <ul class="submenu">
+                                <li><a href="@Url.Action("Index", "Immeubles")"><i class="fas fa-warehouse"></i> Immeubles</a></li>
+                                <li><a href="@Url.Action("Index", "Appartements")"><i class="fas fa-door-open"></i> Appartements</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <button type="button" class="menu-parent">
+                                <span><i class="fas fa-users"></i> Locataires</span>
+                                <i class="fas fa-chevron-down"></i>
+                            </button>
+                            <ul class="submenu">
+                                <li><a href="@Url.Action("Index", "Locataires")"><i class="fas fa-user-friends"></i> Locataires</a></li>
+                                <li><a href="@Url.Action("Index", "Baux")"><i class="fas fa-file-signature"></i> Baux</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <button type="button" class="menu-parent">
+                                <span><i class="fas fa-coins"></i> Finances</span>
+                                <i class="fas fa-chevron-down"></i>
+                            </button>
+                            <ul class="submenu">
+                                <li><a href="@Url.Action("Index", "Payements")"><i class="fas fa-credit-card"></i> Paiements</a></li>
+                            </ul>
+                        </li>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <li><a href="@Url.Action("Index", "Home")#admin"><i class="fas fa-cog"></i> Admin</a></li>
+                        }
+
+                        <!-- Menu utilisateur pour mobile (visible uniquement sur mobile) -->
+                        <li class="mobile-auth dropdown">
+                            <button type="button" class="menu-parent">
+                                <i class="fas fa-user-circle"></i> @User.Identity.Name
+                                <i class="fas fa-chevron-down"></i>
+                            </button>
+                            <ul class="submenu">
+                                @if (User.IsInRole("Admin"))
+                                {
+                                    <li><a href="@Url.Action("Index", "Messages")"><i class="fas fa-envelope"></i> Messages</a></li>
+                                }
+                                <li><a href="@Url.Action("Profile", "Account")"><i class="fas fa-id-card"></i> Mon profil</a></li>
+                                <li><a href="@Url.Action("Settings", "Account")"><i class="fas fa-cog"></i> Paramètres</a></li>
+                                <li>
+                                    @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { style = "margin:0;" }))
+                                    {
+                                        @Html.AntiForgeryToken()
+                                        <button type="submit" style="width:100%; text-align:left; background:transparent; border:none; padding:10px 12px; display:flex; align-items:center; gap:10px; color:var(--dark);">
+                                            <i class="fas fa-sign-out-alt"></i> Déconnexion
+                                        </button>
+                                    }
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                }
+
+                <div class="auth-buttons">
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <div class="user-menu" id="userMenu">
+                            <button type="button" class="dropdown-toggle" id="userMenuToggle">
+                                <i class="fas fa-user-circle"></i> @User.Identity.Name
+                                <i class="fas fa-chevron-down"></i>
+                            </button>
+                            <div class="dropdown-menu">
+                                @if (User.IsInRole("Admin"))
+                                {
+                                    <a href="@Url.Action("Index", "Messages")">
+                                        <i class="fas fa-envelope"></i> Messages
+                                        <span id="unreadCount1" class="hidden">0</span>
+                                    </a>
+                                    <a href="https://mail.gestionlocations.com" target="_blank" class="nav-link">
+                                        <i class="fas fa-envelope"></i> Courriels
+                                        <span id="unreadCount2" class="hidden">0</span>
+                                    </a>
+
+                                }
+                                <a href="@Url.Action("Profile", "Account")"><i class="fas fa-id-card"></i> Mon profil</a>
+                                <a href="@Url.Action("Settings", "Account")"><i class="fas fa-cog"></i> Paramètres</a>
+                                @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { style = "margin:0;" }))
+                                {
+                                    @Html.AntiForgeryToken()
+                                    <button type="submit"><i class="fas fa-sign-out-alt"></i> Déconnexion</button>
+                                }
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <a href="@Url.Action("Login", "Account")" class="btn btn-login"><i class="fas fa-sign-in-alt"></i> Connexion</a>
+                    }
+                </div>
+
+                <button class="menu-toggle" id="menuToggle" type="button" aria-label="Ouvrir le menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        @RenderBody()
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>ImmoLoc</h3>
+                    <ul>
+                        <li><a href="@Url.Action("About", "Home")">À propos</a></li>
+                        <li><a href="@Url.Action("Contact", "Home")">Contact</a></li>
+                        <li><a href="#">Carrières</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Locations</h3>
+                    <ul>
+                        @if (!User.Identity.IsAuthenticated)
+                        {
+                            <li><a href="@Url.Action("Index", "Home")#appartements">Appartements à louer</a></li>
+                        }
+                        else
+                        {
+                            <li><a href="@Url.Action("Index", "Immeubles")">Immeubles</a></li>
+                            <li><a href="@Url.Action("Index", "Appartements")">Appartements</a></li>
+                            <li><a href="@Url.Action("Index", "Locataires")">Locataires</a></li>
+                            <li><a href="@Url.Action("Index", "Baux")">Baux</a></li>
+                            <li><a href="@Url.Action("Index", "Payements")">Paiements</a></li>
+                        }
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Support</h3>
+                    <ul>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Conditions générales</a></li>
+                        <li><a href="#">Politique de confidentialité</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Newsletter</h3>
+                    <div class="footer-newsletter">
+                        <input type="email" placeholder="Votre email">
+                        <button class="btn btn-login" type="button">S'abonner</button>
+                    </div>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; @DateTime.Now.Year - ImmoLoc. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+
+    @if (User.IsInRole("Admin"))
+    {
+        <button class="admin-toggle" id="adminToggle" onclick="location.href='@Url.Action("Index", "Admin")'">
+            <i class="fas fa-cog"></i>
+        </button>
+    }
+
+    <div id="notification" class="notification"></div>
+
+    <!-- jQuery et Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="~/Scripts/jquery-3.7.0.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+    <script>
+        $.validator.methods.number = function (value, element) {
+            value = value.replace(/\s/g, '');
+            return this.optional(element) || /^-?\d+(,\d+)?$/.test(value);
+        };
+
+        $.validator.methods.range = function (value, element, param) {
+            var globalizedValue = value.replace(/\s/g, '').replace(",", ".");
+            var numericValue = parseFloat(globalizedValue);
+            return this.optional(element) || (numericValue >= param[0] && numericValue <= param[1]);
+        };
+    </script>
+
+    <script>
+        // ========== FONCTIONS GLOBALES ==========
+        function showNotification(message, type) {
+            var $notif = $('#notification');
+            $notif.text(message).removeClass().addClass('notification ' + type).addClass('show');
+            setTimeout(function () {
+                $notif.removeClass('show');
+            }, 5000);
+        }
+
+        function scrollToSection(sectionId) {
+            var section = document.getElementById(sectionId);
+            if (section) {
+                var header = document.querySelector('header');
+                var headerHeight = header ? header.offsetHeight : 0;
+                window.scrollTo({
+                    top: section.offsetTop - headerHeight,
+                    behavior: 'smooth'
+                });
+                console.log('Défilement vers #' + sectionId + ' réussi.');
+            } else {
+                console.warn('Section introuvable lors de l\'appel à scrollToSection : #' + sectionId);
+            }
+        }
+
+        function fetchUnreadCount() {
+            $.ajax({
+                url: '@Url.Action("GetUnreadEmailCount", "Admin")',
+                type: 'GET',
+                success: function (data) {
+                    console.log('Réponse reçue :', data); // À supprimer en production
+                    var $badge1 = $('#unreadCount1');
+                    var $badge2 = $('#unreadCount2');
+
+                    // Si les badges n'existent pas, on ne fait rien (utilisateur non admin)
+                    if ($badge1.length === 0 && $badge2.length === 0) return;
+
+                    var count = parseInt(data, 10);
+                    var visible = !isNaN(count) && count > 0;
+
+                    // Mise à jour du premier badge
+                    if ($badge1.length) {
+                        if (visible) {
+                            $badge1.text(count).addClass('badge-visible').removeClass('hidden');
+                        } else {
+                            $badge1.removeClass('badge-visible').addClass('hidden');
+                        }
+                    }
+
+                    // Mise à jour du second badge
+                    if ($badge2.length) {
+                        if (visible) {
+                            $badge2.text(count).addClass('badge-visible').removeClass('hidden');
+                        } else {
+                            $badge2.removeClass('badge-visible').addClass('hidden');
+                        }
+                    }
+                },
+                error: function () {
+                    $('#unreadCount1, #unreadCount2').removeClass('badge-visible').addClass('hidden');
+                }
+            });
+        }
+
+        // ========== INITIALISATION ==========
+        $(document).ready(function () {
+            // Menu hamburger
+            $('#menuToggle').on('click', function () {
+                $(this).toggleClass('active');
+                $('#navLinks').toggleClass('active');
+            });
+
+            // Gestion des sous-menus en mobile
+            $('.menu-parent').on('click', function (e) {
+                if ($(window).width() <= 992) {
+                    e.preventDefault();
+                    var $parent = $(this).closest('.dropdown');
+                    var $submenu = $parent.children('.submenu');
+                    $('#navLinks .dropdown').not($parent).removeClass('open').children('.submenu').slideUp(200);
+                    $parent.toggleClass('open');
+                    $submenu.stop(true, true).slideToggle(200);
+                }
+            });
+
+            // Fermer le menu hamburger après clic sur un lien (sauf dropdown parents)
+            $('#navLinks a').on('click', function () {
+                if ($(window).width() <= 992) {
+                    $('#menuToggle').removeClass('active');
+                    $('#navLinks').removeClass('active');
+                    $('#navLinks .dropdown').removeClass('open').children('.submenu').hide();
+                }
+            });
+
+            // Gestion du menu utilisateur (desktop)
+            var $userMenuToggle = $('#userMenuToggle');
+            var $userMenu = $('#userMenu');
+
+            if ($userMenuToggle.length) {
+                $userMenuToggle.on('click', function (e) {
+                    e.preventDefault();
+                    $userMenu.toggleClass('open');
+                });
+
+                $(document).on('click', function (e) {
+                    if (!$(e.target).closest($userMenu).length) {
+                        $userMenu.removeClass('open');
+                    }
+                });
+            }
+
+            // Effet de scroll sur le header
+            $(window).on('scroll', function () {
+                if ($(this).scrollTop() > 100) {
+                    $('#header').addClass('scrolled');
+                } else {
+                    $('#header').removeClass('scrolled');
+                }
+            });
+
+            // ===== GESTION DES ANCRES AVEC MUTATIONOBSERVER =====
+            function setupAnchorObserver() {
+                if (!window.location.hash) return;
+
+                var hash = window.location.hash.substring(1);
+                var targetElement = document.getElementById(hash);
+
+                if (targetElement) {
+                    // Déjà présent
+                    scrollToSection(hash);
+                } else {
+                    console.log('En attente de l\'élément #' + hash + '...');
+
+                    // Créer un observer pour attendre que l'élément apparaisse
+                    var observer = new MutationObserver(function(mutations) {
+                        if (document.getElementById(hash)) {
+                            scrollToSection(hash);
+                            observer.disconnect(); // Arrêter l'observation
+                        }
+                    });
+
+                    // Observer tout le body et ses descendants
+                    observer.observe(document.body, {
+                        childList: true,
+                        subtree: true
+                    });
+
+                    // Timeout de sécurité après 5 secondes
+                    setTimeout(function() {
+                        observer.disconnect();
+                        if (!document.getElementById(hash)) {
+                            console.error('L\'élément #' + hash + ' n\'a pas été trouvé après 5 secondes.');
+                        }
+                    }, 5000);
+                }
+            }
+
+            // Appeler l'observateur au chargement
+            setupAnchorObserver();
+
+            // Également après chargement complet (au cas où)
+            $(window).on('load', function () {
+                if (window.location.hash) {
+                    var hash = window.location.hash.substring(1);
+                    scrollToSection(hash);
+                }
+            });
+
+            // Gestion des clics sur les liens avec ancre (pour les liens internes)
+            $('a[href*="#"]').on('click', function (e) {
+                var href = $(this).attr('href');
+                if (href && href.indexOf('#') !== -1 && (href.indexOf('#') === 0 || href.indexOf(window.location.pathname) !== -1)) {
+                    var hash = href.split('#')[1];
+                    var target = $('#' + hash);
+                    if (target.length) {
+                        e.preventDefault();
+                        scrollToSection(hash);
+                    } else {
+                        console.warn('Cible introuvable lors du clic : #' + hash);
+                    }
+                }
+            });
+
+            // Notification depuis TempData
+            @*var msg = '@TempData["NotificationMessage"]';
+            var type = '@TempData["NotificationType"]';*@
+
+            var msg = @Html.Raw(Json.Encode(TempData["NotificationMessage"]));
+            var type = @Html.Raw(Json.Encode(TempData["NotificationType"]));
+
+
+            if (msg) {
+                showNotification(msg, type || 'info');
+            }
+
+            // ========== BADGE MESSAGES NON LUS ==========
+            // On vérifie si au moins un badge existe (donc utilisateur admin)
+            if ($('#unreadCount1').length || $('#unreadCount2').length) {
+                fetchUnreadCount();
+                setInterval(fetchUnreadCount, 60000); // Rafraîchir toutes les 60 secondes
+            }
+        });
+    </script>
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

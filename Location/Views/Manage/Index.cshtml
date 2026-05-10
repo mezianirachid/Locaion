@@ -1,0 +1,11 @@
+﻿@model Location.Models.IndexViewModel
+@{
+    ViewBag.Title = "Changememet du mot de passe";
+}
+
+<h2>@ViewBag.Title.</h2>
+<hr />
+<p class="text-success">@ViewBag.StatusMessage</p>
+<div>
+   @Html.ActionLink("Liste des usagers", "ListUsagers", "Home")
+</div>

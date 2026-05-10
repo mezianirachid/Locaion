@@ -1,0 +1,253 @@
+﻿@{ Layout = null; }
+
+<!--[if lt IE 8]>
+<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+<![endif]-->
+
+<!-- Start of the header -->
+<header id="#top">
+    @Html.Partial("_Header")
+</header>
+<!-- end of the header -->
+
+<!-- Start of the navigation -->
+@{ ViewData["OnAchat"] = "on";
+@Html.Partial("_Menu"); }
+<!-- End of the navigation -->
+
+-->
+<!--
+
+~~~~~~~~~Start of the main content~~~~~~~~~~~~~
+
+-->
+<!-- Start of section with boxed content -->
+<section class="container">
+    <h2>Acheter en toute sécurité</h2>
+    @*<span>@ViewBag.Achat</span>*@
+    <p>
+        Acheter une maison ou un appartement est souvent un grand pas, l'événement d'une vie, en passant par notre service, nous nous assurerons de trouver
+        le logements qui correspond le mieux à vos besoins et à votre budget. Passer par ImmoLoc c'est l'assurance d'être bien accompagné.
+        N'hésitez pas à regarder nos biens à la vente !
+    </p>
+
+    <!-- Top green bar with search form to do-->
+    <!--<div class="container-fluid top_search p-x-1 p-y-1 m-b-3">
+
+      <form>
+        <div class="form-group m-x-1">
+          <select class="form-control">
+            <option>-Bien recherché-</option>
+            <option>Maison</option>
+            <option>Appartement</option>
+            <option>Studio</option>
+            <option>Loft</option>
+            <option>Villa</option>
+          </select>
+        </div>
+        <div class="form-group m-x-1">
+          <select class="form-control">
+            <option>-Surface-</option>
+            <option>- de 50m2</option>
+            <option> 50 - 70 m2</option>
+            <option> 70 - 100 m2</option>
+            <option> 100 - 150 m2</option>
+            <option> 150 - 200 m2</option>
+            <option> + de 200 m2</option>
+          </select>
+        </div>
+        <div class="form-group m-x-1">
+          <input class="form-control" type="text" placeholder="Ville(s)">
+        </div>
+        <div class="form-group m-x-1">
+          <select class="form-control">
+            <option>-Votre budget-</option>
+            <option>- 100 000</option>
+            <option>100 à 120 000</option>
+            <option>120 à 150 000</option>
+            <option>150 à 200 000</option>
+            <option>200 à 300 000</option>
+            <option>300 à 400 000</option>
+            <option>400 à 500 000</option>
+            <option>+ 500 000</option>
+          </select>
+        </div>
+        <div class="form-group m-x-1">
+          <select class="form-control">
+            <option>-Extérieur-</option>
+            <option>Jardin</option>
+            <option>Balcon</option>
+            <option>Indifférent</option>
+          </select>
+        </div>
+      </form>
+      <button type="submit" class="btn" id="find_button">Trouver mon bien</button>
+
+    </div>-->
+    <!-- Cards search results -->
+    <div class="row">
+
+        <div class="col-xs-12 col-sm-6 col-md-4">
+            <article class="card">
+                <div class="card-block text-xs-center head">
+                    <h4 class="card-title">@ViewBag.Text61</h4>
+                    <h6 class="card-subtitle">@ViewBag.Text62</h6>
+                </div>
+                <figure>
+                    <img src="/UploadedFiles/maison7_small.jpg" class="img-fluid hidden-sm-up" alt="img/maison7_small.jpg">
+                    <img src="/UploadedFiles/maison7_medium.jpg" class="img-fluid hidden-xs-down hidden-lg-up" alt="img/maison7_medium.jpg">
+                    <img src="/UploadedFiles/maison7_medium.jpg" class="img-fluid hidden-md-down" alt="img/maison7_medium.jpg">
+                </figure>
+                <div class="card-block text-xs-center">
+                    <p class="card-text">@ViewBag.Text63</p>
+                    <figure class="description">
+                        <span><i class="fa fa-bed" aria-hidden="true"></i>@ViewBag.Text64</span>
+                        <span><i class="fa fa-paper-plane" aria-hidden="true"></i>@ViewBag.Text66</span>
+                        <span><i class="fa fa-tint" aria-hidden="true"></i>@ViewBag.Text66</span>
+                    </figure>
+                    <a href="#" class="card-link"><i class="fa fa-eye m-r-1" aria-hidden="true"></i>Voir</a>
+                </div>
+            </article>
+        </div>
+
+        <div class="col-xs-12 col-sm-6 col-md-4 w3-modal">
+            <article class="card">
+                <div class="card-block text-xs-center head">
+                    <h4 class="card-title">@ViewBag.Text67</h4>
+                    <h6 class="card-subtitle">@ViewBag.Text68</h6>
+                </div>
+                <figure>
+                    <img src="/UploadedFiles/maison8_small.jpg" alt="img/maison8_small.jpg" class="img-fluid hidden-sm-up">
+                    <img src="/UploadedFiles/maison8_medium.jpg" alt="img/maison8_medium.jpg" class="img-fluid hidden-xs-down hidden-lg-up">
+                    <img src="/UploadedFiles/maison8_large.jpg" alt="img/maison8_large.jpg" class="img-fluid hidden-md-down">
+                </figure>
+                <div class="card-block text-xs-center">
+                    <p class="card-text">@ViewBag.Text69</p>
+                    <figure class="description">
+                        <span><i class="fa fa-bed" aria-hidden="true"></i>@ViewBag.Text70</span>
+                        <span><i class="fa fa-tree" aria-hidden="true"></i>@ViewBag.Text71</span>
+                        <span><i class="fa fa-tint" aria-hidden="true"></i>@ViewBag.Text72</span>
+                    </figure>
+                    <a href="#" class="card-link"><i class="fa fa-eye m-r-1" aria-hidden="true"></i>Voir</a>
+                </div>
+            </article>
+        </div>
+
+
+        <div class="col-xs-12 col-sm-6 col-md-4">
+            <article class="card">
+                <div class="card-block text-xs-center head">
+                    <h4 class="card-title">@ViewBag.Text73</h4>
+                    <h6 class="card-subtitle">@ViewBag.Text74 </h6>
+                </div>
+                <figure>
+                    <img src="/UploadedFiles/maison9_small.jpg" alt="maison9_small.jpg" class="img-fluid hidden-sm-up">
+                    <img src="/UploadedFiles/maison9_medium.jpg" alt="img/maison9_medium.jpg" class="img-fluid hidden-xs-down hidden-lg-up">
+                    <img src="/UploadedFiles/maison9_large.jpg" alt="img/maison9_large.jpg" class="img-fluid hidden-md-down">
+                </figure>
+                <div class="card-block text-xs-center">
+                    <p class="card-text">@ViewBag.Text75</p>
+                    <figure class="description">
+                        <span><i class="fa fa-bed" aria-hidden="true"></i>@ViewBag.Text76</span>
+                        <span><i class="fa fa-paper-plane" aria-hidden="true"></i>@ViewBag.Text77</span>
+                        <span><i class="fa fa-tint" aria-hidden="true"></i>@ViewBag.Text78</span>
+                    </figure>
+                    <a href="#" class="card-link"><i class="fa fa-eye m-r-1" aria-hidden="true"></i>Voir</a>
+                </div>
+            </article>
+        </div>
+
+        <div class="col-xs-12 col-sm-6 col-md-4">
+            <article class="card">
+                <div class="card-block text-xs-center head">
+                    <h4 class="card-title">@ViewBag.Text79</h4>
+                    <h6 class="card-subtitle">@ViewBag.Text80 </h6>
+                </div>
+                <figure>
+                    <img src="/UploadedFiles/maison10_small.jpg" class="img-fluid hidden-sm-up" alt="img/maison10_small.jpg">
+                    <img src="/UploadedFiles/maison10_medium.jpg" class="img-fluid hidden-xs-down hidden-lg-up" alt="img/maison10_medium.jpg">
+                    <img src="/UploadedFiles/maison10_large.jpg" class="img-fluid hidden-md-down" alt="img/maison10_large.jpg">
+                </figure>
+                <div class="card-block text-xs-center">
+                    <p class="card-text">@ViewBag.Text81</p>
+                    <figure class="description">
+                        <span><i class="fa fa-bed" aria-hidden="true"></i>@ViewBag.Text82</span>
+                        <span><i class="fa fa-paper-plane" aria-hidden="true"></i>@ViewBag.Text83</span>
+                        <span><i class="fa fa-tint" aria-hidden="true"></i>@ViewBag.Text84</span>
+                    </figure>
+                    <a href="#" class="card-link"><i class="fa fa-eye m-r-1" aria-hidden="true"></i>Voir</a>
+                </div>
+            </article>
+        </div>
+
+        <div class="col-xs-12 col-sm-6 col-md-4">
+            <article class="card">
+                <div class="card-block text-xs-center head">
+                    <h4 class="card-title">@ViewBag.Text85</h4>
+                    <h6 class="card-subtitle">@ViewBag.Text90</h6>
+                </div>
+                <figure>
+                    <img src="/UploadedFiles/maison11_small.jpg" alt="img/maison11_small.jpg" class="img-fluid hidden-sm-up">
+                    <img src="/UploadedFiles/maison11_medium.jpg" alt="img/maison11_medium.jpg" class="img-fluid hidden-xs-down hidden-lg-up">
+                    <img src="/UploadedFiles/maison11_large.jpg" alt="img/maison11_large.jpg" class="img-fluid hidden-md-down">
+                </figure>
+                <div class="card-block text-xs-center">
+                    <p class="card-text">@ViewBag.Text91</p>
+                    <figure class="description">
+                        <span><i class="fa fa-bed" aria-hidden="true"></i>@ViewBag.Text92</span>
+                        <span><i class="fa fa-tree" aria-hidden="true"></i>@ViewBag.Text93</span>
+                        <span><i class="fa fa-tint" aria-hidden="true"></i>@ViewBag.Text94</span>
+                    </figure>
+                    <a href="#" class="card-link"><i class="fa fa-eye m-r-1" aria-hidden="true"></i>Voir</a>
+                </div>
+            </article>
+        </div>
+
+        <div class="col-xs-12 col-sm-6 col-md-4">
+            <article class="card">
+                <div class="card-block text-xs-center head">
+                    <h4 class="card-title">@ViewBag.Text95</h4>
+                    <h6 class="card-subtitle">@ViewBag.Text96 </h6>
+                </div>
+                <figure>
+                    <img src="/UploadedFiles/maison12_small.jpg" alt="img/maison12_small.jpg" class="img-fluid hidden-sm-up">
+                    <img src="/UploadedFiles/maison12_medium.jpg" alt="img/maison12_medium.jpg" class="img-fluid hidden-xs-down hidden-lg-up">
+                    <img src="/UploadedFiles/maison12_large.jpg" alt="img/maison12_large.jpg" class="img-fluid hidden-md-down">
+                </figure>
+                <div class="card-block text-xs-center">
+                    <p class="card-text">@ViewBag.Text97</p>
+                    <figure class="description">
+                        <span><i class="fa fa-bed" aria-hidden="true"></i>@ViewBag.Text98</span>
+                        <span><i class="fa fa-paper-plane" aria-hidden="true"></i>@ViewBag.Text99</span>
+                        <span><i class="fa fa-tint" aria-hidden="true"></i>@ViewBag.Text100</span>
+                    </figure>
+                    <a href="#" class="card-link"><i class="fa fa-eye m-r-1" aria-hidden="true"></i>Voir</a>
+                </div>
+            </article>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!--
+
+~~~~~~~~~End of the main content~~~~~~~~~~~~~
+
+-->
+<!--
+
+~~~~~~~~~Start of the footer~~~~~~~~~~~~~
+
+-->
+
+<footer class="m-t-3">
+    @Html.Partial("_Footer")
+</footer>
+
+<!--
+
+~~~~~~~~~End of the footer~~~~~~~~~~~~~
+
+-->

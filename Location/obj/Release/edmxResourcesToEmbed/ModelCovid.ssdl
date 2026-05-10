@@ -1,0 +1,175 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="BDCovidCEMTLModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Demandes">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nom" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="Prenom" Type="nvarchar" MaxLength="100" />
+    <Property Name="Sexe" Type="int" />
+    <Property Name="DateNaissance" Type="datetime" />
+    <Property Name="Telephone" Type="nvarchar" MaxLength="20" />
+    <Property Name="Courriel" Type="nvarchar" MaxLength="100" />
+    <Property Name="Poste" Type="nvarchar" MaxLength="100" />
+    <Property Name="Adresse" Type="nvarchar" MaxLength="500" />
+    <Property Name="Ramq" Type="nvarchar" MaxLength="20" />
+    <Property Name="Commentaire" Type="nvarchar" MaxLength="3200" />
+    <Property Name="Autre" Type="varchar" MaxLength="100" />
+    <Property Name="Statut" Type="nvarchar" MaxLength="1" />
+    <Property Name="CreatedBy" Type="nvarchar" MaxLength="100" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="ModifiedBy" Type="nvarchar" MaxLength="100" />
+    <Property Name="LastModifiedOn" Type="datetime" />
+    <Property Name="SiteID" Type="int" />
+    <Property Name="IdUser" Type="nvarchar" MaxLength="128" />
+    <Property Name="IdCemtl" Type="varchar" MaxLength="24" StoreGeneratedPattern="Computed" Nullable="false" />
+    <Property Name="Langue" Type="nvarchar" MaxLength="1" />
+    <Property Name="SurNombre" Type="nvarchar" MaxLength="1" />
+    <Property Name="DateRdv" Type="datetime" />
+    <Property Name="HeureRdv" Type="datetime" />
+    <Property Name="CodePostal" Type="nvarchar" MaxLength="100" />
+    <Property Name="Presence" Type="nvarchar" MaxLength="1" />
+    <Property Name="TypeUsager" Type="nvarchar" MaxLength="1" />
+    <Property Name="Matricule" Type="nvarchar" MaxLength="20" />
+    <Property Name="PrioriteID" Type="int" />
+    <Property Name="TypeUsagerID" Type="int" />
+    <Property Name="TypePrelevementID" Type="int" />
+    <Property Name="Voyage" Type="nvarchar" MaxLength="1" />
+    <Property Name="Destination" Type="nvarchar" MaxLength="100" />
+    <Property Name="DateEntree" Type="datetime" />
+    <Property Name="PaysID" Type="int" />
+  </EntityType>
+  <EntityType Name="Pays">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Code" Type="nvarchar" MaxLength="100" />
+    <Property Name="Description" Type="nvarchar" MaxLength="100" />
+    <Property Name="DescriptionLongue" Type="nvarchar" MaxLength="500" />
+  </EntityType>
+  <EntityType Name="Priorites">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NomPriorite" Type="nvarchar" MaxLength="25" Nullable="false" />
+    <Property Name="DescrPriorite" Type="nvarchar" MaxLength="500" />
+    <Property Name="CouleurPriorite" Type="nvarchar" MaxLength="15" />
+    <Property Name="StatutPriorite" Type="nvarchar" MaxLength="1" />
+  </EntityType>
+  <EntityType Name="Sites">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NomSite" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="EmplacementSite" Type="nvarchar" MaxLength="100" />
+    <Property Name="TelephoneSite" Type="nvarchar" MaxLength="15" />
+  </EntityType>
+  <EntityType Name="TypePrelevements">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NomTypePrelevement" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="DescTypePrelevement" Type="nvarchar" MaxLength="500" />
+  </EntityType>
+  <EntityType Name="TypeUsagers">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NomTypeUsager" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="DescTypeUsager" Type="nvarchar" MaxLength="100" />
+  </EntityType>
+  <Association Name="FK_PaysDemande">
+    <End Role="Pays" Type="Self.Pays" Multiplicity="0..1" />
+    <End Role="Demandes" Type="Self.Demandes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Pays">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Demandes">
+        <PropertyRef Name="PaysID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PrioriteDemande">
+    <End Role="Priorites" Type="Self.Priorites" Multiplicity="0..1" />
+    <End Role="Demandes" Type="Self.Demandes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Priorites">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Demandes">
+        <PropertyRef Name="PrioriteID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SiteDemande">
+    <End Role="Sites" Type="Self.Sites" Multiplicity="0..1" />
+    <End Role="Demandes" Type="Self.Demandes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Sites">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Demandes">
+        <PropertyRef Name="SiteID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TypePrelevementDemande">
+    <End Role="TypePrelevements" Type="Self.TypePrelevements" Multiplicity="0..1" />
+    <End Role="Demandes" Type="Self.Demandes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TypePrelevements">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Demandes">
+        <PropertyRef Name="TypePrelevementID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TypeUsagerDemande">
+    <End Role="TypeUsagers" Type="Self.TypeUsagers" Multiplicity="0..1" />
+    <End Role="Demandes" Type="Self.Demandes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TypeUsagers">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Demandes">
+        <PropertyRef Name="TypeUsagerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="BDCovidCEMTLModelStoreContainer">
+    <EntitySet Name="Demandes" EntityType="Self.Demandes" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Pays" EntityType="Self.Pays" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Priorites" EntityType="Self.Priorites" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Sites" EntityType="Self.Sites" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TypePrelevements" EntityType="Self.TypePrelevements" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TypeUsagers" EntityType="Self.TypeUsagers" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_PaysDemande" Association="Self.FK_PaysDemande">
+      <End Role="Pays" EntitySet="Pays" />
+      <End Role="Demandes" EntitySet="Demandes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PrioriteDemande" Association="Self.FK_PrioriteDemande">
+      <End Role="Priorites" EntitySet="Priorites" />
+      <End Role="Demandes" EntitySet="Demandes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SiteDemande" Association="Self.FK_SiteDemande">
+      <End Role="Sites" EntitySet="Sites" />
+      <End Role="Demandes" EntitySet="Demandes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TypePrelevementDemande" Association="Self.FK_TypePrelevementDemande">
+      <End Role="TypePrelevements" EntitySet="TypePrelevements" />
+      <End Role="Demandes" EntitySet="Demandes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TypeUsagerDemande" Association="Self.FK_TypeUsagerDemande">
+      <End Role="TypeUsagers" EntitySet="TypeUsagers" />
+      <End Role="Demandes" EntitySet="Demandes" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

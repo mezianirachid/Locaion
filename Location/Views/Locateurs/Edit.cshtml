@@ -1,0 +1,367 @@
+﻿@model Location.DAL.Locateur
+
+@{
+    ViewBag.Title = "Édition du locateur";
+ 
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <!-- En-tête de la page -->
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <div>
+                    <h2 class="h3 mb-1 text-primary">
+                        <i class="fas fa-user-edit me-2"></i>Édition du locateur
+                    </h2>
+                    <p class="text-muted mb-0">Modifier les informations du locateur</p>
+                </div>
+                @Html.ActionLink("Retour à la liste", "Index", null, new { @class = "btn btn-outline-secondary" })
+            </div>
+
+            <!-- Formulaire -->
+            @using (Html.BeginForm("Edit", "Locateurs", FormMethod.Post, new { enctype = "multipart/form-data", @class = "needs-validation", novalidate = "novalidate" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(model => model.Id)
+
+                <div class="card shadow-sm">
+                    <div class="card-header bg-primary text-white py-3">
+                        <h5 class="card-title mb-0">
+                            <i class="fas fa-info-circle me-2"></i>Informations du locateur
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        @Html.ValidationSummary(true, "", new { @class = "alert alert-danger" })
+
+                        <div class="row">
+                            <!-- Colonne gauche - Informations personnelles -->
+                            <div class="col-lg-6">
+                                <div class="card mb-4 border-0 bg-light">
+                                    <div class="card-header bg-transparent border-bottom">
+                                        <h6 class="mb-0 text-dark">
+                                            <i class="fas fa-user me-2"></i>Informations personnelles
+                                        </h6>
+                                    </div>
+                                    <div class="card-body">
+                                        <!-- Référence -->
+                                        <div class="mb-3">
+                                            <label class="form-label fw-bold text-dark">Référence</label>
+                                            @Html.EditorFor(model => model.Id, new
+                                       {
+                                           htmlAttributes = new
+                                           {
+                                               @class = "form-control form-control-lg bg-light",
+                                               @readonly = "readonly",
+                                               @placeholder = "Référence automatique"
+                                           }
+                                       })
+                                        </div>
+
+                                        <!-- Nom et Prénom -->
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="mb-3">
+                                                    <label class="form-label fw-bold text-dark">Nom</label>
+                                                    @Html.EditorFor(model => model.Nom, new
+                                               {
+                                                   htmlAttributes = new
+                                                   {
+                                                       @class = "form-control",
+                                                       @placeholder = "Entrez le nom"
+                                                   }
+                                               })
+                                                    @Html.ValidationMessageFor(model => model.Nom, "", new { @class = "text-danger small" })
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="mb-3">
+                                                    <label class="form-label fw-bold text-dark">Prénom</label>
+                                                    @Html.EditorFor(model => model.Prenom, new
+                                               {
+                                                   htmlAttributes = new
+                                                   {
+                                                       @class = "form-control",
+                                                       @placeholder = "Entrez le prénom"
+                                                   }
+                                               }
+                                                 )
+                                                    @Html.ValidationMessageFor(model => model.Prenom, "", new { @class = "text-danger small" })
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Sexe et Date de naissance -->
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="mb-3">
+                                                    <label class="form-label fw-bold text-dark">Sexe</label>
+                                                    @Html.DropDownListFor(model => model.Sexe, new List<SelectListItem>
+    {
+        new SelectListItem { Value = "", Text = "Sélectionnez..." },
+        new SelectListItem { Value = "H", Text = "Homme" },
+        new SelectListItem { Value = "F", Text = "Femme" },
+        new SelectListItem { Value = "A", Text = "Autre" }
+    }, new { @class = "form-control" })
+
+                                                    @Html.ValidationMessageFor(model => model.Sexe, "", new { @class = "text-danger small" })
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="mb-3">
+                                                    <label class="form-label fw-bold text-dark">Date de naissance</label>
+                                                    @Html.EditorFor(model => model.DateNaissance, new
+                                               {
+                                                   htmlAttributes = new
+                                                   {
+                                                       @class = "form-control",
+                                                       type = "date"
+                                                   }
+                                               })
+                                                    @Html.ValidationMessageFor(model => model.DateNaissance, "", new { @class = "text-danger small" })
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- NAS -->
+                                        <div class="mb-3">
+                                            <label class="form-label fw-bold text-dark">NAS</label>
+                                            @Html.EditorFor(model => model.NAS, new
+                                       {
+                                           htmlAttributes = new
+                                           {
+                                               @class = "form-control",
+                                               @placeholder = "123 456 789",
+                                               @id = "nasInput"
+                                           }
+                                       })
+                                            @Html.ValidationMessageFor(model => model.NAS, "", new { @class = "text-danger small" })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Colonne droite - Contact et Adresse -->
+                            <div class="col-lg-6">
+                                <div class="card mb-4 border-0 bg-light">
+                                    <div class="card-header bg-transparent border-bottom">
+                                        <h6 class="mb-0 text-dark">
+                                            <i class="fas fa-address-book me-2"></i>Contact et adresse
+                                        </h6>
+                                    </div>
+                                    <div class="card-body">
+                                        <!-- Adresse -->
+                                        <div class="mb-3">
+                                            <label class="form-label fw-bold text-dark">Adresse</label>
+                                            @Html.EditorFor(model => model.Adresse, new
+                                       {
+                                           htmlAttributes = new
+                                           {
+                                               @class = "form-control",
+                                               @placeholder = "123 Rue Principale"
+                                           }
+                                       })
+                                            @Html.ValidationMessageFor(model => model.Adresse, "", new { @class = "text-danger small" })
+                                        </div>
+
+                                        <!-- Ville et Code postal -->
+                                        <div class="row">
+                                            <div class="col-md-8">
+                                                <div class="mb-3">
+                                                    <label class="form-label fw-bold text-dark">Ville</label>
+                                                    @Html.EditorFor(model => model.Ville, new
+                                               {
+                                                   htmlAttributes = new
+                                                   {
+                                                       @class = "form-control",
+                                                       @placeholder = "Nom de la ville"
+                                                   }
+                                               })
+                                                    @Html.ValidationMessageFor(model => model.Ville, "", new { @class = "text-danger small" })
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="mb-3">
+                                                    <label class="form-label fw-bold text-dark">Code postal</label>
+                                                    @Html.EditorFor(model => model.CodePostal, new
+                                               {
+                                                   htmlAttributes = new
+                                                   {
+                                                       @class = "form-control",
+                                                       @placeholder = "A1A 1A1",
+                                                       @id = "codePostalInput"
+                                                   }
+                                               })
+                                                    @Html.ValidationMessageFor(model => model.CodePostal, "", new { @class = "text-danger small" })
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Téléphones -->
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="mb-3">
+                                                    <label class="form-label fw-bold text-dark">Tél principal</label>
+                                                    @Html.EditorFor(model => model.TelPrincipal, new
+                                               {
+                                                   htmlAttributes = new
+                                                   {
+                                                       @class = "form-control",
+                                                       @placeholder = "(123) 456-7890",
+                                                       @id = "telPrincipalInput"
+                                                   }
+                                               })
+                                                    @Html.ValidationMessageFor(model => model.TelPrincipal, "", new { @class = "text-danger small" })
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="mb-3">
+                                                    <label class="form-label fw-bold text-dark">Tél secondaire</label>
+                                                    @Html.EditorFor(model => model.TelSecondaire, new
+                                               {
+                                                   htmlAttributes = new
+                                                   {
+                                                       @class = "form-control",
+                                                       @placeholder = "(123) 456-7890",
+                                                       @id = "telSecondaireInput"
+                                                   }
+                                               })
+                                                    @Html.ValidationMessageFor(model => model.TelSecondaire, "", new { @class = "text-danger small" })
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Courriel -->
+                                        <div class="mb-3">
+                                            <label class="form-label fw-bold text-dark">Courriel</label>
+                                            @Html.EditorFor(model => model.Courriel, new
+                                       {
+                                           htmlAttributes = new
+                                           {
+                                               @class = "form-control",
+                                               @placeholder = "exemple@email.com",
+                                               type = "email"
+                                           }
+                                       })
+                                            @Html.ValidationMessageFor(model => model.Courriel, "", new { @class = "text-danger small" })
+                                        </div>
+
+                                        <!-- Signature -->
+                                        <div class="mb-3">
+                                            <label class="form-label fw-bold text-dark">Signature</label>
+                                            <input class="form-control" id="fileSignature" name="File" type="file" accept="image/*" />
+                                            <div class="form-text">Formats acceptés : JPG, PNG, GIF (max 2MB)</div>
+
+                                            @if (!string.IsNullOrEmpty(ViewBag.PathName))
+                                            {
+                                                <div class="mt-2 p-2 border rounded bg-white">
+                                                    <p class="small text-muted mb-1">Signature actuelle :</p>
+                                                    <img src="@ViewBag.PathName" alt="Signature" class="img-thumbnail" style="max-height: 80px;" />
+                                                </div>
+                                            }
+
+                                            @if (!string.IsNullOrEmpty(ViewBag.Message))
+                                            {
+                                                <div class="alert alert-info mt-2 small">
+                                                    @ViewBag.Message
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Champs cachés -->
+                        <div class="hidden">
+                            @Html.EditorFor(model => model.CreatedBy, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.EditorFor(model => model.CreatedOn, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.EditorFor(model => model.ModifiedBy, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.EditorFor(model => model.ModifiedOn, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.EditorFor(model => model.Statut, new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+                    </div>
+
+                    <!-- Pied de carte avec boutons -->
+                    <div class="card-footer bg-light py-3">
+                        <div class="d-flex justify-content-between align-items-center">
+                            @Html.ActionLink("Retour", "Index", null, new { @class = "btn btn-outline-secondary" })
+                            <div>
+                                @*<button type="reset" class="btn btn-warning me-2">
+                                        <i class="fas fa-undo me-1"></i>Réinitialiser
+                                    </button>*@
+                                <button type="submit" class="btn btn-success">
+                                    <i class="fas fa-save me-1"></i>Enregistrer les modifications
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            // Formatage automatique du NAS
+            $('#nasInput').on('input', function () {
+                let value = $(this).val().replace(/\D/g, '');
+                if (value.length > 9) value = value.substr(0, 9);
+                if (value.length > 3 && value.length <= 6) {
+                    value = value.substr(0, 3) + ' ' + value.substr(3);
+                } else if (value.length > 6) {
+                    value = value.substr(0, 3) + ' ' + value.substr(3, 3) + ' ' + value.substr(6);
+                }
+                $(this).val(value);
+            });
+
+            // Formatage automatique du code postal
+            $('#codePostalInput').on('input', function () {
+                let value = $(this).val().toUpperCase().replace(/[^A-Z0-9]/g, '');
+                if (value.length > 3) {
+                    value = value.substr(0, 3) + ' ' + value.substr(3, 3);
+                }
+                if (value.length > 6) value = value.substr(0, 7);
+                $(this).val(value);
+            });
+
+            // Formatage automatique des téléphones
+            function formatPhone(input) {
+                let value = input.val().replace(/\D/g, '');
+                if (value.length > 10) value = value.substr(0, 10);
+                if (value.length >= 6) {
+                    value = '(' + value.substr(0, 3) + ') ' + value.substr(3, 3) + '-' + value.substr(6);
+                } else if (value.length >= 3) {
+                    value = '(' + value.substr(0, 3) + ') ' + value.substr(3);
+                }
+                input.val(value);
+            }
+
+            $('#telPrincipalInput, #telSecondaireInput').on('input', function () {
+                formatPhone($(this));
+            });
+
+            // Validation du fichier de signature
+            $('#fileSignature').on('change', function () {
+                const file = this.files[0];
+                if (file) {
+                    const maxSize = 2 * 1024 * 1024; // 2MB
+                    const validTypes = ['image/jpeg', 'image/png', 'image/gif'];
+
+                    if (file.size > maxSize) {
+                        alert('Le fichier est trop volumineux. Taille maximale : 2MB');
+                        $(this).val('');
+                    } else if (!validTypes.includes(file.type)) {
+                        alert('Type de fichier non supporté. Utilisez JPG, PNG ou GIF.');
+                        $(this).val('');
+                    }
+                }
+            });
+
+            // Ajout de styles de validation
+            $('form').addClass('was-validated');
+        });
+    </script>
+}

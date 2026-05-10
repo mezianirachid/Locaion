@@ -1,0 +1,185 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="BDCovidCEMTLModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="BDCovidCEMTLEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Demandes" EntityType="BDCovidCEMTLModel.Demandes" />
+    <EntitySet Name="Priorites" EntityType="BDCovidCEMTLModel.Priorites" />
+    <EntitySet Name="Sites" EntityType="BDCovidCEMTLModel.Sites" />
+    <EntitySet Name="TypePrelevements" EntityType="BDCovidCEMTLModel.TypePrelevements" />
+    <EntitySet Name="TypeUsagers" EntityType="BDCovidCEMTLModel.TypeUsagers" />
+    <AssociationSet Name="FK_PrioriteDemande" Association="BDCovidCEMTLModel.FK_PrioriteDemande">
+      <End Role="Priorites" EntitySet="Priorites" />
+      <End Role="Demandes" EntitySet="Demandes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SiteDemande" Association="BDCovidCEMTLModel.FK_SiteDemande">
+      <End Role="Sites" EntitySet="Sites" />
+      <End Role="Demandes" EntitySet="Demandes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TypePrelevementDemande" Association="BDCovidCEMTLModel.FK_TypePrelevementDemande">
+      <End Role="TypePrelevements" EntitySet="TypePrelevements" />
+      <End Role="Demandes" EntitySet="Demandes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TypeUsagerDemande" Association="BDCovidCEMTLModel.FK_TypeUsagerDemande">
+      <End Role="TypeUsagers" EntitySet="TypeUsagers" />
+      <End Role="Demandes" EntitySet="Demandes" />
+    </AssociationSet>
+    <EntitySet Name="Pays" EntityType="BDCovidCEMTLModel.Pays" />
+    <AssociationSet Name="FK_PaysDemande" Association="BDCovidCEMTLModel.FK_PaysDemande">
+      <End Role="Pays" EntitySet="Pays" />
+      <End Role="Demandes" EntitySet="Demandes" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Demandes">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nom" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Prenom" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Sexe" Type="Int32" />
+    <Property Name="DateNaissance" Type="DateTime" Precision="3" />
+    <Property Name="Telephone" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="Courriel" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Poste" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Adresse" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="Ramq" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="Commentaire" Type="String" MaxLength="3200" FixedLength="false" Unicode="true" />
+    <Property Name="Autre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Statut" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="ModifiedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="LastModifiedOn" Type="DateTime" Precision="3" />
+    <Property Name="SiteID" Type="Int32" />
+    <Property Name="IdUser" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="IdCemtl" Type="String" Nullable="false" MaxLength="24" FixedLength="false" Unicode="false" annotation:StoreGeneratedPattern="Computed" />
+    <Property Name="Langue" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+    <Property Name="SurNombre" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+    <Property Name="DateRdv" Type="DateTime" Precision="3" />
+    <Property Name="HeureRdv" Type="DateTime" Precision="3" />
+    <Property Name="CodePostal" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Presence" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+    <Property Name="TypeUsager" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+    <Property Name="Matricule" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="PrioriteID" Type="Int32" />
+    <Property Name="TypeUsagerID" Type="Int32" />
+    <Property Name="TypePrelevementID" Type="Int32" />
+    <Property Name="Voyage" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+    <Property Name="Destination" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="DateEntree" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Priorites" Relationship="BDCovidCEMTLModel.FK_PrioriteDemande" FromRole="Demandes" ToRole="Priorites" />
+    <NavigationProperty Name="Sites" Relationship="BDCovidCEMTLModel.FK_SiteDemande" FromRole="Demandes" ToRole="Sites" />
+    <NavigationProperty Name="TypePrelevements" Relationship="BDCovidCEMTLModel.FK_TypePrelevementDemande" FromRole="Demandes" ToRole="TypePrelevements" />
+    <NavigationProperty Name="TypeUsagers" Relationship="BDCovidCEMTLModel.FK_TypeUsagerDemande" FromRole="Demandes" ToRole="TypeUsagers" />
+    <Property Name="PaysID" Type="Int32" />
+    <NavigationProperty Name="Pays" Relationship="BDCovidCEMTLModel.FK_PaysDemande" FromRole="Demandes" ToRole="Pays" />
+  </EntityType>
+  <EntityType Name="Priorites">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NomPriorite" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
+    <Property Name="DescrPriorite" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="CouleurPriorite" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+    <Property Name="StatutPriorite" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Demandes" Relationship="BDCovidCEMTLModel.FK_PrioriteDemande" FromRole="Priorites" ToRole="Demandes" />
+  </EntityType>
+  <EntityType Name="Sites">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NomSite" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="EmplacementSite" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="TelephoneSite" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Demandes" Relationship="BDCovidCEMTLModel.FK_SiteDemande" FromRole="Sites" ToRole="Demandes" />
+  </EntityType>
+  <EntityType Name="TypePrelevements">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NomTypePrelevement" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="DescTypePrelevement" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Demandes" Relationship="BDCovidCEMTLModel.FK_TypePrelevementDemande" FromRole="TypePrelevements" ToRole="Demandes" />
+  </EntityType>
+  <EntityType Name="TypeUsagers">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NomTypeUsager" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="DescTypeUsager" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Demandes" Relationship="BDCovidCEMTLModel.FK_TypeUsagerDemande" FromRole="TypeUsagers" ToRole="Demandes" />
+  </EntityType>
+  <Association Name="FK_PrioriteDemande">
+    <End Type="BDCovidCEMTLModel.Priorites" Role="Priorites" Multiplicity="0..1" />
+    <End Type="BDCovidCEMTLModel.Demandes" Role="Demandes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Priorites">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Demandes">
+        <PropertyRef Name="PrioriteID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SiteDemande">
+    <End Type="BDCovidCEMTLModel.Sites" Role="Sites" Multiplicity="0..1" />
+    <End Type="BDCovidCEMTLModel.Demandes" Role="Demandes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Sites">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Demandes">
+        <PropertyRef Name="SiteID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TypePrelevementDemande">
+    <End Type="BDCovidCEMTLModel.TypePrelevements" Role="TypePrelevements" Multiplicity="0..1" />
+    <End Type="BDCovidCEMTLModel.Demandes" Role="Demandes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TypePrelevements">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Demandes">
+        <PropertyRef Name="TypePrelevementID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TypeUsagerDemande">
+    <End Type="BDCovidCEMTLModel.TypeUsagers" Role="TypeUsagers" Multiplicity="0..1" />
+    <End Type="BDCovidCEMTLModel.Demandes" Role="Demandes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TypeUsagers">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Demandes">
+        <PropertyRef Name="TypeUsagerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Pays">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Code" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Description" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="DescriptionLongue" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Demandes" Relationship="BDCovidCEMTLModel.FK_PaysDemande" FromRole="Pays" ToRole="Demandes" />
+  </EntityType>
+  <Association Name="FK_PaysDemande">
+    <End Type="BDCovidCEMTLModel.Pays" Role="Pays" Multiplicity="0..1" />
+    <End Type="BDCovidCEMTLModel.Demandes" Role="Demandes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Pays">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Demandes">
+        <PropertyRef Name="PaysID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

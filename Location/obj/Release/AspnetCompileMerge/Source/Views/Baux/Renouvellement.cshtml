@@ -1,0 +1,186 @@
+﻿@{
+    @model Location.DAL.Baux
+
+    Layout = null; // Pas de layout pour le PDF
+    var locataire = Model.Locataires;
+    var coLocataire = Model.Locataires1;
+    var appartement = Model.Appartements;
+    var immeuble = appartement != null ? appartement.Immeubles : null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Renouvellement de bail</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 40px;
+            color: #333;
+        }
+
+        h1 {
+            color: #005a9c;
+            border-bottom: 2px solid #005a9c;
+            padding-bottom: 10px;
+        }
+
+        h2 {
+            color: #2c3e50;
+            margin-top: 30px;
+        }
+
+        .info-block {
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-left: 4px solid #005a9c;
+        }
+
+        .info-row {
+            display: flex;
+            margin-bottom: 8px;
+        }
+
+        .info-label {
+            font-weight: bold;
+            width: 200px;
+        }
+
+        .info-value {
+            flex: 1;
+        }
+
+        .signature-block {
+            margin-top: 50px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .signature {
+            width: 45%;
+        }
+
+        .signature-line {
+            border-bottom: 1px solid #333;
+            margin-top: 30px;
+            margin-bottom: 5px;
+        }
+
+        footer {
+            margin-top: 60px;
+            font-size: 0.8em;
+            text-align: center;
+            color: #777;
+            border-top: 1px solid #ddd;
+            padding-top: 15px;
+        }
+    </style>
+</head>
+<body>
+    <h1>AVIS DE RENOUVELLEMENT DE BAIL</h1>
+    <p>Date : @DateTime.Now.ToString("dd MMMM yyyy")</p>
+
+    <div class="info-block">
+        <h2>Locataire(s)</h2>
+        <div class="info-row">
+            <span class="info-label">Locataire principal :</span>
+            <span class="info-value">@(locataire != null ? locataire.NomLocataire + " " + locataire.PrenomLocataire : "-")</span>
+        </div>
+        @if (coLocataire != null)
+        {
+            <div class="info-row">
+                <span class="info-label">Co-locataire :</span>
+                <span class="info-value">@coLocataire.NomLocataire @coLocataire.PrenomLocataire</span>
+            </div>
+        }
+    </div>
+
+    <div class="info-block">
+        <h2>Logement concerné</h2>
+        <div class="info-row">
+            <span class="info-label">Immeuble :</span>
+            <span class="info-value">@(immeuble != null ? immeuble.NomImmeuble : "-")</span>
+        </div>
+        <div class="info-row">
+            <span class="info-label">Adresse :</span>
+            <span class="info-value">@(immeuble != null ? immeuble.AdresseImmeuble : "")</span>
+        </div>
+        <div class="info-row">
+            <span class="info-label">Appartement :</span>
+            <span class="info-value">@(appartement != null ? appartement.AdresseAppartement : "-")</span>
+        </div>
+    </div>
+
+    <div class="info-block">
+        <h2>Nouveau bail</h2>
+        <div class="info-row">
+            <span class="info-label">Numéro de bail :</span>
+            <span class="info-value">@Model.NumeroBail</span>
+        </div>
+        <div class="info-row">
+            <span class="info-label">Date de début :</span>
+            <span class="info-value">@(Model.DateDebut != DateTime.MinValue ? Model.DateDebut.Value.ToString("dd MMMM yyyy") : "-")</span>
+        </div>
+        <div class="info-row">
+            <span class="info-label">Date de fin :</span>
+             <span class="info-value">@(Model.DateFin != DateTime.MinValue ? Model.DateFin.Value.ToString("dd MMMM yyyy") : "-")</span>
+        </div>
+        <div class="info-row">
+            <span class="info-label">Loyer mensuel :</span>
+            <span class="info-value">@Html.DisplayFor(m => m.Prix) $</span>
+        </div>
+        <div class="info-row">
+            <span class="info-label">Charges :</span>
+            <span class="info-value">@Html.DisplayFor(m => m.Charges) $</span>
+        </div>
+        <div class="info-row">
+            <span class="info-label">Dépôt de garantie :</span>
+            <span class="info-value">@Html.DisplayFor(m => m.MontantDepot) $</span>
+        </div>
+        @if (Model.StationnementInt == true)
+        {
+            <div class="info-row">
+                <span class="info-label">Stationnement intérieur :</span>
+                <span class="info-value">Oui (@Model.NbPlacesInt place(s))</span>
+            </div>
+        }
+        @if (Model.StationnementExt == true)
+        {
+            <div class="info-row">
+                <span class="info-label">Stationnement extérieur :</span>
+                <span class="info-value">Oui (@Model.NbPlacesExt place(s))</span>
+            </div>
+        }
+        @if (Model.MeublesInclus == true || Model.AppareilsInclus == true || Model.Deneigement == true || Model.TailleGazon == true)
+        {
+            <div class="info-row">
+                <span class="info-label">Inclusions :</span>
+                <span class="info-value">
+                    @(Model.MeublesInclus == true ? "Meublé " : "")
+                    @(Model.AppareilsInclus == true ? "Appareils " : "")
+                    @(Model.Deneigement == true ? "Déneigement " : "")
+                    @(Model.TailleGazon == true ? "Tonte gazon" : "")
+                </span>
+            </div>
+        }
+    </div>
+
+    <p>Le présent avis tient lieu de proposition de renouvellement. Veuillez signer ci-dessous pour acceptation.</p>
+
+    <div class="signature-block">
+        <div class="signature">
+            <div class="signature-line"></div>
+            <p>Signature du locataire</p>
+        </div>
+        <div class="signature">
+            <div class="signature-line"></div>
+            <p>Signature du bailleur</p>
+        </div>
+    </div>
+
+    <footer>
+        Document généré automatiquement le @DateTime.Now.ToString("dd/MM/yyyy à HH:mm") - Gestion immobilière
+    </footer>
+</body>
+</html>

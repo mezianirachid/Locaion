@@ -1,0 +1,135 @@
+﻿@model Location.DAL.Locataires
+
+@{
+    ViewBag.Title = "Détails du locataire";
+}
+
+<h2 class="mb-4"><i class="fas fa-users me-2"></i>Détails du locataire</h2>
+
+<div class="card shadow">
+    <div class="card-header bg-primary text-white">
+        <h4 class="mb-0">@Html.DisplayFor(model => model.PrenomLocataire) @Html.DisplayFor(model => model.NomLocataire)</h4>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-6">
+                <h5 class="border-bottom pb-2"><i class="fas fa-info-circle me-2"></i>Informations personnelles</h5>
+                <dl class="row">
+                    <dt class="col-sm-5">@Html.DisplayNameFor(model => model.NomLocataire)</dt>
+                    <dd class="col-sm-7">@Html.DisplayFor(model => model.NomLocataire)</dd>
+
+                    <dt class="col-sm-5">@Html.DisplayNameFor(model => model.PrenomLocataire)</dt>
+                    <dd class="col-sm-7">@Html.DisplayFor(model => model.PrenomLocataire)</dd>
+
+                    <dt class="col-sm-5">@Html.DisplayNameFor(model => model.SexeLocataire)</dt>
+                    <dd class="col-sm-7">
+                        @if (Model.SexeLocataire == "M")
+                        {<span>Masculin</span> }
+                        else if (Model.SexeLocataire == "F")
+                        { <span>Féminin</span> }
+                        else
+                        { <span>Non précisé</span>}
+                    </dd>
+
+                    <dt class="col-sm-5">@Html.DisplayNameFor(model => model.DateNaissance)</dt>
+                    <dd class="col-sm-7">@Html.DisplayFor(model => model.DateNaissance)</dd>
+
+                    <dt class="col-sm-5">@Html.DisplayNameFor(model => model.NASLocataire)</dt>
+                    <dd class="col-sm-7">@Html.DisplayFor(model => model.NASLocataire)</dd>
+
+                    <dt class="col-sm-5">@Html.DisplayNameFor(model => model.StatutLocataire)</dt>
+                    <dd class="col-sm-7">
+                        <span class="badge bg-@(Model.StatutLocataire == "A" ? "success" : "secondary")">
+                            @(Model.StatutLocataire == "A" ? "Actif" : "Inactif")
+                        </span>
+                    </dd>
+                </dl>
+            </div>
+            <div class="col-md-6">
+                <h5 class="border-bottom pb-2"><i class="fas fa-address-book me-2"></i>Coordonnées</h5>
+                <dl class="row">
+                    <dt class="col-sm-5">@Html.DisplayNameFor(model => model.TeLocataire)</dt>
+                    <dd class="col-sm-7">@Html.DisplayFor(model => model.TeLocataire)</dd>
+
+                    <dt class="col-sm-5">@Html.DisplayNameFor(model => model.TelSecondaire)</dt>
+                    <dd class="col-sm-7">@Html.DisplayFor(model => model.TelSecondaire)</dd>
+
+                    <dt class="col-sm-5">@Html.DisplayNameFor(model => model.CourrielLocataire)</dt>
+                    <dd class="col-sm-7">@Html.DisplayFor(model => model.CourrielLocataire)</dd>
+                </dl>
+
+                <h5 class="border-bottom pb-2 mt-4"><i class="fas fa-ambulance me-2"></i>Contact d'urgence</h5>
+                <dl class="row">
+                    <dt class="col-sm-5">@Html.DisplayNameFor(model => model.NomContactUrgence)</dt>
+                    <dd class="col-sm-7">@Html.DisplayFor(model => model.NomContactUrgence)</dd>
+
+                    <dt class="col-sm-5">@Html.DisplayNameFor(model => model.TelContactUrgence)</dt>
+                    <dd class="col-sm-7">@Html.DisplayFor(model => model.TelContactUrgence)</dd>
+                </dl>
+            </div>
+        </div>
+
+        @if (!string.IsNullOrEmpty(Model.NomColocataire) || !string.IsNullOrEmpty(Model.PrenomColocataire))
+        {
+            <div class="row mt-4">
+                <div class="col-12">
+                    <h5 class="border-bottom pb-2"><i class="fas fa-user-friends me-2"></i>Colocataire</h5>
+                    <dl class="row">
+                        <dt class="col-sm-2">@Html.DisplayNameFor(model => model.NomColocataire)</dt>
+                        <dd class="col-sm-4">@Html.DisplayFor(model => model.NomColocataire)</dd>
+                        <dt class="col-sm-2">@Html.DisplayNameFor(model => model.PrenomColocataire)</dt>
+                        <dd class="col-sm-4">@Html.DisplayFor(model => model.PrenomColocataire)</dd>
+
+                        <dt class="col-sm-2">@Html.DisplayNameFor(model => model.TelColocataire)</dt>
+                        <dd class="col-sm-4">@Html.DisplayFor(model => model.TelColocataire)</dd>
+                        <dt class="col-sm-2">@Html.DisplayNameFor(model => model.CourrielColocataire)</dt>
+                        <dd class="col-sm-4">@Html.DisplayFor(model => model.CourrielColocataire)</dd>
+
+                        <dt class="col-sm-2">@Html.DisplayNameFor(model => model.SexeColocataire)</dt>
+                        <dd class="col-sm-4">
+                            @if (Model.SexeColocataire == "M")
+                            {<span>Masculin</span> }
+                            else if (Model.SexeColocataire == "F")
+                            { <span>Féminin</span> }
+                            else
+                            { <span>Non précisé</span>}
+                        </dd>
+                        <dt class="col-sm-2">@Html.DisplayNameFor(model => model.StatutColocataire)</dt>
+                        <dd class="col-sm-4">
+                            <span class="badge bg-@(Model.StatutColocataire == "A" ? "success" : "secondary")">
+                                @(Model.StatutColocataire == "A" ? "Actif" : "Inactif")
+                            </span>
+                        </dd>
+
+                        <dt class="col-sm-2">@Html.DisplayNameFor(model => model.RelationLocataireColocataire)</dt>
+                        <dd class="col-sm-10">@Html.DisplayFor(model => model.RelationLocataireColocataire)</dd>
+                    </dl>
+                </div>
+            </div>
+        }
+
+        <div class="row mt-4">
+            <div class="col-12">
+                <h5 class="border-bottom pb-2"><i class="fas fa-clock me-2"></i>Métadonnées</h5>
+                <dl class="row">
+                    <dt class="col-sm-2">@Html.DisplayNameFor(model => model.CreatedBy)</dt>
+                    <dd class="col-sm-4">@Html.DisplayFor(model => model.CreatedBy)</dd>
+                    <dt class="col-sm-2">@Html.DisplayNameFor(model => model.CreatedOn)</dt>
+                    <dd class="col-sm-4">@Html.DisplayFor(model => model.CreatedOn)</dd>
+                    <dt class="col-sm-2">@Html.DisplayNameFor(model => model.ModifiedBy)</dt>
+                    <dd class="col-sm-4">@Html.DisplayFor(model => model.ModifiedBy)</dd>
+                    <dt class="col-sm-2">@Html.DisplayNameFor(model => model.ModifiedOn)</dt>
+                    <dd class="col-sm-4">@Html.DisplayFor(model => model.ModifiedOn)</dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+    <div class="card-footer">
+        <a href="@Url.Action("Edit", new { id = Model.Id })" class="btn btn-warning">
+            <i class="fas fa-edit me-1"></i>Modifier
+        </a>
+        <a href="@Url.Action("Index")" class="btn btn-secondary">
+            <i class="fas fa-arrow-left me-1"></i>Retour à la liste
+        </a>
+    </div>
+</div>

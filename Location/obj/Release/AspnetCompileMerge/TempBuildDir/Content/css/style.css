@@ -1,0 +1,59 @@
+﻿     #stages-data-table thead tr th {
+        background-color: #007ba3;
+        color: #fff;
+        font-weight: normal;
+        height: 28px;
+    }
+    #stages-data-table thead tr th:hover {
+        background-color: #007bb2;
+    }
+
+    #stages-data-table th:first-child { 
+        width: 60px!important; 
+
+    }
+    #stages-data-table th:nth-child(4) { 
+        width: 100px!important; 
+
+    }
+
+    #stages-data-table td:first-child { 
+        text-align: center; 
+
+    }
+
+    td .fas {
+        cursor: pointer;
+        font-size: 16px;
+    }
+
+    .fa-edit {
+        color: #2e6da4;
+    }
+
+    .fa-file-alt{
+        color: #2e6da4;
+    }
+    .fa-lock {
+        color: #d9534f;
+    }
+
+        .fa-lock:hover, 
+        .fa-lock-open:hover, 
+        .fa-file-alt:hover,
+        .fa-edit:hover {
+            color: #808080;
+        }
+
+    .fa-lock-open {
+        color: #4cae4c;
+    }
+
+    label.error {
+        font-weight: normal;
+        color: #a94442;
+    }
+
+    .inactive {
+        background-color: #f2dede;
+    }

@@ -1,0 +1,92 @@
+﻿@model Location.DAL.Payements
+
+@{
+    ViewBag.Title = "Détails du paiement";
+}
+
+<h2 class="mb-4">
+    <i class="fas fa-info-circle me-2 text-info"></i>Détails du paiement
+</h2>
+
+<div class="card shadow-lg border-0">
+    <div class="card-header bg-info text-white py-3">
+        <h4 class="mb-0">Paiement du @(Model.DatePayement.HasValue ? Model.DatePayement.Value.ToString("dd MMMM yyyy") : "date inconnue")</h4>
+    </div>
+    <div class="card-body p-4">
+        <dl class="row">
+            <dt class="col-sm-4 col-lg-3 fw-bold">Bail</dt>
+            <dd class="col-sm-8 col-lg-9">
+                @if (Model.Baux != null)
+                {
+                    <span class="fw-semibold">@Model.Baux.NumeroBail</span><br />
+                    <span>Locataire : @(Model.Baux.Locataires != null ? Model.Baux.Locataires.NomLocataire + " " + Model.Baux.Locataires.PrenomLocataire : "")</span><br />
+                    <span>Appartement : @(Model.Baux.Appartements != null ? Model.Baux.Appartements.AdresseAppartement : "")</span>
+                }
+                else
+                {
+                    <span class="text-muted">-</span>
+                }
+            </dd>
+
+            <dt class="col-sm-4 col-lg-3 fw-bold">Période concernée</dt>
+            <dd class="col-sm-8 col-lg-9">
+                @if (Model.Mois.HasValue)
+                {
+                    @System.Globalization.DateTimeFormatInfo.CurrentInfo.GetMonthName(Model.Mois.Value) @Model.Annee
+                }
+                else
+                {
+                    @Model.Annee
+                }
+            </dd>
+
+            <dt class="col-sm-4 col-lg-3 fw-bold">Date de paiement</dt>
+            <dd class="col-sm-8 col-lg-9">@(Model.DatePayement.HasValue ? Model.DatePayement.Value.ToString("dd/MM/yyyy") : "-")</dd>
+
+            <dt class="col-sm-4 col-lg-3 fw-bold">Montant</dt>
+            <dd class="col-sm-8 col-lg-9"><span class="fw-bold text-success fs-5">@Html.DisplayFor(model => model.Montant) $</span></dd>
+
+            <dt class="col-sm-4 col-lg-3 fw-bold">Lieu de paiement</dt>
+            <dd class="col-sm-8 col-lg-9">@Html.DisplayFor(model => model.LieuPayement)</dd>
+
+            <dt class="col-sm-4 col-lg-3 fw-bold">Mode de paiement</dt>
+            <dd class="col-sm-8 col-lg-9">@Html.DisplayFor(model => model.ModePayement)</dd>
+
+            <dt class="col-sm-4 col-lg-3 fw-bold">Moyen de paiement</dt>
+            <dd class="col-sm-8 col-lg-9">@Html.DisplayFor(model => model.MoyenPayements.NomMoyenPayement)</dd>
+
+            <dt class="col-sm-4 col-lg-3 fw-bold">Description</dt>
+            <dd class="col-sm-8 col-lg-9">@Html.DisplayFor(model => model.Description)</dd>
+
+            <dt class="col-sm-4 col-lg-3 fw-bold">Statut</dt>
+            <dd class="col-sm-8 col-lg-9">
+                @if (Model.Statut == "A")
+                {
+                    <span class="badge bg-success fs-6 px-3 py-2"><i class="fas fa-check-circle me-1"></i>Payé</span>
+                }
+                else if (Model.Statut == "E")
+                {
+                    <span class="badge bg-warning text-dark fs-6 px-3 py-2"><i class="fas fa-clock me-1"></i>En attente</span>
+                }
+                else if (Model.Statut == "I")
+                {
+                    <span class="badge bg-secondary fs-6 px-3 py-2"><i class="fas fa-times-circle me-1"></i>Annulé</span>
+                }
+                else
+                {
+                    <span class="badge bg-info fs-6 px-3 py-2">@Model.Statut</span>
+                }
+            </dd>
+
+            <dt class="col-sm-4 col-lg-3 fw-bold">Créé par / le</dt>
+            <dd class="col-sm-8 col-lg-9">@Html.DisplayFor(model => model.CreatedBy) le @Html.DisplayFor(model => model.CreatedOn)</dd>
+
+            <dt class="col-sm-4 col-lg-3 fw-bold">Modifié par / le</dt>
+            <dd class="col-sm-8 col-lg-9">@Html.DisplayFor(model => model.ModifiedBy) le @Html.DisplayFor(model => model.ModifiedOn)</dd>
+        </dl>
+    </div>
+    <div class="card-footer bg-transparent py-3">
+        @Html.ActionLink("Modifier", "Edit", new { id = Model.Id }, new { @class = "btn btn-warning" })
+        @Html.ActionLink("Retour à la liste", "Index", null, new { @class = "btn btn-secondary" })
+    </div>
+</div>

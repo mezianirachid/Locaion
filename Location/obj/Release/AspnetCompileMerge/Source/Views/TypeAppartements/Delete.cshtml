@@ -1,0 +1,44 @@
+﻿@model Location.DAL.TypeAppartements
+
+@{
+    ViewBag.Title = "Suppression";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Suppression</h2>
+
+<h3>Êtes-vous sûr de vouloir supprimer?</h3>
+<div>
+    <h4>Type d'appartement</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.NomTypeAppartement )
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NomTypeAppartement)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DescriptionTypeAppartement)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DescriptionTypeAppartement)
+        </dd>
+
+       
+
+    </dl>
+
+    @using (Html.BeginForm()) 
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Suppression " class="btn btn-default" /> |
+            @Html.ActionLink("Retour", "Index")
+        </div>
+    }
+</div>

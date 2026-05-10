@@ -1,0 +1,45 @@
+﻿<!-- Début Menu incluant la barre et l'image' -->
+<!--Le menu contient un parametre pour chaque souligner en vert chaque sous menu -->
+<nav>
+    <!-- Personnal space icon -->
+    <a href="/Account/Login">
+        <aside class="pull-xs-right m-r-4" id="personal_space">
+            <i class="fa fa-user fa-3x m-r-1 hidden-xs-down" aria-hidden="true"></i>
+            <i class="fa fa-user fa-2x m-r-1 hidden-sm-up" id="small_user" aria-hidden="true"></i>
+            <a href="/Account/Login" class="btn btn-default stretched-link">Gestion</a>
+        </aside>
+    </a>
+    <!-- Start Navigation -->
+    <button class="navbar-toggler hidden-sm-up" type="button" data-toggle="collapse" data-target="#exCollapsingNavbar2">
+        &#9776;
+    </button>
+    <div class="collapse navbar-toggleable-xs" id="exCollapsingNavbar2">
+        <ul class="nav navbar-nav">
+            <li class="nav-item m-x-1 @ViewData["OnAccueil"]">
+                <a class="nav-link" href="Accueil">Accueil<span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item m-x-1 @ViewData["OnPresentation"]">
+                <a class="nav-link" href="Presentation">Présentation</a>
+            </li>
+
+            <li class="nav-item m-x-1 @ViewData["OnLocation"]">
+                <a class="nav-link" href="Location">Location</a>
+            </li>
+
+            <li class="nav-item m-x-1 @ViewData["OnAchat"]">
+                <a class="nav-link" href="Achat">Achat</a>
+            </li>
+
+            <li class="nav-item m-x-1 @ViewData["OnContact"]">
+                <a class="nav-link" href="/Accueil/Contact">Nous joindre</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<!-- End of the navigation -->
+<!-- Start of the jumbotron with main image -->
+<div class="jumbotron p-t-1 text-xs-center">
+    <span class="pull-xs-right appeal landing">@ViewBag.Text0</span>
+</div>
+<!-- End of the jumbotron with main image -->
+<!-- End Menu incluant la barre et l'image' -->

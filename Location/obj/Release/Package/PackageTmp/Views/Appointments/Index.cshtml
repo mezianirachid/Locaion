@@ -1,0 +1,53 @@
+﻿@model IEnumerable<PropertyRentalManagementWebSite.Models.Appointment>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.TimeAndDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Confirmed)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.User.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.User1.Name)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TimeAndDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Confirmed)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.User.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.User1.Name)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.AppointmentID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.AppointmentID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.AppointmentID })
+            </td>
+        </tr>
+    }
+
+</table>

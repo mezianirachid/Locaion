@@ -1,0 +1,23 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+
+namespace Location.Models
+{
+    public class Apartment
+    {
+        public int Id { get; set; }
+        public string Badge { get; set; }
+        public string Image { get; set; }
+        public string Alt { get; set; }
+        public string Title { get; set; }
+        public string Location { get; set; }
+        public decimal Price { get; set; }
+        public int Bedrooms { get; set; }
+        public int Bathrooms { get; set; }
+        public int Area { get; set; }
+        public string Status { get; set; }
+        public string Description { get; set; }
+    }
+}

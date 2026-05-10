@@ -1,0 +1,41 @@
+﻿@model Location.TypeUsagers
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>êtes-vous sûres de vouloir supprimer</h3>
+<div>
+    <h4>TypeUsagers</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.NomTypeUsager)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NomTypeUsager)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DescTypeUsager)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DescTypeUsager)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

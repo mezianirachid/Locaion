@@ -1,0 +1,234 @@
+﻿@model Location.DAL.Baux
+@{
+    Layout = null;
+    // Récupérer le locateur (propriétaire) depuis ViewBag (à définir dans le contrôleur)
+    var locateur = ViewBag.Locateur as Location.DAL.Locateur;
+    // Locataire principal
+    var locatairePrincipal = Model.Locataires1;
+    // Adresse complète du logement
+    var adresseLogement = Model.Appartements != null ? Model.Appartements.AdresseAppartement.Trim() : "";
+    // Date d'aujourd'hui formatée
+    var today = DateTime.Now.ToString("dd MMMM yyyy");
+    // Date limite de réponse (1 mois après réception présumée)
+    var dateLimiteReponse = DateTime.Now.AddDays(30).ToString("dd MMMM yyyy");
+}
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8" />
+    <title>Avis de modification du bail – Renouvellement</title>
+    <style>
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 12pt;
+            line-height: 1.5;
+            margin: 2.5cm auto;
+            max-width: 800px;
+            background: #fff;
+            color: #000;
+        }
+
+        .letter {
+            padding: 0;
+        }
+
+        .destinataire {
+            margin-bottom: 1.5cm;
+        }
+
+        .objet {
+            font-weight: bold;
+            margin-bottom: 0.5cm;
+            text-transform: uppercase;
+        }
+
+        .corps {
+            text-align: justify;
+            margin-bottom: 1cm;
+        }
+
+        .conditions {
+            margin: 1cm 0;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+            .conditions td {
+                border: 1px solid #000;
+                padding: 8px;
+                vertical-align: top;
+            }
+
+                .conditions td:first-child {
+                    font-weight: bold;
+                    width: 40%;
+                }
+
+        .signature {
+            margin-top: 2cm;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .signature-left, .signature-right {
+            width: 45%;
+        }
+
+        .signature-line {
+            border-top: 1px solid #000;
+            margin-top: 30px;
+            padding-top: 5px;
+            font-size: 10pt;
+            text-align: center;
+        }
+
+        .footer {
+            margin-top: 2cm;
+            font-size: 9pt;
+            border-top: 1px solid #aaa;
+            padding-top: 0.5cm;
+            text-align: center;
+            color: #555;
+        }
+
+        .choices-box {
+            border: 1px solid #000;
+            padding: 15px;
+            margin: 20px 0;
+            background-color: #f9f9f9;
+        }
+
+            .choices-box p {
+                margin: 5px 0;
+            }
+    </style>
+</head>
+<body>
+    <div class="letter">
+        <!-- Date d'envoi -->
+        <div style="text-align: right; margin-bottom: 1cm;">
+            Le @today
+        </div>
+
+        <!-- Destinataire -->
+        <div class="destinataire">
+            @if (locatairePrincipal != null)
+            {
+                <strong>@(locatairePrincipal.PrenomLocataire ?? "") @(locatairePrincipal.NomLocataire ?? "")</strong><br />
+                <span>@adresseLogement</span><br />
+                <span>Téléphone : @(locatairePrincipal.TeLocataire ?? "")</span><br />
+                <span>Courriel : @(locatairePrincipal.CourrielLocataire ?? "")</span>
+            }
+            else
+            {
+                <strong>Locataire</strong><br />
+                <span>@adresseLogement</span>
+            }
+        </div>
+
+        <!-- Objet -->
+        <div class="objet">
+            AVIS DE MODIFICATION DU BAIL – RENOUVELLEMENT
+        </div>
+
+        <!-- Corps principal -->
+        <div class="corps">
+            <p>Madame, Monsieur,</p>
+            <p>Conformément à l'article 1942 du Code civil du Québec, je vous informe de mon intention de renouveler votre bail pour le logement situé au <strong>@adresseLogement</strong>. Le nouveau bail prendra effet le <strong>@(Model.DateDebut.HasValue ? Model.DateDebut.Value.ToString("dd MMMM yyyy") : "")</strong>.</p>
+            <p><strong>Modifications proposées pour le nouveau bail :</strong></p>
+        </div>
+
+        <!-- Tableau des conditions -->
+        <table class="conditions">
+            <tr><td>Numéro de bail</td><td>@(Model.NumeroBail ?? "Non attribué")</td></tr>
+            <tr><td>Adresse du logement</td><td>@adresseLogement</td></tr>
+            <tr><td>Date de prise d'effet du nouveau bail</td><td>@(Model.DateDebut.HasValue ? Model.DateDebut.Value.ToString("dd MMMM yyyy") : "")</td></tr>
+            <tr><td>Date de fin proposée (si bail à durée fixe)</td><td>@(Model.DateFin.HasValue ? Model.DateFin.Value.ToString("dd MMMM yyyy") : "")</td></tr>
+            <tr><td>Loyer mensuel proposé</td><td>@(Model.Prix.HasValue ? Model.Prix.Value.ToString("C") : "")</td></tr>
+            @if (Model.MontantDepot > 0)
+            {
+                <tr><td>Dépôt de garantie</td><td>@(Model.MontantDepot.HasValue ? Model.MontantDepot.Value.ToString("C") : "")</td></tr>
+            }
+            <tr><td>Stationnement intérieur</td><td>@(Model.StationnementInt == true ? "Inclus" : "Non inclus") @(Model.NbPlacesInt.GetValueOrDefault() > 0 ? "(" + Model.NbPlacesInt + " place(s))" : "")</td></tr>
+            <tr><td>Stationnement extérieur</td><td>@(Model.StationnementExt == true ? "Inclus" : "Non inclus") @(Model.NbPlacesExt.GetValueOrDefault() > 0 ? "(" + Model.NbPlacesExt + " place(s))" : "")</td></tr>
+            <tr><td>Meubles inclus</td><td>@(Model.MeublesInclus == true ? "Oui" : "Non")</td></tr>
+            <tr><td>Appareils inclus</td><td>@(Model.AppareilsInclus == true ? "Oui" : "Non")</td></tr>
+            <tr>
+                <td>Services inclus</td>
+                <td>
+                    @if (Model.Deneigement == true)
+                    {<span>Déneigement, </span>}
+                    @if (Model.TailleGazon == true)
+                    {<span>Tonte de gazon, </span>}
+                    @if (Model.Deneigement != true && Model.TailleGazon != true)
+                    {<span>Aucun</span>}
+                </td>
+            </tr>
+            @if (!string.IsNullOrEmpty(Model.Observation))
+            {
+                <tr><td>Observations</td><td>@Model.Observation</td></tr>
+            }
+        </table>
+
+        <!-- Section des choix du locataire (obligatoire) -->
+        <div class="choices-box">
+            <p style="font-weight: bold; text-decoration: underline;">VOS CHOIX (articles 1945, 1946 et 1947 du Code civil du Québec) :</p>
+            <p>Vous disposez d’un délai d’<strong>UN MOIS</strong> à compter de la réception du présent avis pour m’aviser par écrit de votre décision. Passé ce délai, vous serez réputé avoir accepté le renouvellement du bail aux conditions proposées ci-dessus.</p>
+            <p style="margin-top: 10px;">➡️ <strong>Premier choix :</strong> Vous acceptez les modifications proposées. Le bail sera reconduit aux nouvelles conditions.</p>
+            <p>➡️ <strong>Deuxième choix :</strong> Vous refusez les modifications proposées, mais vous désirez néanmoins renouveler le bail. Dans ce cas, le bail est reconduit, mais je pourrai, dans le mois suivant la réception de votre refus, saisir le Tribunal administratif du logement (TAL) pour faire fixer le loyer ou statuer sur toute autre condition du bail.</p>
+            <p>➡️ <strong>Troisième choix :</strong> Vous refusez les modifications proposées ET vous ne désirez pas renouveler le bail. Dans ce cas, vous devrez quitter le logement à la date de fin du bail.</p>
+            <p style="font-weight: bold; margin-top: 15px;">⚠️ ATTENTION : Si vous ne répondez pas dans le délai d'UN MOIS, la loi considère que vous acceptez le renouvellement du bail aux conditions proposées.</p>
+        </div>
+
+        <div class="corps">
+            <p>Les autres clauses et conditions du bail initial demeurent applicables, sauf modification expresse indiquée ci-dessus.</p>
+            <p>Je demeure à votre disposition pour toute information complémentaire et vous remercie de bien vouloir me faire part de votre décision dans le délai prescrit.</p>
+        </div>
+
+        <!-- Signatures -->
+        <div class="signature">
+            <div class="signature-left">
+                <p>Fait en deux exemplaires,</p>
+                <p>Le locateur,</p>
+                <div class="signature-line">
+                    @if (locateur != null)
+                    {
+                        @(locateur.Prenom + " " + locateur.Nom)
+                    }
+                    else
+                    {
+                        @:Signature du locateur
+                    }
+                </div>
+            </div>
+            <div class="signature-right">
+                <p>Lu et approuvé,</p>
+                <p>Le locataire,</p>
+                <div class="signature-line">
+                    @if (locatairePrincipal != null)
+                    {
+                        @(locatairePrincipal.PrenomLocataire + " " + locatairePrincipal.NomLocataire)
+                    }
+                    else
+                    {
+                        @:Signature du locataire
+                    }
+                </div>
+                @if (Model.CoLocataireId != null && Model.Locataires != null)
+                {
+                    <p style="margin-top: 15px;">Le colocataire,</p>
+                    <div class="signature-line">
+                        @(Model.Locataires.PrenomColocataire + " " + Model.Locataires.NomColocataire)
+                    </div>
+                }
+            </div>
+        </div>
+
+        <!-- Pied de page -->
+        <div class="footer">
+            <span>Référence : Bail n° @(Model.NumeroBail ?? "à compléter")</span>
+        </div>
+    </div>
+</body>
+</html>

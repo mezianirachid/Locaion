@@ -1,0 +1,44 @@
+﻿@model Location.DAL.Appareils
+
+@{
+    ViewBag.Title = "Détail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Détails</h2>
+<hr />
+<div>
+
+
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayName("Nom appareil")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NomAppareil)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Description")
+        </dt>
+
+
+        <dd>
+            @Html.DisplayFor(model => model.DescriptionAppareil)
+        </dd>
+
+    </dl>
+</div>
+
+
+
+<div class="form-group">
+    <div class="col-md-6">
+        @Html.ActionLink("Retour à la liste", "Index", null, new { @class = "btn btn-primary btn-large" })
+        
+        <li class="btn btn-sm">
+            <a href="@Url.Action("Edit", "Appareils", new { id = Model.Id })" class="btn btn-success btn-large">Édition</a>
+        </li>
+    </div>
+</div>

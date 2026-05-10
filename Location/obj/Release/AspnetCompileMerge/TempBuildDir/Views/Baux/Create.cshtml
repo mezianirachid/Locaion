@@ -1,0 +1,272 @@
+﻿@model Location.DAL.Baux
+
+@{
+    ViewBag.Title = "Créer un bail";
+}
+
+<h2 class="mb-4">
+    <i class="fas fa-plus-circle me-2 text-primary"></i>Créer un bail
+</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white">
+            <h4 class="mb-0"><i class="fas fa-file-contract me-2"></i>Informations générales</h4>
+        </div>
+        <div class="card-body">
+            @Html.ValidationSummary(true, "", new { @class = "alert alert-danger" })
+
+            <!-- Première ligne : numéro et dates clés -->
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    @Html.LabelFor(model => model.NumeroBail, new { @class = "form-label fw-bold" })
+                    @Html.EditorFor(model => model.NumeroBail, new { htmlAttributes = new { @class = "form-control", placeholder = "Ex: B2025-001" } })
+                    @Html.ValidationMessageFor(model => model.NumeroBail, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    @Html.LabelFor(model => model.DateDebut, new { @class = "form-label fw-bold" })
+                    @Html.EditorFor(model => model.DateDebut, new { htmlAttributes = new { @class = "form-control", type = "date" } })
+                    @Html.ValidationMessageFor(model => model.DateDebut, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    @Html.LabelFor(model => model.DateFin, new { @class = "form-label fw-bold" })
+                    @Html.EditorFor(model => model.DateFin, new { htmlAttributes = new { @class = "form-control", type = "date" } })
+                    @Html.ValidationMessageFor(model => model.DateFin, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <!-- Deuxième ligne : appartement et locataires -->
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    @Html.LabelFor(model => model.AppartementId, "Appartement", new { @class = "form-label fw-bold" })
+                    @Html.DropDownList("AppartementId", null, "Sélectionnez...", new { @class = "form-select" })
+                    @Html.ValidationMessageFor(model => model.AppartementId, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    @Html.LabelFor(model => model.LocataireId, "Locataire principal", new { @class = "form-label fw-bold" })
+                    @Html.DropDownList("LocataireId", null, "Sélectionnez...", new { @class = "form-select" })
+                    @Html.ValidationMessageFor(model => model.LocataireId, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    @Html.LabelFor(model => model.CoLocataireId, "Co‑locataire", new { @class = "form-label fw-bold" })
+                    @Html.DropDownList("CoLocataireId", null, "Aucun", new { @class = "form-select" })
+                    @Html.ValidationMessageFor(model => model.CoLocataireId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <!-- Section : Aspects financiers -->
+        <div class="card-header bg-secondary text-white">
+            <h5 class="mb-0"><i class="fas fa-euro-sign me-2"></i>Aspects financiers</h5>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-3 mb-3">
+                    @Html.LabelFor(model => model.Prix, "Loyer mensuel", new { @class = "form-label fw-bold" })
+                    @Html.EditorFor(model => model.Prix, new { htmlAttributes = new { @class = "form-control", type = "number", step = "0.01", placeholder = "0.00" } })
+                    @Html.ValidationMessageFor(model => model.Prix, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="col-md-3 mb-3">
+                    @Html.LabelFor(model => model.Charges, new { @class = "form-label fw-bold" })
+                    @Html.EditorFor(model => model.Charges, new { htmlAttributes = new { @class = "form-control", type = "number", step = "0.01", placeholder = "0.00" } })
+                    @Html.ValidationMessageFor(model => model.Charges, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="col-md-3 mb-3">
+                    @Html.LabelFor(model => model.MontantDepot, "Dépôt de garantie", new { @class = "form-label fw-bold" })
+                    @Html.EditorFor(model => model.MontantDepot, new { htmlAttributes = new { @class = "form-control", type = "number", step = "0.01", placeholder = "0.00" } })
+                    @Html.ValidationMessageFor(model => model.MontantDepot, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="col-md-3 mb-3">
+                    @Html.LabelFor(model => model.LieuPayement, "Lieu de paiement", new { @class = "form-label fw-bold" })
+                    @Html.EditorFor(model => model.LieuPayement, new { htmlAttributes = new { @class = "form-control", placeholder = "Ex: Banque XYZ" } })
+                    @Html.ValidationMessageFor(model => model.LieuPayement, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    @Html.LabelFor(model => model.MoyenPayementId, "Mode de paiement", new { @class = "form-label fw-bold" })
+                    @Html.DropDownList("MoyenPayementId", null, "Sélectionnez...", new { @class = "form-select" })
+                    @Html.ValidationMessageFor(model => model.MoyenPayementId, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    @Html.LabelFor(model => model.DatePayement, "Date de paiement", new { @class = "form-label fw-bold" })
+                    @Html.EditorFor(model => model.DatePayement, new { htmlAttributes = new { @class = "form-control", type = "date" } })
+                    @Html.ValidationMessageFor(model => model.DatePayement, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    @Html.LabelFor(model => model.ReglementImmeuble, "Règlement d'immeuble accepté", new { @class = "form-label fw-bold" })
+                    <div class="form-check form-switch mt-2">
+                        @Html.CheckBox("ReglementImmeuble", Model.ReglementImmeuble ?? false, new { @class = "form-check-input", role = "switch" })
+                        @Html.LabelFor(model => model.ReglementImmeuble, "Oui", new { @class = "form-check-label" })
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section : Dates effectives et résiliation -->
+        <div class="card-header bg-info text-white">
+            <h5 class="mb-0"><i class="fas fa-calendar-alt me-2"></i>Dates effectives</h5>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-3 mb-3">
+                    @Html.LabelFor(model => model.DateDebutEffective, "Début effective", new { @class = "form-label fw-bold" })
+                    @Html.EditorFor(model => model.DateDebutEffective, new { htmlAttributes = new { @class = "form-control", type = "date" } })
+                    @Html.ValidationMessageFor(model => model.DateDebutEffective, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="col-md-3 mb-3">
+                    @Html.LabelFor(model => model.DateFinEffective, "Fin effective", new { @class = "form-label fw-bold" })
+                    @Html.EditorFor(model => model.DateFinEffective, new { htmlAttributes = new { @class = "form-control", type = "date" } })
+                    @Html.ValidationMessageFor(model => model.DateFinEffective, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="col-md-3 mb-3">
+                    @Html.LabelFor(model => model.DateResiliation, "Résiliation", new { @class = "form-label fw-bold" })
+                    @Html.EditorFor(model => model.DateResiliation, new { htmlAttributes = new { @class = "form-control", type = "date" } })
+                    @Html.ValidationMessageFor(model => model.DateResiliation, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="col-md-3 mb-3">
+                    @Html.LabelFor(model => model.DateOccupation, "Date d'occupation", new { @class = "form-label fw-bold" })
+                    @Html.EditorFor(model => model.DateOccupation, new { htmlAttributes = new { @class = "form-control", type = "date" } })
+                    @Html.ValidationMessageFor(model => model.DateOccupation, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <!-- Section : Stationnements -->
+        <div class="card-header bg-success text-white">
+            <h5 class="mb-0"><i class="fas fa-parking me-2"></i>Stationnements</h5>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-check mb-2">
+                        @Html.CheckBox("StationnementInt", Model.StationnementInt ?? false, new { @class = "form-check-input", role = "switch" })
+                        @Html.LabelFor(model => model.StationnementInt, "Stationnement intérieur", new { @class = "form-check-label fw-bold" })
+                    </div>
+                    <div class="mb-3">
+                        @Html.LabelFor(model => model.NbPlacesInt, "Nombre de places intérieures", new { @class = "form-label" })
+                        @Html.EditorFor(model => model.NbPlacesInt, new { htmlAttributes = new { @class = "form-control", type = "number", min = "0" } })
+                        @Html.ValidationMessageFor(model => model.NbPlacesInt, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-check mb-2">
+                        @Html.CheckBox("StationnementExt", Model.StationnementInt ?? false, new { @class = "form-check-input", role = "switch" })
+                        @Html.LabelFor(model => model.StationnementExt, "Stationnement extérieur", new { @class = "form-check-label fw-bold" })
+                    </div>
+                    <div class="mb-3">
+                        @Html.LabelFor(model => model.NbPlacesExt, "Nombre de places extérieures", new { @class = "form-label" })
+                        @Html.EditorFor(model => model.NbPlacesExt, new { htmlAttributes = new { @class = "form-control", type = "number", min = "0" } })
+                        @Html.ValidationMessageFor(model => model.NbPlacesExt, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section : Inclusions et options -->
+        <div class="card-header bg-warning text-dark">
+            <h5 class="mb-0"><i class="fas fa-couch me-2"></i>Inclusions & options</h5>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-check">
+                        @Html.CheckBox("MeublesInclus", Model.MeublesInclus ?? false, new { @class = "form-check-input", role = "switch" })
+                        @Html.LabelFor(model => model.MeublesInclus, "Meubles inclus", new { @class = "form-check-label" })
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-check">
+                        @Html.CheckBox("AppareilsInclus", Model.AppareilsInclus ?? false, new { @class = "form-check-input", role = "switch" })
+                        @Html.LabelFor(model => model.AppareilsInclus, "Appareils inclus", new { @class = "form-check-label" })
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-check">
+                        @Html.CheckBox("Deneigement", Model.Deneigement ?? false, new { @class = "form-check-input", role = "switch" })
+                        @Html.LabelFor(model => model.Deneigement, "Déneigement", new { @class = "form-check-label" })
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-check">
+                        @Html.CheckBox("TailleGazon", Model.TailleGazon ?? false, new { @class = "form-check-input", role = "switch" })
+                        @Html.LabelFor(model => model.TailleGazon, "Tonte gazon", new { @class = "form-check-label" })
+                    </div>
+                </div>
+            </div>
+
+            <hr />
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    @Html.LabelFor(model => model.Emplacement, "Emplacement", new { @class = "form-label fw-bold" })
+                    @Html.EditorFor(model => model.Emplacement, new { htmlAttributes = new { @class = "form-control", placeholder = "Ex: Espace de rangement n°5" } })
+                    @Html.ValidationMessageFor(model => model.Emplacement, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    @Html.LabelFor(model => model.RemiseEspaceRangenment, "Remise / espace rangement", new { @class = "form-label fw-bold" })
+                    @Html.EditorFor(model => model.RemiseEspaceRangenment, new { htmlAttributes = new { @class = "form-control", placeholder = "Ex: Cave, grenier..." } })
+                    @Html.ValidationMessageFor(model => model.RemiseEspaceRangenment, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="mb-3">
+                @Html.LabelFor(model => model.Autre, "Autre information", new { @class = "form-label fw-bold" })
+                @Html.EditorFor(model => model.Autre, new { htmlAttributes = new { @class = "form-control", placeholder = "Précisions supplémentaires" } })
+                @Html.ValidationMessageFor(model => model.Autre, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <!-- Section : Observations et statut -->
+        <div class="card-header bg-secondary text-white">
+            <h5 class="mb-0"><i class="fas fa-clipboard-list me-2"></i>Observations & statut</h5>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    @Html.LabelFor(model => model.Observation, new { @class = "form-label fw-bold" })
+                    @Html.TextAreaFor(model => model.Observation, new { @class = "form-control", rows = 3, placeholder = "Remarques éventuelles..." })
+                    @Html.ValidationMessageFor(model => model.Observation, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    @Html.LabelFor(model => model.StatutBaux, "Statut du bail", new { @class = "form-label fw-bold" })
+                    @Html.DropDownListFor(model => model.StatutBaux,
+                        new SelectList(new[] {
+                            new SelectListItem { Text = "Actif", Value = "A" },
+                            new SelectListItem { Text = "Inactif", Value = "I" }
+                        }, "Value", "Text", Model.StatutBaux),
+                        "Sélectionnez...", new { @class = "form-select" })
+                    @Html.ValidationMessageFor(model => model.StatutBaux, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer avec boutons -->
+        <div class="card-footer text-end">
+            <button type="submit" class="btn btn-success"><i class="fas fa-save me-1"></i>Créer</button>
+            @Html.ActionLink("Annuler", "Index", null, new { @class = "btn btn-secondary" })
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

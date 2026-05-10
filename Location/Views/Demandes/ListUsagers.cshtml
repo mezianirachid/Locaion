@@ -1,0 +1,186 @@
+﻿@{
+    ViewBag.Title = "Liste des usagers";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/Content/bootstrap/css/font-awesome.min.css" rel="stylesheet" />
+<style>
+    .HideLoader {
+        display: none;
+    }
+
+    .ShowLoader {
+        display: normal;
+    }
+
+    .progress {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        margin-top: -50px;
+        margin-left: -100px;
+        height: 150px;
+        width: 150px;
+    }
+
+    .divhide {
+        display: none;
+    }
+
+    .divShow {
+        display: normal;
+        text-align: center;
+    }
+</style>
+<style>
+    .submit-progress-bg {
+        background-color: lightgray;
+        opacity: .5;
+    }
+
+    .submit-progress {
+        position: fixed;
+        top: 38%;
+        left: 50%;
+        height: 6em;
+        padding-top: 2.3em;
+        z-index: 1;
+        /* The following properties are the ones most likely to change */
+        width: 20em;
+        /* Set 'margin-left' to a negative number that is 1/2 of 'width' */
+        margin-left: -10em;
+        padding-left: 2.1em;
+        background-color: black;
+        color: white;
+        -webkit-border-radius: 0.4em;
+        -moz-border-radius: 0.4em;
+        border-radius: 0.4em;
+        box-shadow: 0.4em 0.4em rgba(0,0,0,0.6);
+        -webkit-box-shadow: 0.4em 0.4em rgba(0,0,0,0.6);
+        -moz-box-shadow: 0.4em 0.4em rgba(0,0,0,0.6);
+    }
+
+    /* Changing style for spinner */
+    .submit-progress {
+        padding-top: 2em;
+        width: 23em;
+        margin-left: -11.5em; /* Set to a negative number that is 1/2 of the width */
+    }
+
+        .submit-progress i {
+            margin-right: 0.5em;
+        }
+</style>
+<style>
+    .container {
+        width: 100%;
+        /*overflow-x: auto;
+        white-space: nowrap;*/
+    }
+</style>
+
+
+@{
+    string year1 = DateTime.Today.AddDays(-1).Year.ToString();
+    string month1 = DateTime.Today.AddDays(-1).Month.ToString("00");
+    string day1 = DateTime.Today.AddDays(-1).Day.ToString("00");
+    string dateDebut = year1 + "-" + month1 + "-" + day1;
+
+    string year2 = DateTime.Today.Year.ToString();
+    string month2 = DateTime.Today.Month.ToString("00");
+    string day2 = DateTime.Today.Day.ToString("00");
+    string dateFin = year2 + "-" + month2 + "-" + day2;
+}
+<div class="container">
+    <div style="margin-left:0px">
+        <h2 style="text-align: left">Liste des usagers en dépistage de COVID-19</h2>
+    </div>
+    <br />
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="form-inline">
+                <div class="form-group">
+                    <label for="filtreDateDebut">Fiches usagers créées entre le: </label>
+                    <input class="form-control" id="filtreDateDebut" type="date" value='@dateDebut'>
+                </div>
+                <div class="form-group">
+                    <label for="filtreDateFin">et le: </label>
+                    <input class="form-control" id="filtreDateFin" type="date" value="@dateFin">
+                </div>
+                <div class="form-group" style="margin-left: 15px"><button id="filterButton" type="button" onclick="filtrer()" class="btn btn-success"><i class="glyphicon glyphicon-search"></i> Filtrer</button></div>
+            </div>
+        </div>
+    </div>
+
+
+    <div>
+      @Html.ActionLink("Nouvelle fiche", "Create", "Demandes", routeValues: null, htmlAttributes: new { @class = "btn btn-success btn-large" })
+    <a href="#" class="btn btn-primary" id="export-btn">Exporter Excel</a>
+    </div>
+
+
+
+    <div id="dvDemandesResults">
+        @if (ViewBag.ShowResuts == true)
+            {
+            <div id="divLoading" class="divhide">
+                <img src="~/Content/Images/spinner.gif" />
+            </div>
+            @*<div class="submit-progress" style="width:400px;">
+                <i class="fa fa-2x fa-spinner fa-spin"></i>
+                <label>Chargement en cours, veuillez patienter... </label>
+                 </div>*@
+            <div id="UpdateContentDiv">
+                <!-- La vue partielle est affichée ici au retour de Ajax.ActionLink-->
+            </div>
+        }
+    </div>
+    </div>
+
+    @section scripts{
+        @Scripts.Render("~/Scripts/jquery.unobtrusive-ajax.min.js")
+    }
+    <script>
+        $(function () {
+            filtrer();
+        });
+
+        function filtrer() {
+            var dateDebut = $('#filtreDateDebut').val();
+            var dateFin = $('#filtreDateFin').val();
+            $("#divLoading").removeClass("ShowLoader").addClass("ShowLoader");
+            $("#divLoading").removeClass("divhide").addClass("divShow"); //show it before calling load
+            $(".submit-progress").removeClass("hidden");
+            $(".dvDemandesResults").addClass("submit-progress-bg");
+            $("#dvDemandesResults").load('@(Url.Action("EntreUneDateEtUneDate", "Demandes",null, Request.Url.Scheme))?dateDebut=' + dateDebut + '&dateFin=' + dateFin)
+            , function () {
+                $("#divLoading").removeClass("ShowLoader").addClass("HideLoader");
+                $("#divLoading").removeClass("divShow").addClass("divhide");
+                $("#submit-progress").addClass("hidden");
+                $(".dvDemandesResults").removeClass("submit-progress-bg");
+
+            };
+            //$('#filterButton').prop("disabled", false).text('Filtrer ...').removeClass('btn-danger').addClass('btn-success');
+        };
+    </script>
+
+    <script>
+        $('#filtreDateDebut').change(function () {
+            dateDebut = $("#filtreDateDebut").val();
+            if (dateDebut.length == 0) $("#filtreDateDebut").val("2020-01-01")
+
+        });
+        $('#filtreDateFin').change(function () {
+            dateFin = $("#filtreDateFin").val();
+            if (dateFin.length == 0) $("#filtreDateFin").val("2100-12-31")
+        });
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            $("#export-btn").click(function (event) {
+                event.preventDefault();
+                url = "/Demandes/ExportToExcel?dateDebut=" + $("#filtreDateDebut").val() + "&dateFin=" + $("#filtreDateFin").val();
+                window.location.href = url;
+            });
+        })
+    </script>
